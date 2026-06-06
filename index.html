@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tom Quantrill - Digital Consultancy</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --charcoal: #5a5757;
+    --charcoal-dark: #3a3838;
+    --off-white: #f5f4f0;
+    --white: #ffffff;
+    --ink: #1a1a1a;
+    --muted: #888580;
+    --border: rgba(90,87,87,0.15);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--off-white); color: var(--ink); font-size: 16px; line-height: 1.6; }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.1rem 3rem;
+    background: rgba(245,244,240,0.94); backdrop-filter: blur(10px);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 11px; }
+  .logo-mark { width: 34px; height: 34px; background: var(--charcoal); border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+  .nav-name { font-weight: 500; font-size: 14px; letter-spacing: 0.02em; color: var(--ink); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+  .nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; letter-spacing: 0.02em; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta { background: var(--charcoal) !important; color: var(--white) !important; padding: 0.4rem 1rem; border-radius: 4px; font-weight: 500 !important; }
+  .hero { min-height: 100vh; display: flex; align-items: center; padding: 7rem 3rem 4rem; position: relative; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 55% 60% at 85% 55%, rgba(90,87,87,0.07) 0%, transparent 70%); pointer-events: none; }
+  .hero-content { max-width: 660px; position: relative; z-index: 1; }
+  .eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; }
+  .eyebrow::before { content: ''; display: inline-block; width: 28px; height: 1px; background: var(--muted); }
+  h1 { font-family: 'Instrument Serif', serif; font-size: clamp(2.8rem, 5vw, 4rem); font-weight: 400; line-height: 1.1; color: var(--ink); margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+  h1 em { font-style: italic; color: var(--charcoal); }
+  .hero-sub { font-size: 1rem; color: var(--muted); max-width: 460px; margin-bottom: 2.5rem; font-weight: 300; line-height: 1.8; }
+  .hero-actions { display: flex; align-items: center; gap: 1.5rem; }
+  .btn-primary { background: var(--charcoal); color: var(--white); padding: 0.8rem 1.8rem; border-radius: 4px; text-decoration: none; font-size: 14px; font-weight: 500; letter-spacing: 0.02em; transition: background 0.2s; }
+  .btn-primary:hover { background: var(--ink); }
+  .btn-ghost { color: var(--ink); font-size: 14px; text-decoration: none; font-weight: 400; display: flex; align-items: center; gap: 6px; opacity: 0.6; transition: opacity 0.2s; }
+  .btn-ghost:hover { opacity: 1; }
+  .btn-ghost::after { content: '↓'; }
+  .location-tag { position: absolute; bottom: 3rem; right: 3rem; display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); letter-spacing: 0.04em; }
+  .location-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--charcoal); opacity: 0.4; }
+  section { padding: 5.5rem 3rem; }
+  .section-inner { max-width: 900px; margin: 0 auto; }
+  .section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 2.5rem; display: flex; align-items: center; gap: 10px; }
+  .section-label::before { content: ''; display: inline-block; width: 28px; height: 1px; background: var(--muted); }
+  .divider { height: 0.5px; background: var(--border); margin: 0 3rem; }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .service-card { background: var(--white); padding: 2.2rem 1.8rem; transition: background 0.2s; }
+  .service-card:hover { background: #fafaf8; }
+  .service-num { font-family: 'Instrument Serif', serif; font-size: 2.2rem; color: rgba(90,87,87,0.15); line-height: 1; margin-bottom: 1.1rem; }
+  .service-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 0.65rem; line-height: 1.35; }
+  .service-desc { font-size: 13px; color: var(--muted); line-height: 1.75; font-weight: 300; }
+  .about-section { background: var(--white); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: start; }
+  .about-tag { display: inline-flex; align-items: center; gap: 6px; background: var(--off-white); border: 0.5px solid var(--border); padding: 0.3rem 0.75rem; border-radius: 20px; font-size: 12px; color: var(--muted); margin-bottom: 1.5rem; }
+  .photo-frame { width: 100%; aspect-ratio: 4/5; border-radius: 8px; overflow: hidden; border: 0.5px solid var(--border); margin-bottom: 1.5rem; background: var(--off-white); }
+  .photo-frame img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+  .cv-bullets { list-style: none; padding: 0; }
+  .cv-bullets li { font-size: 13px; color: var(--muted); line-height: 1.65; font-weight: 300; padding: 0.55rem 0; border-bottom: 0.5px solid var(--border); display: flex; align-items: flex-start; gap: 10px; }
+  .cv-bullets li:last-child { border-bottom: none; }
+  .cv-bullet-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--charcoal); opacity: 0.4; margin-top: 7px; flex-shrink: 0; }
+  .about-right h2 { font-family: 'Instrument Serif', serif; font-size: clamp(1.9rem, 3vw, 2.6rem); font-weight: 400; line-height: 1.15; color: var(--ink); letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+  .about-right h2 em { font-style: italic; color: var(--charcoal); }
+  .about-right p { font-size: 0.95rem; color: #555; line-height: 1.85; margin-bottom: 1.1rem; font-weight: 300; }
+  .about-right p:last-child { margin-bottom: 0; }
+  .map-section { background: var(--off-white); padding: 0 3rem 5.5rem; }
+  .map-wrap { max-width: 900px; margin: 0 auto; }
+  .map-container { border-radius: 10px; overflow: hidden; border: 0.5px solid var(--border); height: 380px; position: relative; }
+  .map-container iframe { width: 100%; height: 100%; border: none; display: block; filter: saturate(0.7) brightness(0.95) sepia(0.15); }
+  .map-svg { width: 100%; height: 100%; display: block; }
+  .map-overlay { position: absolute; bottom: 14px; left: 14px; background: rgba(245,244,240,0.92); border: 0.5px solid var(--border); border-radius: 6px; padding: 0.45rem 0.8rem; font-size: 11px; font-weight: 500; color: var(--charcoal); letter-spacing: 0.04em; pointer-events: none; }
+  .contact-section { background: var(--off-white); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: start; }
+  .contact-left h2 { font-family: 'Instrument Serif', serif; font-size: clamp(1.9rem, 3vw, 2.6rem); font-weight: 400; line-height: 1.15; color: var(--ink); letter-spacing: -0.02em; margin-bottom: 1rem; }
+  .contact-left h2 em { font-style: italic; color: var(--charcoal); }
+  .contact-left p { font-size: 14px; color: var(--muted); line-height: 1.75; font-weight: 300; margin-bottom: 1.75rem; }
+  .contact-detail { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); margin-bottom: 0.55rem; }
+  .contact-detail strong { color: var(--ink); font-weight: 500; }
+  .form-card { background: var(--white); border: 0.5px solid var(--border); border-radius: 10px; padding: 2.2rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  .form-group { margin-bottom: 1rem; }
+  .form-group label { display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+  .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.65rem 0.85rem; border: 0.5px solid var(--border); border-radius: 5px; background: var(--off-white); color: var(--ink); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 300; outline: none; transition: border-color 0.2s; appearance: none; }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--charcoal); background: var(--white); }
+  .form-group textarea { resize: vertical; min-height: 90px; }
+  .form-submit { width: 100%; padding: 0.8rem; background: var(--charcoal); color: var(--white); border: none; border-radius: 5px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; letter-spacing: 0.03em; margin-top: 1rem; transition: background 0.2s; }
+  .form-submit:hover { background: var(--ink); }
+  .form-note { text-align: center; font-size: 11px; color: var(--muted); margin-top: 0.6rem; font-weight: 300; }
+  footer { background: var(--charcoal-dark); color: rgba(255,255,255,0.45); padding: 1.75rem 3rem; display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+  .footer-logo { display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,0.65); font-size: 13px; font-weight: 500; }
+  .footer-logo-mark { width: 26px; height: 26px; background: rgba(255,255,255,0.12); border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-content > * { animation: fadeUp 0.75s ease both; }
+  .eyebrow { animation-delay: 0.1s; } h1 { animation-delay: 0.2s; } .hero-sub { animation-delay: 0.3s; } .hero-actions { animation-delay: 0.4s; }
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo">
+    <div class="logo-mark">
+      <svg width="20" height="20" viewBox="0 0 22 22"><text x="2" y="17" font-family="Georgia,serif" font-size="17" fill="white" font-style="italic">tq</text></svg>
+    </div>
+    <span class="nav-name">quantrill.me</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact" class="nav-cta">Consultation</a></li>
+  </ul>
+</nav>
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="eyebrow">Digital Consultancy - Zell am See</p>
+    <h1>I help businesses <em>save time</em> and <em>make more</em> with smarter tech</h1>
+    <p class="hero-sub">From outdated processes to modern digital systems - I identify what's slowing your business down and build solutions that actually work.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Book a free consultation</a>
+      <a href="#about" class="btn-ghost">About Tom</a>
+    </div>
+  </div>
+  <div class="location-tag"><span class="location-dot"></span>Based in the Salzburg Alps</div>
+</section>
+<div class="divider"></div>
+<section id="about" class="about-section">
+  <div class="section-inner">
+    <p class="section-label">About</p>
+    <div class="about-grid">
+      <div class="about-left">
+        <div class="photo-frame">
+          <img src="tom.jpg" alt="Tom Quantrill" />
+        </div>
+        <div class="about-tag">📍 Zell am See, Austria</div>
+        <ul class="cv-bullets">
+          <li><span class="cv-bullet-dot"></span>15 years experience across tourism, CX, events and marketing</li>
+          <li><span class="cv-bullet-dot"></span>Managed 6-figure event budgets across the European Alps</li>
+          <li><span class="cv-bullet-dot"></span>Over a decade of operational multi-country leadership, including NA</li>
+          <li><span class="cv-bullet-dot"></span>Apple-trained technical support background</li>
+          <li><span class="cv-bullet-dot"></span>Built and shipped working software tools for large-scale audiences</li>
+        </ul>
+      </div>
+      <div class="about-right">
+        <h2>Technology that fits your <em>world</em></h2>
+        <p>I'm Tom Quantrill - a digital consultant based in Zell am See with 15 years across tourism, customer experience, events and marketing. I've spent the better part of my career inside hospitality and Alpine resort businesses, which means I don't arrive with a generic solution looking for a problem.</p>
+        <p>I work with local businesses - restaurants, bars, coaches, accommodation providers, venues - who know their craft but haven't had the time or the right person to modernise how they run. That's where I come in.</p>
+        <p>I build real things: apps, automated workflows, digital systems. I've shipped working tools at scale - platforms used by communities of tens of thousands. And I start every engagement with a free consultation, because the right solution starts with the right conversation.</p>
+        <p>I'm based here, I know this market, and I'm invested in making businesses in this region better at what they do.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+<div class="map-section">
+  <div class="map-wrap">
+    <div class="map-container">
+      <svg class="map-svg" viewBox="0 0 900 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Stylised map of Zell am See and the Zeller See in Salzburg, Austria">
+        <defs>
+          <linearGradient id="land" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ece8df"/>
+            <stop offset="1" stop-color="#e0dbd0"/>
+          </linearGradient>
+          <linearGradient id="lake" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#6c6968"/>
+            <stop offset="0.5" stop-color="#5a5757"/>
+            <stop offset="1" stop-color="#4c4a4a"/>
+          </linearGradient>
+          <radialGradient id="vign" cx="0.5" cy="0.5" r="0.75">
+            <stop offset="0.6" stop-color="#000000" stop-opacity="0"/>
+            <stop offset="1" stop-color="#3a3838" stop-opacity="0.10"/>
+          </radialGradient>
+        </defs>
+
+        <!-- land base -->
+        <rect width="900" height="380" fill="url(#land)"/>
+
+        <!-- terrain massing -->
+        <g fill="#5a5757">
+          <path d="M0,0 H360 Q300,70 250,90 Q150,120 90,200 Q40,270 0,300 Z" opacity="0.07"/>
+          <path d="M120,40 Q220,90 200,170 Q180,250 70,300 Q20,330 0,380 L0,40 Z" opacity="0.06"/>
+          <path d="M900,380 H520 Q600,330 660,300 Q780,250 830,160 Q860,100 900,70 Z" opacity="0.08"/>
+          <path d="M900,380 H640 Q700,320 760,300 Q860,270 900,250 Z" opacity="0.07"/>
+          <path d="M380,380 H560 Q540,330 500,320 Q430,305 380,330 Z" opacity="0.06"/>
+        </g>
+
+        <!-- contour lines: western massif (Schmittenhöhe) -->
+        <g fill="none" stroke="#5a5757" stroke-opacity="0.13" stroke-width="1">
+          <path d="M210,150 Q150,120 95,150 Q60,175 80,215 Q110,260 185,250 Q255,238 250,185 Q248,165 210,150 Z"/>
+          <path d="M205,160 Q160,138 115,162 Q90,182 105,212 Q132,245 185,237 Q235,228 232,188 Q230,172 205,160 Z"/>
+          <path d="M198,172 Q168,156 138,172 Q120,186 130,206 Q150,230 184,224 Q214,218 213,192 Q212,180 198,172 Z"/>
+          <path d="M188,184 Q170,176 154,185 Q144,194 152,206 Q165,219 183,214 Q200,209 199,196 Z"/>
+        </g>
+
+        <!-- contour lines: southern range (Hohe Tauern) -->
+        <g fill="none" stroke="#5a5757" stroke-opacity="0.13" stroke-width="1">
+          <path d="M560,380 Q600,330 690,320 Q800,308 860,340 Q890,355 900,380"/>
+          <path d="M580,380 Q620,345 700,336 Q800,326 850,352"/>
+          <path d="M610,380 Q650,358 720,352 Q800,346 840,366"/>
+        </g>
+
+        <!-- valley / river feeding the lake -->
+        <g fill="none" stroke="#5a5757" stroke-opacity="0.22" stroke-width="2" stroke-linecap="round">
+          <path d="M560,300 Q575,335 600,380"/>
+          <path d="M470,90 Q500,60 540,86"/>
+        </g>
+
+        <!-- Lake Zell (Zeller See) -->
+        <path d="M548,84
+                 Q612,108 614,182
+                 Q616,250 576,298
+                 Q558,318 540,300
+                 Q512,272 512,210
+                 Q512,140 522,108
+                 Q530,86 548,84 Z"
+              fill="url(#lake)"/>
+        <path d="M548,84 Q612,108 614,182 Q616,250 576,298 Q558,318 540,300 Q512,272 512,210 Q512,140 522,108 Q530,86 548,84 Z"
+              fill="none" stroke="#3f3d3d" stroke-opacity="0.35" stroke-width="1.5"/>
+        <!-- water sheen -->
+        <path d="M536,108 Q560,100 574,120 Q560,116 548,126 Q540,134 536,150 Q528,128 536,108 Z" fill="#ffffff" opacity="0.06"/>
+
+        <!-- town footprint: Zell am See on the west shore -->
+        <g fill="#5a5757" opacity="0.32">
+          <rect x="470" y="150" width="6" height="5" rx="1"/>
+          <rect x="478" y="148" width="7" height="5" rx="1"/>
+          <rect x="472" y="158" width="6" height="5" rx="1"/>
+          <rect x="481" y="157" width="6" height="6" rx="1"/>
+          <rect x="466" y="166" width="6" height="5" rx="1"/>
+          <rect x="475" y="167" width="7" height="5" rx="1"/>
+          <rect x="485" y="166" width="5" height="5" rx="1"/>
+          <rect x="470" y="176" width="6" height="5" rx="1"/>
+          <rect x="480" y="176" width="6" height="5" rx="1"/>
+        </g>
+
+        <!-- markers -->
+        <g>
+          <!-- Zell am See -->
+          <circle cx="498" cy="166" r="5" fill="#3a3838"/>
+          <circle cx="498" cy="166" r="9" fill="none" stroke="#3a3838" stroke-opacity="0.35" stroke-width="1.5"/>
+          <text x="498" y="148" text-anchor="middle" font-family="'Instrument Serif', Georgia, serif" font-size="19" fill="#2c2a2a">Zell am See</text>
+
+          <!-- Schüttdorf (south end) -->
+          <circle cx="540" cy="300" r="3" fill="#5a5757"/>
+          <text x="548" y="312" font-family="'DM Sans', sans-serif" font-size="10" letter-spacing="0.06em" fill="#888580">SCHÜTTDORF</text>
+
+          <!-- Thumersbach (east shore) -->
+          <circle cx="614" cy="190" r="3" fill="#5a5757"/>
+          <text x="622" y="194" font-family="'DM Sans', sans-serif" font-size="10" letter-spacing="0.06em" fill="#888580">THUMERSBACH</text>
+
+          <!-- Schmittenhöhe peak -->
+          <path d="M150,175 l7,-13 l7,13 z" fill="#5a5757" opacity="0.55"/>
+          <text x="158" y="200" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" letter-spacing="0.06em" fill="#888580">SCHMITTENHÖHE</text>
+
+          <!-- Hohe Tauern label -->
+          <path d="M735,332 l8,-15 l8,15 z" fill="#5a5757" opacity="0.5"/>
+          <path d="M752,332 l6,-11 l6,11 z" fill="#5a5757" opacity="0.4"/>
+          <text x="748" y="356" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" letter-spacing="0.06em" fill="#888580">HOHE TAUERN</text>
+        </g>
+
+        <!-- route to Salzburg -->
+        <path d="M498,157 Q380,110 250,72" fill="none" stroke="#5a5757" stroke-opacity="0.4" stroke-width="1.5" stroke-dasharray="2 5" stroke-linecap="round"/>
+        <g>
+          <circle cx="238" cy="68" r="4" fill="#3a3838"/>
+          <text x="238" y="52" text-anchor="middle" font-family="'Instrument Serif', Georgia, serif" font-size="17" fill="#2c2a2a">Salzburg</text>
+          <text x="238" y="86" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="9.5" letter-spacing="0.08em" fill="#888580">≈ 50 KM NORTH</text>
+        </g>
+
+        <!-- compass -->
+        <g transform="translate(852,42)" stroke="#5a5757" stroke-opacity="0.55">
+          <path d="M0,-16 L4,4 L0,-1 L-4,4 Z" fill="#5a5757" fill-opacity="0.55" stroke="none"/>
+          <text x="0" y="-20" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" font-weight="500" fill="#5a5757" stroke="none">N</text>
+        </g>
+
+        <!-- scale bar -->
+        <g transform="translate(40,352)">
+          <line x1="0" y1="0" x2="60" y2="0" stroke="#5a5757" stroke-opacity="0.6" stroke-width="2"/>
+          <line x1="0" y1="-4" x2="0" y2="4" stroke="#5a5757" stroke-opacity="0.6" stroke-width="2"/>
+          <line x1="60" y1="-4" x2="60" y2="4" stroke="#5a5757" stroke-opacity="0.6" stroke-width="2"/>
+          <text x="66" y="4" font-family="'DM Sans', sans-serif" font-size="10" fill="#888580">5 km</text>
+        </g>
+
+        <rect width="900" height="380" fill="url(#vign)"/>
+      </svg>
+      <div class="map-overlay">Zell am See · Salzburg, Austria</div>
+    </div>
+  </div>
+</div>
+<div class="divider"></div>
+<section id="services">
+  <div class="section-inner">
+    <p class="section-label">What I do</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <div class="service-title">Free Business Consultation</div>
+        <div class="service-desc">Every engagement starts with a conversation. I listen, ask the right questions, and map out where technology can make a real difference - at no cost, no commitment.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <div class="service-title">Digital Systems and Automation</div>
+        <div class="service-desc">Scheduling, booking, payroll, guest communications, review management - I identify the manual work eating your time and replace it with systems that run themselves.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <div class="service-title">Custom Software Development</div>
+        <div class="service-desc">When off-the-shelf doesn't cut it, I build it. Tailored tools designed around exactly how your business works - not the other way around.</div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+<section id="contact" class="contact-section">
+  <div class="section-inner">
+    <p class="section-label">Get in touch</p>
+    <div class="contact-grid">
+      <div class="contact-left">
+        <h2>Let's talk about your <em>business</em></h2>
+        <p>The first consultation is free, informal, and focused entirely on understanding your situation - no pitch, no pressure. Just a practical conversation about where technology can help.</p>
+        <div class="contact-detail"><span style="font-size:15px;">✉</span><span><strong>tom@quantrill.me</strong></span></div>
+        <div class="contact-detail"><span style="font-size:15px;">📞</span><span><strong>+43 660 837 5882</strong></span></div>
+        <div class="contact-detail"><span style="font-size:15px;">📍</span><span>Zell am See, Salzburg</span></div>
+      </div>
+      <div class="form-card">
+        <div class="form-row">
+          <div class="form-group"><label>First name</label><input type="text" placeholder="Anna"></div>
+          <div class="form-group"><label>Last name</label><input type="text" placeholder="Müller"></div>
+        </div>
+        <div class="form-group"><label>Business name</label><input type="text" placeholder="Hotel Bergblick"></div>
+        <div class="form-group">
+          <label>Type of business</label>
+          <select>
+            <option value="">Select one...</option>
+            <option>Restaurant / Bar</option>
+            <option>Hotel / Accommodation</option>
+            <option>Tour operator / Coach</option>
+            <option>Retail / Shop</option>
+            <option>Entertainment / Events</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Email address</label><input type="email" placeholder="anna@example.com"></div>
+        <div class="form-group"><label>Your biggest challenge</label><textarea placeholder="e.g. We manage all our bookings in a spreadsheet and it's becoming unmanageable..."></textarea></div>
+        <button class="form-submit">Request free consultation -></button>
+        <p class="form-note">No commitment. I'll get back to you within one business day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="footer-logo">
+    <div class="footer-logo-mark"><svg width="16" height="16" viewBox="0 0 22 22"><text x="2" y="17" font-family="Georgia,serif" font-size="17" fill="white" font-style="italic">tq</text></svg></div>
+    quantrill.me
+  </div>
+  <span>© 2026 Tom Quantrill - Zell am See, Austria</span>
+</footer>
+</body>
+</html>

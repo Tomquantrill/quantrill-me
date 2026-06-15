@@ -358,7 +358,7 @@
         <div class="contact-detail"><span style="font-size:15px;">📞</span><span><strong>+43 660 837 5882</strong></span></div>
         <div class="contact-detail"><span style="font-size:15px;">📍</span><span>Zell am See, Salzburg</span></div>
       </div>
-      <form class="form-card" action="https://formspree.io/f/xbdewavv" method="POST">
+      <form class="form-card" action="https://formspree.io/f/xbdewavv" method="POST" id="contact-form">
         <div class="form-row">
           <div class="form-group"><label>First name</label><input type="text" name="first_name" placeholder="Anna"></div>
           <div class="form-group"><label>Last name</label><input type="text" name="last_name" placeholder="Müller"></div>
@@ -378,9 +378,13 @@
         </div>
         <div class="form-group"><label>Email address</label><input type="email" name="email" placeholder="anna@example.com"></div>
         <div class="form-group"><label>Your biggest challenge</label><textarea name="message" placeholder="e.g. We manage all our bookings in a spreadsheet and it's becoming unmanageable..."></textarea></div>
-        <button type="submit" class="form-submit">Request free consultation -></button>
+        <button type="submit" class="form-submit" id="form-submit-btn">Request free consultation -></button>
         <p class="form-note">No commitment. I'll get back to you within one business day.</p>
       </form>
+      <div id="form-success" style="display:none; background:var(--white); border:0.5px solid var(--border); border-radius:10px; padding:2.2rem; text-align:center;">
+        <p style="font-family:'Instrument Serif',serif; font-size:1.6rem; color:var(--ink); margin-bottom:0.75rem;">Thanks — I'll be in touch.</p>
+        <p style="font-size:14px; color:var(--muted); font-weight:300;">I'll get back to you within one business day.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -391,5 +395,32 @@
   </div>
   <span>© 2026 Tom Quantrill - Zell am See, Austria</span>
 </footer>
+<script>
+  var form = document.getElementById('contact-form');
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var btn = document.getElementById('form-submit-btn');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(function(res) {
+      if (res.ok) {
+        form.style.display = 'none';
+        document.getElementById('form-success').style.display = 'block';
+      } else {
+        btn.textContent = 'Request free consultation ->';
+        btn.disabled = false;
+        alert('Something went wrong. Please email tom@quantrill.me directly.');
+      }
+    }).catch(function() {
+      btn.textContent = 'Request free consultation ->';
+      btn.disabled = false;
+      alert('Something went wrong. Please email tom@quantrill.me directly.');
+    });
+  });
+</script>
 </body>
 </html>

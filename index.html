@@ -358,15 +358,15 @@
         <div class="contact-detail"><span style="font-size:15px;">📞</span><span><strong>+43 660 837 5882</strong></span></div>
         <div class="contact-detail"><span style="font-size:15px;">📍</span><span>Zell am See, Salzburg</span></div>
       </div>
-      <div class="form-card">
+      <form class="form-card" action="https://formspree.io/f/xbdewavv" method="POST">
         <div class="form-row">
-          <div class="form-group"><label>First name</label><input type="text" placeholder="Anna"></div>
-          <div class="form-group"><label>Last name</label><input type="text" placeholder="Müller"></div>
+          <div class="form-group"><label>First name</label><input type="text" name="first_name" placeholder="Anna"></div>
+          <div class="form-group"><label>Last name</label><input type="text" name="last_name" placeholder="Müller"></div>
         </div>
-        <div class="form-group"><label>Business name</label><input type="text" placeholder="Hotel Bergblick"></div>
+        <div class="form-group"><label>Business name</label><input type="text" name="business_name" placeholder="Hotel Bergblick"></div>
         <div class="form-group">
           <label>Type of business</label>
-          <select>
+          <select name="business_type">
             <option value="">Select one...</option>
             <option>Restaurant / Bar</option>
             <option>Hotel / Accommodation</option>
@@ -376,11 +376,11 @@
             <option>Other</option>
           </select>
         </div>
-        <div class="form-group"><label>Email address</label><input type="email" placeholder="anna@example.com"></div>
-        <div class="form-group"><label>Your biggest challenge</label><textarea placeholder="e.g. We manage all our bookings in a spreadsheet and it's becoming unmanageable..."></textarea></div>
-        <button class="form-submit">Request free consultation -></button>
+        <div class="form-group"><label>Email address</label><input type="email" name="email" placeholder="anna@example.com"></div>
+        <div class="form-group"><label>Your biggest challenge</label><textarea name="message" placeholder="e.g. We manage all our bookings in a spreadsheet and it's becoming unmanageable..."></textarea></div>
+        <button type="submit" class="form-submit">Request free consultation -></button>
         <p class="form-note">No commitment. I'll get back to you within one business day.</p>
-      </div>
+      </form>
     </div>
   </div>
 </section>

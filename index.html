@@ -89,10 +89,8 @@
   .nav-logo { display: flex; align-items: center; gap: 10px; }
   .logo-mark {
     width: 32px; height: 32px; border-radius: 5px;
-    background: var(--ink); display: flex; align-items: center; justify-content: center;
-    transition: background 0.5s ease;
+    overflow: hidden; flex-shrink: 0;
   }
-  nav.over-hero .logo-mark { background: rgba(255,255,255,0.18); }
   .nav-name {
     font-weight: 500; font-size: 13px; letter-spacing: 0.02em; color: var(--ink);
     transition: color 0.5s ease;
@@ -289,25 +287,32 @@
     gap: 1px; background: var(--border);
     border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
   }
-  .service-card { background: var(--card); padding: 2rem 1.75rem; cursor: pointer; transition: background 0.2s; }
-  .service-card:not(.service-card--featured):hover { background: var(--white); }
-  .service-card:not(.service-card--featured):focus-visible {
+  .service-card { background: var(--card); padding: 2.25rem 2rem; cursor: pointer; transition: background 0.2s; }
+  .service-card:not(.service-card--cta):hover { background: var(--stone); }
+  .service-card:not(.service-card--cta):focus-visible {
     outline: 2px solid var(--sage); outline-offset: -2px;
   }
+  .service-num { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; color: var(--sage); margin-bottom: 0.85rem; }
   .service-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.6rem; }
   .service-expand-icon { font-size: 20px; color: var(--slate); line-height: 1; transition: transform 0.25s ease; flex-shrink: 0; font-weight: 300; }
   .service-card.open .service-expand-icon { transform: rotate(45deg); }
   .service-expand { max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.35s ease, opacity 0.3s ease; }
   .service-card.open .service-expand { max-height: 800px; opacity: 1; }
   .service-expand-inner { padding-top: 1rem; border-top: 1px solid var(--border); margin-top: 1rem; }
-  .service-expand-inner p { font-size: 13px; color: var(--slate); line-height: 1.75; font-weight: 300; margin-bottom: 0.75rem; }
-  .service-expand-note { font-size: 11px; color: var(--slate); background: var(--white); border-radius: 4px; padding: 0.45rem 0.75rem; display: inline-block; font-weight: 400; }
-  .service-card--featured { grid-column: 1 / -1; background: var(--white); display: flex; gap: 3rem; align-items: center; }
-  .service-card--featured:hover { background: var(--white); }
-  .service-card--featured .service-desc { flex: 1; }
-  .service-featured-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sage); margin-bottom: 0.4rem; }
-  .service-title { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 0.6rem; line-height: 1.4; }
+  .service-expand-inner p { font-size: 13px; color: var(--slate); line-height: 1.75; font-weight: 300; }
+  .service-card--cta { grid-column: 1 / -1; background: var(--ink); cursor: default; }
+  .service-card--cta:hover { background: var(--ink); }
+  .service-card--cta .service-num { color: var(--sage); }
+  .service-card--cta .service-title { color: #fff; font-size: 1.1rem; }
+  .service-card--cta .service-desc { color: rgba(255,255,255,0.6); }
+  .service-title { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 0.65rem; line-height: 1.3; }
   .service-desc { font-size: 13px; color: var(--slate); line-height: 1.75; font-weight: 300; }
+  /* Process strip */
+  .process-strip { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 1px; background: var(--border); border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; overflow: hidden; }
+  .process-step { background: var(--white); padding: 1.5rem 2rem; }
+  .process-num { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; color: var(--sage); margin-bottom: 0.5rem; }
+  .process-title { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 0.35rem; }
+  .process-desc { font-size: 12px; color: var(--slate); line-height: 1.65; font-weight: 300; }
 
   /* ─── CONTACT ───────────────────────────────────── */
   .contact-section { background: var(--white); }
@@ -342,7 +347,7 @@
   /* ─── FOOTER ────────────────────────────────────── */
   footer { background: var(--ink); color: rgba(255,255,255,0.4); padding: 1.75rem 3rem; display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
   .footer-logo { display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,0.6); font-size: 13px; font-weight: 500; }
-  .footer-logo-mark { width: 24px; height: 24px; background: rgba(255,255,255,0.1); border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+  .footer-logo-mark { width: 32px; height: 32px; border-radius: 4px; overflow: hidden; flex-shrink: 0; }
 
   /* ─── RESPONSIVE ────────────────────────────────── */
   /* Ultrawide: keep text in cloud zone, constrain right side */
@@ -351,7 +356,7 @@
   }
 
   @media (max-width: 900px) {
-    .service-card--featured { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .process-strip { grid-template-columns: 1fr; }
   }
 
   /* Tablet */
@@ -380,8 +385,7 @@
     .hero-content { padding: 0 5% 0 36%; }
     .hero-headline-group { margin-top: 48vh; }
     .hero-sub-group { padding-bottom: 9vh; }
-    .hero-h1 { font-size: clamp(1.8rem, 7.5vw, 2.6rem); }
-    .hero-h1 br { display: none; }
+    .hero-h1 { font-size: clamp(1.2rem, 5.0vw, 1.9rem); }
 
     section { padding: 3.5rem 1.25rem; }
     .divider { margin: 0 1.25rem; }
@@ -390,6 +394,7 @@
     .photo-frame { aspect-ratio: 3/2; }
 
     .services-grid { grid-template-columns: 1fr; }
+    .process-strip { grid-template-columns: 1fr; }
 
     .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
     #form-success { grid-column: 1; }
@@ -405,7 +410,7 @@
 <nav id="main-nav">
   <div class="nav-logo">
     <div class="logo-mark">
-      <svg width="20" height="20" viewBox="0 0 22 22" aria-hidden="true"><text x="2" y="17" font-family="Georgia,serif" font-size="17" fill="white" font-style="italic">tq</text></svg>
+      <img src="tq-logo.png" alt="TQ" width="32" height="32" style="display:block;border-radius:5px;">
     </div>
     <span class="nav-name">quantrill.me</span>
   </div>
@@ -444,9 +449,9 @@
 <!-- ─── PHILOSOPHY ────────────────────────────────── -->
 <section class="philosophy-section">
   <div class="section-inner">
-    <p>Technology should serve you, not demand your attention. Any good piece of software, any system worth having, should simplify something — free you up, make you more present, remove the administrative weight that comes with running a modern life or business.</p>
-    <p>There's no point in a new phone, a subscription, a piece of software — personal or professional — if it isn't actually being used, or understood, or working for you. People buy tools without knowing how to use them. That's not a failure of the person. It's a failure of the setup.</p>
-    <p>I look for technical solutions across the full spectrum of your digital life — to make things flow, reduce the headache, and help you actually enjoy what you own.</p>
+    <p>I'm a firm believer that any good technology, software or system should be there to serve us and to simplify a certain process for us, to make our lives easier, to allow us to be more present, and to remove the administrative and digital tasks that have arisen with the abundance of technology that we now have.</p>
+    <p>There's no use in having a brand new phone, a brand new laptop, a subscription service or a piece of software, whether for business or personal use, if it's not being implemented or used to its full potential. People are often in the habit of purchasing something without fully understanding it or how to use it.</p>
+    <p>Technology is really there to enable your life, to make your life simpler. I look for solutions across the spectrum to assist you in your digital life, to allow you to be more present, to make things flow easier and to generally just enjoy your technology with less of a headache.</p>
   </div>
 </section>
 
@@ -458,15 +463,14 @@
     <p class="section-label">What I do</p>
     <div class="services-grid">
 
-      <div class="service-card service-card--featured">
-        <div>
-          <div class="service-featured-label">Where it starts</div>
-          <div class="service-title">Free Consultation</div>
-        </div>
-        <div class="service-desc">Tell me what you're dealing with. I'll listen, ask a few questions and be straight with you about whether I can help. Thirty minutes by video call, or in person in Zell am See. No pitch, no invoice.</div>
+      <div class="service-card service-card--cta">
+        <div class="service-num">FREE CONSULTATION</div>
+        <div class="service-title">Tell me what you're dealing with.</div>
+        <div class="service-desc">I'll listen, ask a few questions and be straight with you about whether I can help. Thirty minutes by video call, or in person in Zell am See. No pitch, no invoice.</div>
       </div>
 
       <div class="service-card" tabindex="0" role="button" aria-expanded="false">
+        <div class="service-num">01</div>
         <div class="service-card-header">
           <div class="service-title">Digital Reset</div>
           <span class="service-expand-icon" aria-hidden="true">+</span>
@@ -474,11 +478,11 @@
         <div class="service-desc">Devices, accounts, passwords, email, photos, backups. The things that have been quietly bothering you for years.</div>
         <div class="service-expand"><div class="service-expand-inner">
           <p>We work through it together in a single session, remotely, at your pace. You finish with everything set up properly, a clear document explaining how it all works and the option to have your photos and files backed up to a hard drive posted directly to you.</p>
-          <span class="service-expand-note">Pricing is tailored to your project. After your free consultation, I'll put together a clear proposal with scope and cost.</span>
         </div></div>
       </div>
 
       <div class="service-card" tabindex="0" role="button" aria-expanded="false">
+        <div class="service-num">02</div>
         <div class="service-card-header">
           <div class="service-title">Website Build</div>
           <span class="service-expand-icon" aria-hidden="true">+</span>
@@ -486,11 +490,11 @@
         <div class="service-desc">A clean, functional website built around what you actually need.</div>
         <div class="service-expand"><div class="service-expand-inner">
           <p>No bloated templates, no features you'll never use, no unnecessary monthly costs. I handle the design, build and setup. You get something you can manage yourself.</p>
-          <span class="service-expand-note">Pricing is tailored to your project. After your free consultation, I'll put together a clear proposal with scope and cost.</span>
         </div></div>
       </div>
 
       <div class="service-card" tabindex="0" role="button" aria-expanded="false">
+        <div class="service-num">03</div>
         <div class="service-card-header">
           <div class="service-title">Digital Automation</div>
           <span class="service-expand-icon" aria-hidden="true">+</span>
@@ -498,11 +502,11 @@
         <div class="service-desc">If your business runs on spreadsheets, group chats and remembered processes, there's probably a better way.</div>
         <div class="service-expand"><div class="service-expand-inner">
           <p>I map out how you work, find where time is being lost and build systems that handle the routine work automatically. Built around tools your team already uses.</p>
-          <span class="service-expand-note">Pricing is tailored to your project. After your free consultation, I'll put together a clear proposal with scope and cost.</span>
         </div></div>
       </div>
 
       <div class="service-card" tabindex="0" role="button" aria-expanded="false">
+        <div class="service-num">04</div>
         <div class="service-card-header">
           <div class="service-title">Custom Build</div>
           <span class="service-expand-icon" aria-hidden="true">+</span>
@@ -510,11 +514,29 @@
         <div class="service-desc">Sometimes the right tool doesn't exist yet.</div>
         <div class="service-expand"><div class="service-expand-inner">
           <p>I'll build it. From initial conversation through to handover, including documentation so you can manage it confidently afterwards.</p>
-          <span class="service-expand-note">Pricing is tailored to your project. After your free consultation, I'll put together a clear proposal with scope and cost.</span>
         </div></div>
       </div>
 
     </div>
+
+    <div class="process-strip">
+      <div class="process-step">
+        <div class="process-num">STEP 01</div>
+        <div class="process-title">Free consultation</div>
+        <div class="process-desc">30 minutes by video call or in person in Zell am See. No pitch, no invoice.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-num">STEP 02</div>
+        <div class="process-title">Matched service</div>
+        <div class="process-desc">I identify which service fits your situation, or a combination of them, and put together a clear proposal.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-num">STEP 03</div>
+        <div class="process-title">Scope, timeline and cost</div>
+        <div class="process-desc">A written proposal with everything agreed upfront. No vague estimates, no surprises.</div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -604,7 +626,7 @@
 <!-- ─── FOOTER ────────────────────────────────────── -->
 <footer>
   <div class="footer-logo">
-    <div class="footer-logo-mark"><svg width="14" height="14" viewBox="0 0 22 22" aria-hidden="true"><text x="2" y="17" font-family="Georgia,serif" font-size="17" fill="white" font-style="italic">tq</text></svg></div>
+    <div class="footer-logo-mark"><img src="tq-logo.png" alt="TQ" width="32" height="32" style="display:block;border-radius:4px;"></div>
     quantrill.me
   </div>
   <span>Tom Quantrill - Digital Consultancy - Zell am See, Austria</span>

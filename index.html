@@ -74,24 +74,20 @@
   }
 
   /* ─── NAV ─────────────────────────────────────── */
-  @keyframes navIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    position: fixed; bottom: 2rem; top: auto; left: 0; right: 0; z-index: 100;
     display: flex; justify-content: space-between; align-items: center;
     padding: 1rem 3rem;
-    background: rgba(250,250,248,0.55);
+    background: transparent;
+    border-bottom: none;
+    transition: background 0.4s ease, border-color 0.4s ease;
+  }
+  nav.past-hero {
+    top: 0; bottom: auto;
+    background: rgba(250,250,248,0.90);
     backdrop-filter: blur(20px) saturate(160%);
     -webkit-backdrop-filter: blur(20px) saturate(160%);
     border-bottom: 1px solid rgba(0,0,0,0.06);
-    transition: background 0.5s ease, border-color 0.5s ease;
-    animation: navIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.25s both;
-  }
-  nav.over-hero {
-    background: rgba(0,0,0,0.06);
-    border-bottom-color: rgba(255,255,255,0.08);
   }
   .nav-logo { display: flex; align-items: center; gap: 10px; }
   .logo-mark {
@@ -99,19 +95,18 @@
     overflow: hidden; flex-shrink: 0;
   }
   .nav-name {
-    font-weight: 500; font-size: 13px; letter-spacing: 0.02em; color: var(--ink);
-    transition: color 0.5s ease;
+    font-weight: 500; font-size: 13px; letter-spacing: 0.02em; color: rgba(255,255,255,0.9);
+    transition: color 0.4s ease;
   }
-  nav.over-hero .nav-name { color: rgba(255,255,255,0.9); }
+  nav.past-hero .nav-name { color: var(--ink); }
   .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
-  /* Use higher-specificity selectors instead of !important */
   .nav-links a {
-    font-size: 13px; font-weight: 400; color: var(--slate); text-decoration: none;
+    font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.75); text-decoration: none;
     transition: color 0.2s;
   }
-  nav.over-hero .nav-links a { color: rgba(255,255,255,0.65); }
-  .nav-links a:hover { color: var(--ink); }
-  nav.over-hero .nav-links a:hover { color: white; }
+  .nav-links a:hover { color: #fff; }
+  nav.past-hero .nav-links a { color: var(--slate); }
+  nav.past-hero .nav-links a:hover { color: var(--ink); }
 
   /* ─── HERO ─────────────────────────────────────── */
   .hero-scroll-wrapper { height: 280vh; }
@@ -390,7 +385,6 @@
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    nav { animation: none; }
     .scroll-hint-line { animation: none; }
     .service-expand { transition: none; }
   }
@@ -645,9 +639,14 @@
     var scrolled    = clamp(-rect.top, 0, totalScroll);
     var p           = totalScroll > 0 ? scrolled / totalScroll : 0;
 
-    nav.classList.toggle('over-hero', scrolled < window.innerHeight * 0.9);
+    var pastHero = p >= 0.90;
+    nav.classList.toggle('past-hero', pastHero);
+    if (pastHero) {
+      nav.style.opacity = ''; /* let CSS handle: opaque */
+    }
 
     if (reducedMotion) {
+      nav.classList.add('past-hero'); nav.style.opacity = '';
       bg.style.opacity = 1; bg.style.transform = 'none'; bg.style.filter = 'none';
       eyebrow.style.opacity = 1; eyebrow.style.transform = 'none'; eyebrow.style.filter = 'none';
       headline.style.opacity = 1; headline.style.transform = 'none'; headline.style.filter = 'none';
@@ -660,6 +659,11 @@
     /* Load progress: 0 → 1 over LOAD_DUR ms, eased */
     var lp = Math.min((now - loadStart) / LOAD_DUR, 1);
     var lv = easeOut(lp);
+
+    /* Nav: hidden during load + text reveal, fades in after headline completes */
+    if (!pastHero) {
+      nav.style.opacity = String(lp < 1 ? 0 : easeOut(norm(p, 0.55, 0.68)));
+    }
 
     /* Opening reveal: zoom 1.12 → 1.06, fade in, desaturate → full colour */
     var scale = 1.12 - 0.06 * lv;

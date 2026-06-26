@@ -13,6 +13,11 @@
 <meta property="og:description" content="Simple solutions for digital direction. Digital consultancy based in Zell am See, Austria.">
 <meta property="og:image" content="https://www.quantrill.me/dolomites.jpg">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tom Quantrill - Digital Consultancy, Zell am See">
+<meta name="twitter:description" content="Simple solutions for digital direction. Digital consultancy based in Zell am See, Austria.">
+<meta name="twitter:image" content="https://www.quantrill.me/dolomites.jpg">
+
+<link rel="canonical" href="https://www.quantrill.me">
 
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon.png">
@@ -168,7 +173,6 @@
     display: block;
     line-height: 1.9;
   }
-  .hero-eyebrow::before { content: none; }
 
   .hero-h1 {
     font-size: clamp(2.2rem, 4.2vw, 3.5rem);
@@ -234,10 +238,6 @@
     margin-bottom: 1rem; background: var(--white);
   }
   .photo-frame img { width: 100%; height: 100%; object-fit: cover; object-position: center 15%; display: block; }
-  .about-right h2 {
-    font-size: clamp(1.7rem, 2.8vw, 2.3rem); font-weight: 600;
-    line-height: 1.15; color: var(--ink); letter-spacing: -0.025em; margin-bottom: 1.4rem;
-  }
   .about-right p { font-size: 0.9375rem; color: var(--slate); line-height: 1.85; margin-bottom: 1rem; font-weight: 300; }
   .about-right p:last-child { margin-bottom: 0; }
 
@@ -287,6 +287,8 @@
   .contact-left h2 { font-size: clamp(1.7rem, 2.8vw, 2.3rem); font-weight: 600; line-height: 1.15; color: var(--ink); letter-spacing: -0.025em; margin-bottom: 1rem; }
   .contact-left p { font-size: 13px; color: var(--slate); line-height: 1.75; font-weight: 300; margin-bottom: 1.75rem; }
   .contact-detail { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--slate); margin-bottom: 0.5rem; }
+  .contact-detail a { color: inherit; text-decoration: none; }
+  .contact-detail a:hover { color: var(--ink); }
   .contact-detail strong { color: var(--ink); font-weight: 500; }
   .form-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 2rem; }
   /* Form success: replace the form in column 2 */
@@ -302,6 +304,12 @@
     outline: none; transition: border-color 0.2s; appearance: none;
   }
   .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--sage); background: var(--card); }
+  .form-group select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%235F6B79'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    padding-right: 2rem;
+  }
   .form-group textarea { resize: vertical; min-height: 90px; }
   .form-submit {
     width: 100%; padding: 0.75rem; background: var(--ink); color: var(--white);
@@ -342,7 +350,7 @@
   @media (max-width: 640px) {
     nav { padding: 0.9rem 1.25rem; }
     .nav-name { display: none; }
-    .nav-links li:not(:last-child) { display: none; }
+    .nav-links { gap: 1.25rem; }
 
     .hero-scroll-wrapper { height: 200vh; }
     /* 30% pushes the image further right so the figure lands near the
@@ -373,7 +381,7 @@
 </head>
 <body>
 
-<nav id="main-nav">
+<nav id="main-nav" aria-label="Main navigation">
   <div class="nav-logo">
     <div class="logo-mark">
       <img src="tq-logo.png" alt="TQ" width="32" height="32" style="display:block;border-radius:5px;">
@@ -387,10 +395,11 @@
   </ul>
 </nav>
 
+<main>
 <!-- ─── HERO ──────────────────────────────────────── -->
 <div class="hero-scroll-wrapper">
   <div class="hero-sticky">
-    <img class="hero-bg" src="dolomites.jpg" alt="A hiker standing on an Alpine mountain ridge above the clouds" />
+    <img class="hero-bg" src="dolomites.jpg" alt="A hiker standing on an Alpine mountain ridge above the clouds" fetchpriority="high" />
     <div class="hero-overlay"></div>
 
     <div class="hero-content">
@@ -425,7 +434,7 @@
 <!-- ─── SERVICES ──────────────────────────────────── -->
 <section id="services">
   <div class="section-inner">
-    <p class="section-label">What I do</p>
+    <h2 class="section-label">What I do</h2>
     <div class="services-grid">
 
       <div class="service-card service-card--cta">
@@ -510,7 +519,7 @@
 <!-- ─── ABOUT ─────────────────────────────────────── -->
 <section id="about" class="about-section">
   <div class="section-inner">
-    <p class="section-label">About</p>
+    <h2 class="section-label">About</h2>
     <div class="about-grid">
       <div class="about-left">
         <div class="photo-frame">
@@ -533,13 +542,13 @@
 <!-- ─── CONTACT ───────────────────────────────────── -->
 <section id="contact" class="contact-section">
   <div class="section-inner">
-    <p class="section-label">Contact</p>
+    <h2 class="section-label">Contact</h2>
     <div class="contact-grid">
       <div class="contact-left">
         <h2>Let's have a conversation.</h2>
         <p>The first consultation is free. Tell me what you're dealing with and I'll be honest about whether I can help.</p>
-        <div class="contact-detail"><span aria-hidden="true" style="font-size:15px;">✉</span><span><strong>tom@quantrill.me</strong></span></div>
-        <div class="contact-detail"><span aria-hidden="true" style="font-size:15px;">📞</span><span><strong>+43 660 837 5882</strong></span></div>
+        <div class="contact-detail"><span aria-hidden="true" style="font-size:15px;">✉</span><a href="mailto:tom@quantrill.me"><strong>tom@quantrill.me</strong></a></div>
+        <div class="contact-detail"><span aria-hidden="true" style="font-size:15px;">📞</span><a href="tel:+436608375882"><strong>+43 660 837 5882</strong></a></div>
         <div class="contact-detail"><span>Zell am See, Salzburg</span></div>
       </div>
       <form class="form-card" action="https://formspree.io/f/xbdewavv" method="POST" id="contact-form">
@@ -580,13 +589,15 @@
         <button type="submit" class="form-submit" id="form-submit-btn">Request free consultation</button>
         <p class="form-note">No commitment. I'll get back to you within one business day.</p>
       </form>
-      <div id="form-success" style="display:none; background:var(--card); border:1px solid var(--border); border-radius:8px; padding:2rem; text-align:center;">
+      <div id="form-success" aria-live="polite" style="display:none; background:var(--card); border:1px solid var(--border); border-radius:8px; padding:2rem; text-align:center;">
         <p style="font-size:1.3rem; font-weight:600; color:var(--ink); margin-bottom:0.75rem;">Thanks - I'll be in touch.</p>
         <p style="font-size:13px; color:var(--slate); font-weight:300;">I'll get back to you within one business day.</p>
       </div>
     </div>
   </div>
 </section>
+
+</main>
 
 <!-- ─── FOOTER ────────────────────────────────────── -->
 <footer>
@@ -663,7 +674,7 @@
   tick(); /* kick off immediately — starts the load animation */
 
   /* Service cards: click and keyboard */
-  document.querySelectorAll('.service-card:not(.service-card--featured)').forEach(function (card) {
+  document.querySelectorAll('.service-card:not(.service-card--cta)').forEach(function (card) {
     function toggle() {
       var open = card.classList.toggle('open');
       card.setAttribute('aria-expanded', open);

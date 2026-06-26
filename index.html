@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tom Quantrill - Digital Consultancy, Zell am See</title>
-<meta name="description" content="Simple digital solutions for small businesses and individuals. Based in Zell am See, Austria.">
+<meta name="description" content="Less admin. More everything else. Digital consultancy based in Zell am See, Austria.">
 
 <!-- Open Graph / social sharing -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.quantrill.me">
 <meta property="og:title" content="Tom Quantrill - Digital Consultancy, Zell am See">
-<meta property="og:description" content="Simple digital solutions for small businesses and individuals. Based in Zell am See, Austria.">
+<meta property="og:description" content="Less admin. More everything else. Digital consultancy based in Zell am See, Austria.">
 <meta property="og:image" content="https://www.quantrill.me/dolomites.jpg">
 <meta name="twitter:card" content="summary_large_image">
 
@@ -32,7 +32,7 @@
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "Tom Quantrill - Digital Consultancy",
-  "description": "Simple digital solutions for small businesses and individuals. Based in Zell am See, Austria.",
+  "description": "Less admin. More everything else. Digital consultancy based in Zell am See, Austria.",
   "url": "https://www.quantrill.me",
   "telephone": "+436608375882",
   "email": "tom@quantrill.me",
@@ -160,9 +160,9 @@
     padding: 0 8% 0 30%;
   }
 
-  /* Headline: sits in the cloud/mountain-gap zone */
+  /* Headline: cliff face / mist-above-grass zone */
   .hero-headline-group {
-    margin-top: 27vh;
+    margin-top: 46vh;
     opacity: 0;
     transform-origin: center bottom;
     will-change: opacity, transform, filter;
@@ -272,7 +272,7 @@
     overflow: hidden; border: 1px solid var(--border);
     margin-bottom: 1rem; background: var(--white);
   }
-  .photo-frame img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+  .photo-frame img { width: 100%; height: 100%; object-fit: cover; object-position: center 15%; display: block; }
   .about-right h2 {
     font-size: clamp(1.7rem, 2.8vw, 2.3rem); font-weight: 600;
     line-height: 1.15; color: var(--ink); letter-spacing: -0.025em; margin-bottom: 1.4rem;
@@ -383,9 +383,10 @@
        and sandy rock face filling the right portion of the frame */
     .hero-bg { object-position: 32% center; }
     .hero-content { padding: 0 5% 0 36%; }
-    .hero-headline-group { margin-top: 33vh; }
+    .hero-headline-group { margin-top: 52vh; }
     .hero-sub-group { padding-bottom: 5vh; }
     .hero-h1 { font-size: clamp(1.8rem, 7.5vw, 2.6rem); }
+    .hero-h1 br { display: none; }
     .hero-sub { font-size: 0.875rem; max-width: 100%; }
     .hero-sub-group { padding-bottom: 9vh; }
 
@@ -434,10 +435,9 @@
     <div class="hero-content">
       <div class="hero-headline-group" id="hero-headline">
         <p class="hero-eyebrow">Digital Consultancy · Zell am See</p>
-        <h1 class="hero-h1">Simple digital solutions,<br>delivered by a real person.</h1>
+        <h1 class="hero-h1">Less admin. <br>More everything else.</h1>
       </div>
       <div class="hero-sub-group" id="hero-sub">
-        <p class="hero-sub">Whether it's your business systems, your devices, or years of digital clutter that's quietly been bothering you - I'll help you get on top of it. No jargon, no unnecessary complexity.</p>
         <a href="#contact" class="btn-hero">Get in touch</a>
       </div>
     </div>
@@ -475,7 +475,7 @@
           <div class="service-featured-label">Where it starts</div>
           <div class="service-title">Free Consultation</div>
         </div>
-        <div class="service-desc">Tell me what you're dealing with. I'll listen, ask a few questions and be straight with you about whether I can help. No pitch, no invoice.</div>
+        <div class="service-desc">Tell me what you're dealing with. I'll listen, ask a few questions and be straight with you about whether I can help. Thirty minutes by video call, or in person in Zell am See. No pitch, no invoice.</div>
       </div>
 
       <div class="service-card" tabindex="0" role="button" aria-expanded="false">
@@ -580,18 +580,17 @@
         </div>
         <div class="form-group">
           <label for="business_name">Business name <span style="font-weight:300;text-transform:none;letter-spacing:0;">(optional)</span></label>
-          <input type="text" id="business_name" name="business_name" placeholder="Hotel Bergblick">
+          <input type="text" id="business_name" name="business_name" placeholder="Acme Ltd">
         </div>
         <div class="form-group">
           <label for="business_type">Type of enquiry</label>
           <select id="business_type" name="business_type">
             <option value="">Select one...</option>
-            <option>Restaurant / Bar</option>
-            <option>Hotel / Accommodation</option>
-            <option>Tour operator / Coach</option>
-            <option>Retail / Shop</option>
-            <option>Entertainment / Events</option>
-            <option>Individual / Personal</option>
+            <option>Freelancer / Sole trader</option>
+            <option>Small business</option>
+            <option>Established business</option>
+            <option>Family / Personal</option>
+            <option>Organisation / Charity</option>
             <option>Other</option>
           </select>
         </div>
@@ -601,7 +600,7 @@
         </div>
         <div class="form-group">
           <label for="message">What are you dealing with?</label>
-          <textarea id="message" name="message" placeholder="e.g. We manage all our bookings in a spreadsheet and it's becoming unmanageable..."></textarea>
+          <textarea id="message" name="message" placeholder="Tell me what's going on..."></textarea>
         </div>
         <button type="submit" class="form-submit" id="form-submit-btn">Request free consultation</button>
         <p class="form-note">No commitment. I'll get back to you within one business day.</p>

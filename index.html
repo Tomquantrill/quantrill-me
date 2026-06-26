@@ -191,26 +191,6 @@
   }
 
   /* CTA: sits on the grass */
-  .hero-sub-group {
-    position: absolute;
-    left: 14%;
-    top: 58vh;
-    opacity: 0;
-    will-change: opacity, transform;
-  }
-
-  .btn-hero {
-    display: inline-block;
-    border: 1.5px solid rgba(0,0,0,0.65);
-    background: transparent;
-    color: rgba(0,0,0,0.82);
-    padding: 0.38rem 1.0rem;
-    border-radius: 4px; font-size: 11px; font-weight: 500;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    text-decoration: none;
-    transition: background 0.2s;
-  }
-  .btn-hero:hover { background: rgba(0,0,0,0.07); }
 
   /* Scroll hint */
   .scroll-hint {
@@ -384,7 +364,6 @@
     .hero-bg { object-position: 32% center; }
     .hero-content { padding: 0 5% 0 37%; }
     .hero-headline-group { margin-top: 48vh; }
-    .hero-sub-group { left: 3%; top: 48%; }
     .hero-h1 { font-size: clamp(1.3rem, 5.0vw, 2.0rem); }
 
     section { padding: 3.5rem 1.25rem; }
@@ -433,9 +412,6 @@
         <div id="hero-headline">
           <h1 class="hero-h1">Simple solutions <br>for digital direction.</h1>
         </div>
-      </div>
-      <div class="hero-sub-group" id="hero-sub">
-        <a href="#contact" class="btn-hero">Contact</a>
       </div>
     </div>
 
@@ -641,7 +617,6 @@
   var bg       = document.querySelector('.hero-bg');
   var eyebrow  = document.getElementById('hero-eyebrow');
   var headline = document.getElementById('hero-headline');
-  var sub      = document.getElementById('hero-sub');
   var hint     = document.getElementById('scroll-hint');
 
   function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
@@ -686,9 +661,6 @@
     headline.style.transform = 'translateY(' + ((1 - hp) * 46) + 'px) scale(' + (0.97 + hp * 0.03) + ')';
     headline.style.filter    = 'blur(' + ((1 - hp) * 11) + 'px) brightness(' + (1 + (1 - hp) * 0.28) + ')';
 
-    var sp = easeOut(norm(p, 0.65, 0.82));
-    sub.style.opacity   = sp;
-    sub.style.transform = 'translateY(' + ((1 - sp) * 18) + 'px)';
 
     ticking = false;
     /* Keep looping until load animation finishes */

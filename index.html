@@ -157,12 +157,12 @@
     position: absolute; inset: 0;
     display: flex; flex-direction: column;
     /* Left pad pushes text into the cloud/mist zone right of the figure */
-    padding: 0 8% 0 37%;
+    padding: 0 8% 0 33%;
   }
 
   /* Headline: cliff face / mist-above-grass zone */
   .hero-headline-group {
-    margin-top: 50vh;
+    margin-top: 54vh;
     opacity: 0;
     transform-origin: center bottom;
     will-change: opacity, transform, filter;
@@ -351,7 +351,7 @@
   /* ─── RESPONSIVE ────────────────────────────────── */
   /* Ultrawide: keep text in cloud zone, constrain right side */
   @media (min-width: 1400px) {
-    .hero-content { padding: 0 max(8%, calc(50% - 700px)) 0 37%; }
+    .hero-content { padding: 0 max(8%, calc(50% - 700px)) 0 33%; }
   }
 
   @media (max-width: 900px) {

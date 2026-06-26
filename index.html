@@ -157,7 +157,7 @@
     position: absolute; inset: 0;
     display: flex; flex-direction: column;
     /* Left pad pushes text into the cloud/mist zone right of the figure */
-    padding: 0 8% 0 33%;
+    padding: 0 8% 0 37%;
   }
 
   /* Headline: cliff face / mist-above-grass zone */
@@ -182,7 +182,7 @@
   }
 
   .hero-h1 {
-    font-size: clamp(2.2rem, 4.8vw, 3.8rem);
+    font-size: clamp(2.0rem, 4.0vw, 3.2rem);
     font-weight: 600; line-height: 1.08;
     color: #FFFFFF;
     letter-spacing: -0.03em;
@@ -351,7 +351,7 @@
   /* ─── RESPONSIVE ────────────────────────────────── */
   /* Ultrawide: keep text in cloud zone, constrain right side */
   @media (min-width: 1400px) {
-    .hero-content { padding: 0 max(8%, calc(50% - 700px)) 0 33%; }
+    .hero-content { padding: 0 max(8%, calc(50% - 700px)) 0 37%; }
   }
 
   @media (max-width: 900px) {
@@ -383,7 +383,7 @@
        and sandy rock face filling the right portion of the frame */
     .hero-bg { object-position: 32% center; }
     .hero-content { padding: 0 5% 0 36%; }
-    .hero-headline-group { margin-top: 52vh; }
+    .hero-headline-group { margin-top: 48vh; }
     .hero-sub-group { padding-bottom: 5vh; }
     .hero-h1 { font-size: clamp(1.8rem, 7.5vw, 2.6rem); }
     .hero-h1 br { display: none; }

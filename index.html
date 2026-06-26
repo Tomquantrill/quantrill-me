@@ -383,11 +383,12 @@
     .nav-links li:not(:last-child) { display: none; }
 
     .hero-scroll-wrapper { height: 200vh; }
-    /* 12% shifts the image right enough to centre the figure
-       (figure is at 22% of the 4000px image; on a tall narrow viewport
-       the image is scaled by height, so we need to slide the wide
-       scaled image left until the figure hits the viewport centre) */
-    .hero-bg { object-position: 12% center; }
+    /* 22% shifts the image so the figure lands at ~25% from viewport left,
+       leaving the cloud/mist zone filling the right side of the frame.
+       (figure is at 22% of the 4000px original; on a tall narrow viewport
+       the image scales by height to ~1444px wide, leaving ~1069px excess;
+       22% of that excess = 235px shift puts figure at ~83px = ~22% left) */
+    .hero-bg { object-position: 22% center; }
     .hero-content { padding: 0 6%; }
     /* 17vh puts the headline in the open sky/cloud zone above the figure */
     .hero-headline-group { margin-top: 17vh; }

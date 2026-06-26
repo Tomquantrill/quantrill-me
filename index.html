@@ -280,17 +280,12 @@
   .about-right p { font-size: 0.9375rem; color: var(--slate); line-height: 1.85; margin-bottom: 1rem; font-weight: 300; }
   .about-right p:last-child { margin-bottom: 0; }
 
-  /* ─── MAP ───────────────────────────────────────── */
-  .map-section { background: var(--white); padding: 0 3rem 5.5rem; }
-  .map-wrap { max-width: 900px; margin: 0 auto; }
-  .map-container { border-radius: 8px; overflow: hidden; border: 1px solid var(--border); height: 360px; position: relative; }
-  .map-container iframe { width: 100%; height: calc(100% + 32px); border: none; display: block; }
-  .map-overlay {
-    position: absolute; bottom: 12px; left: 12px;
-    background: rgba(250,250,248,0.92); border: 1px solid var(--border);
-    border-radius: 4px; padding: 0.4rem 0.75rem;
-    font-size: 11px; font-weight: 500; color: var(--slate); pointer-events: none;
+  /* ─── PHILOSOPHY ────────────────────────────────── */
+  .philosophy-section p {
+    font-size: 0.9375rem; color: var(--slate); line-height: 1.85;
+    font-weight: 300; margin-bottom: 1rem; max-width: 680px;
   }
+  .philosophy-section p:last-child { margin-bottom: 0; }
 
   /* ─── SERVICES ──────────────────────────────────── */
   .services-grid {
@@ -456,42 +451,16 @@
 
 <div class="divider"></div>
 
-<!-- ─── ABOUT ─────────────────────────────────────── -->
-<section id="about" class="about-section">
+<!-- ─── PHILOSOPHY ────────────────────────────────── -->
+<section class="philosophy-section">
   <div class="section-inner">
-    <p class="section-label">About</p>
-    <div class="about-grid">
-      <div class="about-left">
-        <div class="photo-frame">
-          <img src="tom.jpg" alt="Tom Quantrill" loading="lazy" />
-        </div>
-        <div class="about-tag">📍 Zell am See, Austria</div>
-      </div>
-      <div class="about-right">
-        <h2>I sort digital things out.</h2>
-        <p>I'm Tom Quantrill - originally from the UK, now based in Zell am See after years working across tourism, events and customer experience in Italy, France and Switzerland.</p>
-        <p>I work with small businesses and individuals who want their digital life to actually work for them. That might mean untangling years of disorganised files and logins, setting up systems that run without constant attention, or building something new from scratch. There's no standard package. I start by listening, work out what would actually help, and build around that.</p>
-        <p>The first conversation is always free, and there's no obligation after it.</p>
-      </div>
-    </div>
+    <p>Your desk probably isn't a mess.</p>
+    <p>But somewhere between the third cloud service, the forgotten subscriptions and the email account you stopped checking, things got complicated.</p>
+    <p>It happens to everyone. Sole traders, families, businesses with proper IT departments. The details differ. The problem doesn't.</p>
+    <p>I help you sort it out. We talk first, I work out what's actually going on, and then I fix it. You get a clear handover and something that works.</p>
+    <p>That's it.</p>
   </div>
 </section>
-
-<div class="divider"></div>
-
-<div class="map-section">
-  <div class="map-wrap">
-    <div class="map-container">
-      <iframe
-        src="https://www.openstreetmap.org/export/embed.html?bbox=12.70%2C47.27%2C12.88%2C47.38&layer=mapnik&marker=47.3246%2C12.7982"
-        title="Zell am See, Austria"
-        loading="lazy"
-        referrerpolicy="no-referrer"
-      ></iframe>
-      <div class="map-overlay">Zell am See · Salzburg, Austria &nbsp;·&nbsp; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">© OpenStreetMap</a></div>
-    </div>
-  </div>
-</div>
 
 <div class="divider"></div>
 
@@ -506,57 +475,80 @@
           <div class="service-featured-label">Where it starts</div>
           <div class="service-title">Free Consultation</div>
         </div>
-        <div class="service-desc">Come and talk. I'll listen to how you work, ask the right questions, and be straight with you about what technology could do for you - and what it couldn't. No pitch, no invoice.</div>
+        <div class="service-desc">Tell me what you're dealing with. I'll listen, ask a few questions and be straight with you about whether I can help. No pitch, no invoice.</div>
       </div>
 
       <div class="service-card" tabindex="0" role="button" aria-expanded="false">
         <div class="service-card-header">
-          <div class="service-title">Digital Systems and Automation</div>
+          <div class="service-title">Digital Reset</div>
           <span class="service-expand-icon" aria-hidden="true">+</span>
         </div>
-        <div class="service-desc">Booking systems, guest communications, staff scheduling, review management. I find the manual work that's eating your time and replace it with systems that run themselves.</div>
+        <div class="service-desc">Devices, accounts, passwords, email, photos, backups. The things that have been quietly bothering you for years.</div>
         <div class="service-expand"><div class="service-expand-inner">
-          <p>From booking platforms and automated guest communications to staff scheduling and review tools - if there's a manual process eating your time, I'll find a better way to handle it. Built around the tools you already use and what your team can manage day to day.</p>
+          <p>We work through it together in a single session, remotely, at your pace. You finish with everything set up properly, a clear document explaining how it all works and the option to have your photos and files backed up to a hard drive posted directly to you.</p>
           <span class="service-expand-note">Pricing is tailored to your project. After your free consultation, I'll put together a clear proposal with scope and cost.</span>
         </div></div>
       </div>
 
       <div class="service-card" tabindex="0" role="button" aria-expanded="false">
         <div class="service-card-header">
-          <div class="service-title">Websites and Online Presence</div>
+          <div class="service-title">Website Build</div>
           <span class="service-expand-icon" aria-hidden="true">+</span>
         </div>
-        <div class="service-desc">A clean, functional website built around what you actually need. No bloated templates or unnecessary monthly fees - just something that works and that you can manage yourself.</div>
+        <div class="service-desc">A clean, functional website built around what you actually need.</div>
         <div class="service-expand"><div class="service-expand-inner">
-          <p>Every site is custom, mobile-friendly and built to do a clear job - whether that's attracting new customers, sharing information or taking bookings. I handle design, build, setup and any content guidance you need.</p>
+          <p>No bloated templates, no features you'll never use, no unnecessary monthly costs. I handle the design, build and setup. You get something you can manage yourself.</p>
           <span class="service-expand-note">Pricing is tailored to your project. After your free consultation, I'll put together a clear proposal with scope and cost.</span>
         </div></div>
       </div>
 
       <div class="service-card" tabindex="0" role="button" aria-expanded="false">
         <div class="service-card-header">
-          <div class="service-title">Custom Software Development</div>
+          <div class="service-title">Digital Automation</div>
           <span class="service-expand-icon" aria-hidden="true">+</span>
         </div>
-        <div class="service-desc">Sometimes the right tool doesn't exist yet. I build custom apps and tools designed around how you work - not the other way round.</div>
+        <div class="service-desc">If your business runs on spreadsheets, group chats and remembered processes, there's probably a better way.</div>
         <div class="service-expand"><div class="service-expand-inner">
-          <p>This could be anything from a simple internal tool to a customer-facing app. I handle the full build - design, development, testing and handover - and make sure you can manage it confidently afterwards.</p>
+          <p>I map out how you work, find where time is being lost and build systems that handle the routine work automatically. Built around tools your team already uses.</p>
           <span class="service-expand-note">Pricing is tailored to your project. After your free consultation, I'll put together a clear proposal with scope and cost.</span>
         </div></div>
       </div>
 
       <div class="service-card" tabindex="0" role="button" aria-expanded="false">
         <div class="service-card-header">
-          <div class="service-title">Digital Setup and Clarity</div>
+          <div class="service-title">Custom Build</div>
           <span class="service-expand-icon" aria-hidden="true">+</span>
         </div>
-        <div class="service-desc">Devices, logins, cloud storage, photo libraries, backups, iCloud, email. The digital life that piles up and never gets sorted. I'll get it set up properly, show you how it works, and leave you with something clean and manageable.</div>
+        <div class="service-desc">Sometimes the right tool doesn't exist yet.</div>
         <div class="service-expand"><div class="service-expand-inner">
-          <p>Ideal for anyone getting started or anyone who's accumulated a mess of accounts and tools. I work through it methodically - devices, email, passwords, cloud storage, software - and leave everything documented and easy to manage.</p>
+          <p>I'll build it. From initial conversation through to handover, including documentation so you can manage it confidently afterwards.</p>
           <span class="service-expand-note">Pricing is tailored to your project. After your free consultation, I'll put together a clear proposal with scope and cost.</span>
         </div></div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── ABOUT ─────────────────────────────────────── -->
+<section id="about" class="about-section">
+  <div class="section-inner">
+    <p class="section-label">About</p>
+    <div class="about-grid">
+      <div class="about-left">
+        <div class="photo-frame">
+          <img src="tom.jpg" alt="Tom Quantrill" loading="lazy" />
+        </div>
+        <div class="about-tag">📍 Zell am See, Austria</div>
+      </div>
+      <div class="about-right">
+        <p>I'm Tom Quantrill, originally from Newcastle, now based in Zell am See in the Austrian Alps.</p>
+        <p>I've spent fifteen years working across tourism, customer experience and operations in resorts and businesses across Europe. I've managed teams, built processes from scratch and spent a lot of time working out why things weren't working as well as they should.</p>
+        <p>I work alone, which means the person you speak to is the person who does the work. I offer my services in English and work remotely wherever possible.</p>
+        <p>If you're in Zell am See, we can meet in person.</p>
+      </div>
     </div>
   </div>
 </section>

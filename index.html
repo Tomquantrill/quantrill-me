@@ -75,19 +75,11 @@
 
   /* ─── NAV ─────────────────────────────────────── */
   nav {
-    position: fixed; bottom: 2rem; top: auto; left: 0; right: 0; z-index: 100;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; justify-content: space-between; align-items: center;
     padding: 1rem 3rem;
     background: transparent;
     border-bottom: none;
-    transition: background 0.4s ease, border-color 0.4s ease;
-  }
-  nav.past-hero {
-    top: 0; bottom: auto;
-    background: rgba(250,250,248,0.90);
-    backdrop-filter: blur(20px) saturate(160%);
-    -webkit-backdrop-filter: blur(20px) saturate(160%);
-    border-bottom: 1px solid rgba(0,0,0,0.06);
   }
   .nav-logo { display: flex; align-items: center; gap: 10px; }
   .logo-mark {
@@ -618,6 +610,7 @@
 (function () {
   var nav      = document.getElementById('main-nav');
   var wrapper  = document.querySelector('.hero-scroll-wrapper');
+  var sticky   = document.querySelector('.hero-sticky');
   var bg       = document.querySelector('.hero-bg');
   var eyebrow  = document.getElementById('hero-eyebrow');
   var headline = document.getElementById('hero-headline');
@@ -639,14 +632,16 @@
     var scrolled    = clamp(-rect.top, 0, totalScroll);
     var p           = totalScroll > 0 ? scrolled / totalScroll : 0;
 
-    var pastHero = p >= 0.90;
+    /* Nav: ride image bottom edge up, then pin at top — no snap, continuous motion */
+    var stickyB = sticky.getBoundingClientRect().bottom;
+    var navH    = nav.offsetHeight;
+    var navTop  = Math.max(0, stickyB - navH - 32); /* 32px = 2rem breathing room */
+    nav.style.top = navTop + 'px';
+    var pastHero = stickyB <= 0; /* true once image has fully left the viewport */
     nav.classList.toggle('past-hero', pastHero);
-    if (pastHero) {
-      nav.style.opacity = ''; /* let CSS handle: opaque */
-    }
 
     if (reducedMotion) {
-      nav.classList.add('past-hero'); nav.style.opacity = '';
+      nav.style.opacity = '1';
       bg.style.opacity = 1; bg.style.transform = 'none'; bg.style.filter = 'none';
       eyebrow.style.opacity = 1; eyebrow.style.transform = 'none'; eyebrow.style.filter = 'none';
       headline.style.opacity = 1; headline.style.transform = 'none'; headline.style.filter = 'none';
@@ -660,10 +655,8 @@
     var lp = Math.min((now - loadStart) / LOAD_DUR, 1);
     var lv = easeOut(lp);
 
-    /* Nav: hidden during load + text reveal, fades in after headline completes */
-    if (!pastHero) {
-      nav.style.opacity = String(lp < 1 ? 0 : easeOut(norm(p, 0.55, 0.68)));
-    }
+    /* Nav opacity: hidden during load+text reveal, fades in, stays visible while riding */
+    nav.style.opacity = String(lp < 1 ? 0 : stickyB > 0 ? easeOut(norm(p, 0.55, 0.68)) : 1);
 
     /* Opening reveal: zoom 1.12 → 1.06, fade in, desaturate → full colour */
     var scale = 1.12 - 0.06 * lv;

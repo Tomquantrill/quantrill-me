@@ -161,9 +161,12 @@
   }
 
   /* Headline: cliff face / mist-above-grass zone */
+  #hero-eyebrow { opacity: 0; }
+  #hero-headline { opacity: 0; }
+
   .hero-headline-group {
-    margin-top: 50vh;
-    opacity: 0;
+    margin-top: 64vh;
+    opacity: 1;
     transform-origin: center bottom;
     will-change: opacity, transform, filter;
   }
@@ -377,10 +380,10 @@
        left edge (~10-15% from viewport left), leaving the cloud/mist
        and sandy rock face filling the right portion of the frame */
     .hero-bg { object-position: 32% center; }
-    .hero-content { padding: 0 5% 0 36%; }
+    .hero-content { padding: 0 5% 0 38%; }
     .hero-headline-group { margin-top: 48vh; }
     .hero-sub-group { padding-bottom: 9vh; }
-    .hero-h1 { font-size: clamp(1.25rem, 5.2vw, 2.0rem); }
+    .hero-h1 { font-size: clamp(1.2rem, 4.9vw, 1.9rem); }
 
     section { padding: 3.5rem 1.25rem; }
     .divider { margin: 0 1.25rem; }
@@ -423,9 +426,11 @@
     <div class="hero-overlay"></div>
 
     <div class="hero-content">
-      <div class="hero-headline-group" id="hero-headline">
-        <p class="hero-eyebrow">Digital Consultancy<br>Based in the Alps</p>
-        <h1 class="hero-h1">Simple solutions <br>for digital direction.</h1>
+      <div class="hero-headline-group">
+        <p class="hero-eyebrow" id="hero-eyebrow">Digital Consultancy<br>Based in the Alps</p>
+        <div id="hero-headline">
+          <h1 class="hero-h1">Simple solutions <br>for digital direction.</h1>
+        </div>
       </div>
       <div class="hero-sub-group" id="hero-sub">
         <a href="#contact" class="btn-hero">Contact</a>
@@ -632,6 +637,7 @@
   var nav      = document.getElementById('main-nav');
   var wrapper  = document.querySelector('.hero-scroll-wrapper');
   var bg       = document.querySelector('.hero-bg');
+  var eyebrow  = document.getElementById('hero-eyebrow');
   var headline = document.getElementById('hero-headline');
   var sub      = document.getElementById('hero-sub');
   var hint     = document.getElementById('scroll-hint');
@@ -668,7 +674,12 @@
     /* Scroll hint fades with both load and scroll progress */
     hint.style.opacity = lv * (1 - norm(p, 0, 0.08));
 
-    var hp = easeOut(norm(p, 0.18, 0.46));
+    var ep = easeOut(norm(p, 0.10, 0.28));
+    eyebrow.style.opacity   = ep;
+    eyebrow.style.transform = 'translateY(' + ((1 - ep) * 30) + 'px)';
+    eyebrow.style.filter    = 'blur(' + ((1 - ep) * 6) + 'px)';
+
+    var hp = easeOut(norm(p, 0.33, 0.53));
     headline.style.opacity   = hp;
     headline.style.transform = 'translateY(' + ((1 - hp) * 46) + 'px) scale(' + (0.97 + hp * 0.03) + ')';
     headline.style.filter    = 'blur(' + ((1 - hp) * 11) + 'px) brightness(' + (1 + (1 - hp) * 0.28) + ')';

@@ -5,16 +5,55 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tom Quantrill - Digital Consultancy, Zell am See</title>
 <meta name="description" content="Simple digital solutions for small businesses and individuals. Based in Zell am See, Austria.">
+
+<!-- Open Graph / social sharing -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.quantrill.me">
+<meta property="og:title" content="Tom Quantrill - Digital Consultancy, Zell am See">
+<meta property="og:description" content="Simple digital solutions for small businesses and individuals. Based in Zell am See, Austria.">
+<meta property="og:image" content="https://www.quantrill.me/dolomites.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon.png">
+
+<!-- Preconnect speeds up font loading -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- Preload hero image so it starts fetching immediately -->
+<link rel="preload" as="image" href="dolomites.jpg">
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- LocalBusiness structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Tom Quantrill - Digital Consultancy",
+  "description": "Simple digital solutions for small businesses and individuals. Based in Zell am See, Austria.",
+  "url": "https://www.quantrill.me",
+  "telephone": "+436608375882",
+  "email": "tom@quantrill.me",
+  "founder": { "@type": "Person", "name": "Tom Quantrill" },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Zell am See",
+    "addressRegion": "Salzburg",
+    "addressCountry": "AT"
+  },
+  "image": "https://www.quantrill.me/tom.jpg"
+}
+</script>
+
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     --white:  #FAFAF8;
     --card:   #FFFFFF;
     --stone:  #E8E4DE;
-    --slate:  #6B7280;
+    --slate:  #5F6B79; /* darkened from #6B7280 - passes WCAG AA contrast */
     --ink:    #1C1C1A;
     --sage:   #7D9B8A;
     --border: rgba(0,0,0,0.08);
@@ -55,6 +94,7 @@
   }
   nav.over-hero .nav-name { color: rgba(255,255,255,0.9); }
   .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+  /* Use higher-specificity selectors instead of !important */
   .nav-links a {
     font-size: 13px; font-weight: 400; color: var(--slate); text-decoration: none;
     transition: color 0.2s;
@@ -62,16 +102,17 @@
   nav.over-hero .nav-links a { color: rgba(255,255,255,0.65); }
   .nav-links a:hover { color: var(--ink); }
   nav.over-hero .nav-links a:hover { color: white; }
-  .nav-cta {
-    background: var(--ink) !important; color: var(--white) !important;
-    padding: 0.4rem 1rem; border-radius: 4px; font-weight: 500 !important;
-    transition: background 0.2s !important;
+  .nav-links a.nav-cta {
+    background: var(--ink); color: var(--white);
+    padding: 0.4rem 1rem; border-radius: 4px; font-weight: 500;
+    transition: background 0.2s;
   }
-  nav.over-hero .nav-cta {
-    background: rgba(255,255,255,0.12) !important;
-    border: 1px solid rgba(255,255,255,0.35) !important;
+  nav.over-hero .nav-links a.nav-cta {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.35);
+    color: white;
   }
-  .nav-cta:hover { background: var(--sage) !important; color: white !important; }
+  .nav-links a.nav-cta:hover { background: var(--sage); color: white; }
 
   /* ─── HERO ─────────────────────────────────────── */
   .hero-scroll-wrapper { height: 280vh; }
@@ -107,8 +148,6 @@
     position: absolute; inset: 0;
     display: flex; flex-direction: column;
     padding: 0 8%;
-    max-width: 1400px; margin: 0 auto;
-    left: 0; right: 0;
   }
 
   /* Headline: sits in the cloud/mountain-gap zone */
@@ -251,6 +290,9 @@
   }
   .service-card { background: var(--card); padding: 2rem 1.75rem; cursor: pointer; transition: background 0.2s; }
   .service-card:not(.service-card--featured):hover { background: var(--white); }
+  .service-card:not(.service-card--featured):focus-visible {
+    outline: 2px solid var(--sage); outline-offset: -2px;
+  }
   .service-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.6rem; }
   .service-expand-icon { font-size: 20px; color: var(--slate); line-height: 1; transition: transform 0.25s ease; flex-shrink: 0; font-weight: 300; }
   .service-card.open .service-expand-icon { transform: rotate(45deg); }
@@ -274,6 +316,8 @@
   .contact-detail { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--slate); margin-bottom: 0.5rem; }
   .contact-detail strong { color: var(--ink); font-weight: 500; }
   .form-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 2rem; }
+  /* Form success: replace the form in column 2 */
+  #form-success { grid-column: 2; }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
   .form-group { margin-bottom: 1rem; }
   .form-group label { display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate); margin-bottom: 0.4rem; }
@@ -300,17 +344,32 @@
   .footer-logo-mark { width: 24px; height: 24px; background: rgba(255,255,255,0.1); border-radius: 4px; display: flex; align-items: center; justify-content: center; }
 
   /* ─── RESPONSIVE ────────────────────────────────── */
+  /* Ultrawide: constrain hero text to a readable width */
+  @media (min-width: 1400px) {
+    .hero-content { padding: 0 max(8%, calc(50% - 700px)); }
+  }
+
   @media (max-width: 900px) {
     .service-card--featured { flex-direction: column; align-items: flex-start; gap: 1rem; }
   }
 
+  /* Tablet */
+  @media (min-width: 641px) and (max-width: 860px) {
+    section { padding: 4rem 2rem; }
+    .divider { margin: 0 2rem; }
+    .about-grid { gap: 2.5rem; }
+    .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    #form-success { grid-column: 1; }
+    .form-row { grid-template-columns: 1fr; }
+    .map-section { padding: 0 2rem 4rem; }
+  }
+
+  /* Mobile */
   @media (max-width: 640px) {
-    /* Nav */
     nav { padding: 0.9rem 1.25rem; }
     .nav-name { display: none; }
     .nav-links li:not(:last-child) { display: none; }
 
-    /* Hero - shorter wrapper, tighter layout */
     .hero-scroll-wrapper { height: 200vh; }
     .hero-bg { object-position: center 22%; }
     .hero-content { padding: 0 6%; }
@@ -319,38 +378,23 @@
     .hero-sub { font-size: 0.875rem; max-width: 100%; }
     .hero-sub-group { padding-bottom: 9vh; }
 
-    /* Sections */
     section { padding: 3.5rem 1.25rem; }
     .divider { margin: 0 1.25rem; }
 
-    /* About */
     .about-grid { grid-template-columns: 1fr; gap: 2rem; }
     .photo-frame { aspect-ratio: 3/2; }
 
-    /* Map */
     .map-section { padding: 0 1.25rem 3.5rem; }
     .map-container { height: 260px; }
 
-    /* Services */
     .services-grid { grid-template-columns: 1fr; }
 
-    /* Contact */
     .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    #form-success { grid-column: 1; }
     .form-card { padding: 1.5rem; }
     .form-row { grid-template-columns: 1fr; }
 
-    /* Footer */
     footer { flex-direction: column; gap: 0.4rem; text-align: center; padding: 1.5rem 1.25rem; }
-  }
-
-  /* Tablet: tweak services and contact grids */
-  @media (min-width: 641px) and (max-width: 860px) {
-    section { padding: 4rem 2rem; }
-    .divider { margin: 0 2rem; }
-    .about-grid { gap: 2.5rem; }
-    .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-    .form-row { grid-template-columns: 1fr; }
-    .map-section { padding: 0 2rem 4rem; }
   }
 </style>
 </head>
@@ -359,7 +403,7 @@
 <nav id="main-nav">
   <div class="nav-logo">
     <div class="logo-mark">
-      <svg width="20" height="20" viewBox="0 0 22 22"><text x="2" y="17" font-family="Georgia,serif" font-size="17" fill="white" font-style="italic">tq</text></svg>
+      <svg width="20" height="20" viewBox="0 0 22 22" aria-hidden="true"><text x="2" y="17" font-family="Georgia,serif" font-size="17" fill="white" font-style="italic">tq</text></svg>
     </div>
     <span class="nav-name">quantrill.me</span>
   </div>
@@ -403,7 +447,7 @@
     <div class="about-grid">
       <div class="about-left">
         <div class="photo-frame">
-          <img src="tom.jpg" alt="Tom Quantrill" />
+          <img src="tom.jpg" alt="Tom Quantrill" loading="lazy" />
         </div>
         <div class="about-tag">📍 Zell am See, Austria</div>
       </div>
@@ -428,7 +472,7 @@
         loading="lazy"
         referrerpolicy="no-referrer"
       ></iframe>
-      <div class="map-overlay">Zell am See · Salzburg, Austria &nbsp;·&nbsp; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">© OpenStreetMap</a></div>
+      <div class="map-overlay">Zell am See · Salzburg, Austria &nbsp;·&nbsp; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">© OpenStreetMap</a></div>
     </div>
   </div>
 </div>
@@ -449,10 +493,10 @@
         <div class="service-desc">Come and talk. I'll listen to how you work, ask the right questions, and be straight with you about what technology could do for you - and what it couldn't. No pitch, no invoice.</div>
       </div>
 
-      <div class="service-card">
+      <div class="service-card" tabindex="0" role="button" aria-expanded="false">
         <div class="service-card-header">
           <div class="service-title">Digital Systems and Automation</div>
-          <span class="service-expand-icon">+</span>
+          <span class="service-expand-icon" aria-hidden="true">+</span>
         </div>
         <div class="service-desc">Booking systems, guest communications, staff scheduling, review management. I find the manual work that's eating your time and replace it with systems that run themselves.</div>
         <div class="service-expand"><div class="service-expand-inner">
@@ -461,10 +505,10 @@
         </div></div>
       </div>
 
-      <div class="service-card">
+      <div class="service-card" tabindex="0" role="button" aria-expanded="false">
         <div class="service-card-header">
           <div class="service-title">Websites and Online Presence</div>
-          <span class="service-expand-icon">+</span>
+          <span class="service-expand-icon" aria-hidden="true">+</span>
         </div>
         <div class="service-desc">A clean, functional website built around what you actually need. No bloated templates or unnecessary monthly fees - just something that works and that you can manage yourself.</div>
         <div class="service-expand"><div class="service-expand-inner">
@@ -473,10 +517,10 @@
         </div></div>
       </div>
 
-      <div class="service-card">
+      <div class="service-card" tabindex="0" role="button" aria-expanded="false">
         <div class="service-card-header">
           <div class="service-title">Custom Software Development</div>
-          <span class="service-expand-icon">+</span>
+          <span class="service-expand-icon" aria-hidden="true">+</span>
         </div>
         <div class="service-desc">Sometimes the right tool doesn't exist yet. I build custom apps and tools designed around how you work - not the other way round.</div>
         <div class="service-expand"><div class="service-expand-inner">
@@ -485,10 +529,10 @@
         </div></div>
       </div>
 
-      <div class="service-card">
+      <div class="service-card" tabindex="0" role="button" aria-expanded="false">
         <div class="service-card-header">
           <div class="service-title">Digital Setup and Clarity</div>
-          <span class="service-expand-icon">+</span>
+          <span class="service-expand-icon" aria-hidden="true">+</span>
         </div>
         <div class="service-desc">Devices, logins, cloud storage, photo libraries, backups, iCloud, email. The digital life that piles up and never gets sorted. I'll get it set up properly, show you how it works, and leave you with something clean and manageable.</div>
         <div class="service-expand"><div class="service-expand-inner">
@@ -511,30 +555,46 @@
       <div class="contact-left">
         <h2>Let's have a conversation.</h2>
         <p>The first consultation is free. Tell me what you're dealing with and I'll be honest about whether I can help.</p>
-        <div class="contact-detail"><span style="font-size:15px;">✉</span><span><strong>tom@quantrill.me</strong></span></div>
-        <div class="contact-detail"><span style="font-size:15px;">📞</span><span><strong>+43 660 837 5882</strong></span></div>
-        <div class="contact-detail"><span style="font-size:15px;">📍</span><span>Zell am See, Salzburg</span></div>
+        <div class="contact-detail"><span aria-hidden="true" style="font-size:15px;">✉</span><span><strong>tom@quantrill.me</strong></span></div>
+        <div class="contact-detail"><span aria-hidden="true" style="font-size:15px;">📞</span><span><strong>+43 660 837 5882</strong></span></div>
+        <div class="contact-detail"><span aria-hidden="true" style="font-size:15px;">📍</span><span>Zell am See, Salzburg</span></div>
       </div>
       <form class="form-card" action="https://formspree.io/f/xbdewavv" method="POST" id="contact-form">
         <div class="form-row">
-          <div class="form-group"><label>First name</label><input type="text" name="first_name" placeholder="Anna"></div>
-          <div class="form-group"><label>Last name</label><input type="text" name="last_name" placeholder="Muller"></div>
+          <div class="form-group">
+            <label for="first_name">First name</label>
+            <input type="text" id="first_name" name="first_name" placeholder="Anna" required>
+          </div>
+          <div class="form-group">
+            <label for="last_name">Last name</label>
+            <input type="text" id="last_name" name="last_name" placeholder="Muller">
+          </div>
         </div>
-        <div class="form-group"><label>Business name</label><input type="text" name="business_name" placeholder="Hotel Bergblick"></div>
         <div class="form-group">
-          <label>Type of business</label>
-          <select name="business_type">
+          <label for="business_name">Business name <span style="font-weight:300;text-transform:none;letter-spacing:0;">(optional)</span></label>
+          <input type="text" id="business_name" name="business_name" placeholder="Hotel Bergblick">
+        </div>
+        <div class="form-group">
+          <label for="business_type">Type of enquiry</label>
+          <select id="business_type" name="business_type">
             <option value="">Select one...</option>
             <option>Restaurant / Bar</option>
             <option>Hotel / Accommodation</option>
             <option>Tour operator / Coach</option>
             <option>Retail / Shop</option>
             <option>Entertainment / Events</option>
+            <option>Individual / Personal</option>
             <option>Other</option>
           </select>
         </div>
-        <div class="form-group"><label>Email address</label><input type="email" name="email" placeholder="anna@example.com"></div>
-        <div class="form-group"><label>What are you dealing with?</label><textarea name="message" placeholder="e.g. We manage all our bookings in a spreadsheet and it's becoming unmanageable..."></textarea></div>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" placeholder="anna@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="message">What are you dealing with?</label>
+          <textarea id="message" name="message" placeholder="e.g. We manage all our bookings in a spreadsheet and it's becoming unmanageable..."></textarea>
+        </div>
         <button type="submit" class="form-submit" id="form-submit-btn">Request free consultation</button>
         <p class="form-note">No commitment. I'll get back to you within one business day.</p>
       </form>
@@ -549,7 +609,7 @@
 <!-- ─── FOOTER ────────────────────────────────────── -->
 <footer>
   <div class="footer-logo">
-    <div class="footer-logo-mark"><svg width="14" height="14" viewBox="0 0 22 22"><text x="2" y="17" font-family="Georgia,serif" font-size="17" fill="white" font-style="italic">tq</text></svg></div>
+    <div class="footer-logo-mark"><svg width="14" height="14" viewBox="0 0 22 22" aria-hidden="true"><text x="2" y="17" font-family="Georgia,serif" font-size="17" fill="white" font-style="italic">tq</text></svg></div>
     quantrill.me
   </div>
   <span>Tom Quantrill - Digital Consultancy - Zell am See, Austria</span>
@@ -567,7 +627,6 @@
   function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
   function norm(v, a, b)    { return clamp((v - a) / (b - a), 0, 1); }
   function easeOut(t)       { return 1 - Math.pow(1 - t, 3); }
-  function easeInOut(t)     { return t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t+2,2)/2; }
 
   var ticking = false;
 
@@ -577,29 +636,17 @@
     var scrolled    = clamp(-rect.top, 0, totalScroll);
     var p           = totalScroll > 0 ? scrolled / totalScroll : 0;
 
-    /* Nav: transparent while in hero, normal after */
     nav.classList.toggle('over-hero', scrolled < window.innerHeight * 0.9);
 
-    /* Scroll hint: fades out in first 8% of scroll */
     hint.style.opacity = 1 - norm(p, 0, 0.08);
 
-    /* Background: subtle parallax - slowly drifts up as you scroll
-       scale(1.06) gives 3% padding on each side so edges never show */
-    var parallax = -p * 2.5;
-    bg.style.transform = 'scale(1.06) translateY(' + parallax + '%)';
+    bg.style.transform = 'scale(1.06) translateY(' + (-p * 2.5) + '%)';
 
-    /* Headline: emerges from the cloud gap
-       - starts blurry + bright (like haze), sharpens as it rises
-       - slight scale grow (0.97 → 1.0) for an "approaching" feel
-       - p range: 0.18 → 0.46 */
     var hp = easeOut(norm(p, 0.18, 0.46));
     headline.style.opacity   = hp;
     headline.style.transform = 'translateY(' + ((1 - hp) * 46) + 'px) scale(' + (0.97 + hp * 0.03) + ')';
     headline.style.filter    = 'blur(' + ((1 - hp) * 11) + 'px) brightness(' + (1 + (1 - hp) * 0.28) + ')';
 
-    /* Sub + CTA: drifts up from the grass line
-       - lighter blur treatment, softer easing
-       - p range: 0.52 → 0.80 */
     var sp = easeOut(norm(p, 0.52, 0.80));
     sub.style.opacity   = sp;
     sub.style.transform = 'translateY(' + ((1 - sp) * 28) + 'px)';
@@ -609,19 +656,23 @@
   }
 
   function onScroll() {
-    if (!ticking) {
-      requestAnimationFrame(tick);
-      ticking = true;
-    }
+    if (!ticking) { requestAnimationFrame(tick); ticking = true; }
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', tick);
   tick();
 
-  /* Service card expand */
+  /* Service cards: click and keyboard */
   document.querySelectorAll('.service-card:not(.service-card--featured)').forEach(function (card) {
-    card.addEventListener('click', function () { this.classList.toggle('open'); });
+    function toggle() {
+      var open = card.classList.toggle('open');
+      card.setAttribute('aria-expanded', open);
+    }
+    card.addEventListener('click', toggle);
+    card.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
   });
 
   /* Contact form */

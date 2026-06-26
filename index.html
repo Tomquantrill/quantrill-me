@@ -35,7 +35,7 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": "ProfessionalService",
   "name": "Tom Quantrill - Digital Consultancy",
   "description": "Simple solutions for digital direction. Digital consultancy based in Zell am See, Austria.",
   "url": "https://www.quantrill.me",
@@ -284,7 +284,7 @@
   /* ─── CONTACT ───────────────────────────────────── */
   .contact-section { background: var(--white); }
   .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: start; }
-  .contact-left h2 { font-size: clamp(1.7rem, 2.8vw, 2.3rem); font-weight: 600; line-height: 1.15; color: var(--ink); letter-spacing: -0.025em; margin-bottom: 1rem; }
+  .contact-left h3 { font-size: clamp(1.7rem, 2.8vw, 2.3rem); font-weight: 600; line-height: 1.15; color: var(--ink); letter-spacing: -0.025em; margin-bottom: 1rem; }
   .contact-left p { font-size: 13px; color: var(--slate); line-height: 1.75; font-weight: 300; margin-bottom: 1.75rem; }
   .contact-detail { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--slate); margin-bottom: 0.5rem; }
   .contact-detail a { color: inherit; text-decoration: none; }
@@ -377,6 +377,13 @@
 
     footer { flex-direction: column; gap: 0.4rem; text-align: center; padding: 1.5rem 1.25rem; }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    nav { animation: none; }
+    .scroll-hint-line { animation: none; }
+    .service-expand { transition: none; }
+  }
 </style>
 </head>
 <body>
@@ -423,6 +430,7 @@
 <!-- ─── PHILOSOPHY ────────────────────────────────── -->
 <section class="philosophy-section">
   <div class="section-inner">
+    <h2 class="section-label">Philosophy</h2>
     <p>I'm a firm believer that any good technology, software or system should be there to serve us and to simplify a certain process for us, to make our lives easier, to allow us to be more present, and to remove the administrative and digital tasks that have arisen with the abundance of technology that we now have.</p>
     <p>There's no use in having a brand new phone, a brand new laptop, a subscription service or a piece of software, whether for business or personal use, if it's not being implemented or used to its full potential. People are often in the habit of purchasing something without fully understanding it or how to use it.</p>
     <p>Technology is really there to enable your life, to make your life simpler. I look for solutions across the spectrum to assist you in your digital life, to allow you to be more present, to make things flow easier and to generally just enjoy your technology with less of a headache.</p>
@@ -545,7 +553,7 @@
     <h2 class="section-label">Contact</h2>
     <div class="contact-grid">
       <div class="contact-left">
-        <h2>Let's have a conversation.</h2>
+        <h3>Let's have a conversation.</h3>
         <p>The first consultation is free. Tell me what you're dealing with and I'll be honest about whether I can help.</p>
         <div class="contact-detail"><span aria-hidden="true" style="font-size:15px;">✉</span><a href="mailto:tom@quantrill.me"><strong>tom@quantrill.me</strong></a></div>
         <div class="contact-detail"><span aria-hidden="true" style="font-size:15px;">📞</span><a href="tel:+436608375882"><strong>+43 660 837 5882</strong></a></div>
@@ -555,11 +563,11 @@
         <div class="form-row">
           <div class="form-group">
             <label for="first_name">First name</label>
-            <input type="text" id="first_name" name="first_name" placeholder="Thomas" required>
+            <input type="text" id="first_name" name="first_name" placeholder="Thomas" autocomplete="given-name" required>
           </div>
           <div class="form-group">
             <label for="last_name">Last name</label>
-            <input type="text" id="last_name" name="last_name" placeholder="Muller">
+            <input type="text" id="last_name" name="last_name" placeholder="Muller" autocomplete="family-name">
           </div>
         </div>
         <div class="form-group">
@@ -580,11 +588,11 @@
         </div>
         <div class="form-group">
           <label for="email">Email address</label>
-          <input type="email" id="email" name="email" placeholder="tom@example.com" required>
+          <input type="email" id="email" name="email" placeholder="tom@example.com" autocomplete="email" required>
         </div>
         <div class="form-group">
           <label for="message">What are you dealing with?</label>
-          <textarea id="message" name="message" placeholder="Tell me what's going on..."></textarea>
+          <textarea id="message" name="message" placeholder="Tell me what's going on..." required></textarea>
         </div>
         <button type="submit" class="form-submit" id="form-submit-btn">Request free consultation</button>
         <p class="form-note">No commitment. I'll get back to you within one business day.</p>
@@ -621,16 +629,12 @@
   function norm(v, a, b)    { return clamp((v - a) / (b - a), 0, 1); }
   function easeOut(t)       { return 1 - Math.pow(1 - t, 3); }
 
-  var ticking   = false;
-  var loadStart = performance.now();
-  var LOAD_DUR  = 2400; /* ms for the opening cinematic reveal */
+  var ticking       = false;
+  var loadStart     = performance.now();
+  var LOAD_DUR      = 2400; /* ms for the opening cinematic reveal */
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function tick() {
-    var now = performance.now();
-    /* Load progress: 0 → 1 over LOAD_DUR ms, eased */
-    var lp = Math.min((now - loadStart) / LOAD_DUR, 1);
-    var lv = easeOut(lp);
-
     /* Scroll progress */
     var rect        = wrapper.getBoundingClientRect();
     var totalScroll = wrapper.offsetHeight - window.innerHeight;
@@ -638,6 +642,20 @@
     var p           = totalScroll > 0 ? scrolled / totalScroll : 0;
 
     nav.classList.toggle('over-hero', scrolled < window.innerHeight * 0.9);
+
+    if (reducedMotion) {
+      bg.style.opacity = 1; bg.style.transform = 'none'; bg.style.filter = 'none';
+      eyebrow.style.opacity = 1; eyebrow.style.transform = 'none'; eyebrow.style.filter = 'none';
+      headline.style.opacity = 1; headline.style.transform = 'none'; headline.style.filter = 'none';
+      hint.style.opacity = 0;
+      ticking = false;
+      return;
+    }
+
+    var now = performance.now();
+    /* Load progress: 0 → 1 over LOAD_DUR ms, eased */
+    var lp = Math.min((now - loadStart) / LOAD_DUR, 1);
+    var lv = easeOut(lp);
 
     /* Opening reveal: zoom 1.12 → 1.06, fade in, desaturate → full colour */
     var scale = 1.12 - 0.06 * lv;

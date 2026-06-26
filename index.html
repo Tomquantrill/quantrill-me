@@ -157,12 +157,12 @@
     position: absolute; inset: 0;
     display: flex; flex-direction: column;
     /* Left pad pushes text into the cloud/mist zone right of the figure */
-    padding: 0 8% 0 30%;
+    padding: 0 8% 0 33%;
   }
 
   /* Headline: cliff face / mist-above-grass zone */
   .hero-headline-group {
-    margin-top: 46vh;
+    margin-top: 50vh;
     opacity: 0;
     transform-origin: center bottom;
     will-change: opacity, transform, filter;
@@ -351,7 +351,7 @@
   /* ─── RESPONSIVE ────────────────────────────────── */
   /* Ultrawide: keep text in cloud zone, constrain right side */
   @media (min-width: 1400px) {
-    .hero-content { padding: 0 max(8%, calc(50% - 700px)) 0 30%; }
+    .hero-content { padding: 0 max(8%, calc(50% - 700px)) 0 33%; }
   }
 
   @media (max-width: 900px) {
@@ -435,7 +435,7 @@
     <div class="hero-content">
       <div class="hero-headline-group" id="hero-headline">
         <p class="hero-eyebrow">Digital Consultancy · Zell am See</p>
-        <h1 class="hero-h1">Simple solutions for <br>digital flow.</h1>
+        <h1 class="hero-h1">Simple solutions <br>for digital flow.</h1>
       </div>
       <div class="hero-sub-group" id="hero-sub">
         <a href="#contact" class="btn-hero">Get in touch</a>

@@ -69,6 +69,10 @@
   }
 
   /* ─── NAV ─────────────────────────────────────── */
+  @keyframes navIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; justify-content: space-between; align-items: center;
@@ -76,6 +80,7 @@
     background: rgba(250,250,248,0.95); backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
     transition: background 0.5s ease, border-color 0.5s ease;
+    animation: navIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.25s both;
   }
   nav.over-hero {
     background: rgba(0,0,0,0);
@@ -120,17 +125,21 @@
   .hero-sticky {
     position: sticky; top: 0;
     height: 100vh; overflow: hidden;
+    background: #000; /* holds colour during image reveal */
   }
 
   .hero-bg {
     position: absolute; inset: 0;
     width: 100%; height: 100%;
     object-fit: cover;
-    object-position: center 28%;
+    /* 30% horizontal: shifts image left so figure sits at ~22% viewport left
+       and the cloud/mist zone around the peak lands at ~30% where text starts */
+    object-position: 30% 28%;
     display: block;
-    transform: scale(1.06);
+    opacity: 0; /* JS animates this during load */
+    transform: scale(1.12);
     transform-origin: center center;
-    will-change: transform;
+    will-change: transform, filter, opacity;
   }
 
   .hero-overlay {
@@ -147,7 +156,8 @@
   .hero-content {
     position: absolute; inset: 0;
     display: flex; flex-direction: column;
-    padding: 0 8%;
+    /* Left pad pushes text into the cloud/mist zone right of the figure */
+    padding: 0 8% 0 30%;
   }
 
   /* Headline: sits in the cloud/mountain-gap zone */
@@ -344,9 +354,9 @@
   .footer-logo-mark { width: 24px; height: 24px; background: rgba(255,255,255,0.1); border-radius: 4px; display: flex; align-items: center; justify-content: center; }
 
   /* ─── RESPONSIVE ────────────────────────────────── */
-  /* Ultrawide: constrain hero text to a readable width */
+  /* Ultrawide: keep text in cloud zone, constrain right side */
   @media (min-width: 1400px) {
-    .hero-content { padding: 0 max(8%, calc(50% - 700px)); }
+    .hero-content { padding: 0 max(8%, calc(50% - 700px)) 0 30%; }
   }
 
   @media (max-width: 900px) {
@@ -362,6 +372,8 @@
     #form-success { grid-column: 1; }
     .form-row { grid-template-columns: 1fr; }
     .map-section { padding: 0 2rem 4rem; }
+    /* Tablet hero: slightly less left padding, figure still left of text */
+    .hero-content { padding: 0 6% 0 18%; }
   }
 
   /* Mobile */
@@ -371,9 +383,14 @@
     .nav-links li:not(:last-child) { display: none; }
 
     .hero-scroll-wrapper { height: 200vh; }
-    .hero-bg { object-position: center 22%; }
+    /* 12% shifts the image right enough to centre the figure
+       (figure is at 22% of the 4000px image; on a tall narrow viewport
+       the image is scaled by height, so we need to slide the wide
+       scaled image left until the figure hits the viewport centre) */
+    .hero-bg { object-position: 12% center; }
     .hero-content { padding: 0 6%; }
-    .hero-headline-group { margin-top: 20vh; }
+    /* 17vh puts the headline in the open sky/cloud zone above the figure */
+    .hero-headline-group { margin-top: 17vh; }
     .hero-h1 { font-size: clamp(1.8rem, 7.5vw, 2.6rem); }
     .hero-sub { font-size: 0.875rem; max-width: 100%; }
     .hero-sub-group { padding-bottom: 9vh; }
@@ -628,9 +645,17 @@
   function norm(v, a, b)    { return clamp((v - a) / (b - a), 0, 1); }
   function easeOut(t)       { return 1 - Math.pow(1 - t, 3); }
 
-  var ticking = false;
+  var ticking   = false;
+  var loadStart = performance.now();
+  var LOAD_DUR  = 2400; /* ms for the opening cinematic reveal */
 
   function tick() {
+    var now = performance.now();
+    /* Load progress: 0 → 1 over LOAD_DUR ms, eased */
+    var lp = Math.min((now - loadStart) / LOAD_DUR, 1);
+    var lv = easeOut(lp);
+
+    /* Scroll progress */
     var rect        = wrapper.getBoundingClientRect();
     var totalScroll = wrapper.offsetHeight - window.innerHeight;
     var scrolled    = clamp(-rect.top, 0, totalScroll);
@@ -638,9 +663,15 @@
 
     nav.classList.toggle('over-hero', scrolled < window.innerHeight * 0.9);
 
-    hint.style.opacity = 1 - norm(p, 0, 0.08);
+    /* Opening reveal: zoom 1.12 → 1.06, fade in, desaturate → full colour */
+    var scale = 1.12 - 0.06 * lv;
+    var drift = -p * 2.5;
+    bg.style.opacity   = lv;
+    bg.style.transform = 'scale(' + scale + ') translateY(' + drift + '%)';
+    bg.style.filter    = 'brightness(' + (1.3 - 0.3 * lv) + ') saturate(' + (0.6 + 0.4 * lv) + ')';
 
-    bg.style.transform = 'scale(1.06) translateY(' + (-p * 2.5) + '%)';
+    /* Scroll hint fades with both load and scroll progress */
+    hint.style.opacity = lv * (1 - norm(p, 0, 0.08));
 
     var hp = easeOut(norm(p, 0.18, 0.46));
     headline.style.opacity   = hp;
@@ -653,6 +684,8 @@
     sub.style.filter    = 'blur(' + ((1 - sp) * 4) + 'px)';
 
     ticking = false;
+    /* Keep looping until load animation finishes */
+    if (lp < 1) { ticking = true; requestAnimationFrame(tick); }
   }
 
   function onScroll() {
@@ -660,8 +693,8 @@
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', tick);
-  tick();
+  window.addEventListener('resize', onScroll);
+  tick(); /* kick off immediately — starts the load animation */
 
   /* Service cards: click and keyboard */
   document.querySelectorAll('.service-card:not(.service-card--featured)').forEach(function (card) {

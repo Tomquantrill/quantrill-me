@@ -192,23 +192,25 @@
 
   /* CTA: sits on the grass */
   .hero-sub-group {
-    margin-top: auto;
-    padding-bottom: 10vh;
+    position: absolute;
+    left: 14%;
+    top: 49%;
     opacity: 0;
-    will-change: opacity, transform, filter;
+    will-change: opacity, transform;
   }
 
   .btn-hero {
-    display: inline-flex; align-items: center;
-    border: 1.5px solid rgba(255,255,255,0.6);
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(10px);
-    color: white; padding: 0.75rem 1.7rem;
-    border-radius: 4px; font-size: 13px; font-weight: 500;
-    letter-spacing: 0.03em; text-decoration: none;
-    transition: background 0.25s, border-color 0.25s;
+    display: inline-block;
+    border: 1.5px solid rgba(0,0,0,0.65);
+    background: transparent;
+    color: rgba(0,0,0,0.82);
+    padding: 0.38rem 1.0rem;
+    border-radius: 4px; font-size: 11px; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s;
   }
-  .btn-hero:hover { background: rgba(255,255,255,0.20); border-color: white; }
+  .btn-hero:hover { background: rgba(0,0,0,0.07); }
 
   /* Scroll hint */
   .scroll-hint {
@@ -382,7 +384,7 @@
     .hero-bg { object-position: 32% center; }
     .hero-content { padding: 0 5% 0 37%; }
     .hero-headline-group { margin-top: 48vh; }
-    .hero-sub-group { padding-bottom: 9vh; }
+    .hero-sub-group { left: 3%; top: 48%; }
     .hero-h1 { font-size: clamp(1.3rem, 5.0vw, 2.0rem); }
 
     section { padding: 3.5rem 1.25rem; }
@@ -684,10 +686,9 @@
     headline.style.transform = 'translateY(' + ((1 - hp) * 46) + 'px) scale(' + (0.97 + hp * 0.03) + ')';
     headline.style.filter    = 'blur(' + ((1 - hp) * 11) + 'px) brightness(' + (1 + (1 - hp) * 0.28) + ')';
 
-    var sp = easeOut(norm(p, 0.52, 0.80));
+    var sp = easeOut(norm(p, 0.65, 0.82));
     sub.style.opacity   = sp;
-    sub.style.transform = 'translateY(' + ((1 - sp) * 28) + 'px)';
-    sub.style.filter    = 'blur(' + ((1 - sp) * 4) + 'px)';
+    sub.style.transform = 'translateY(' + ((1 - sp) * 18) + 'px)';
 
     ticking = false;
     /* Keep looping until load animation finishes */

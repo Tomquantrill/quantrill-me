@@ -77,13 +77,15 @@
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; justify-content: space-between; align-items: center;
     padding: 1rem 3rem;
-    background: rgba(250,250,248,0.95); backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
+    background: rgba(250,250,248,0.55);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
     transition: background 0.5s ease, border-color 0.5s ease;
     animation: navIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.25s both;
   }
   nav.over-hero {
-    background: rgba(0,0,0,0);
+    background: rgba(0,0,0,0.06);
     border-bottom-color: rgba(255,255,255,0.08);
   }
   .nav-logo { display: flex; align-items: center; gap: 10px; }
@@ -160,7 +162,7 @@
 
   /* Headline: cliff face / mist-above-grass zone */
   .hero-headline-group {
-    margin-top: 46vh;
+    margin-top: 50vh;
     opacity: 0;
     transform-origin: center bottom;
     will-change: opacity, transform, filter;
@@ -184,7 +186,7 @@
   }
 
   .hero-h1 {
-    font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+    font-size: clamp(1.9rem, 3.6vw, 3.0rem);
     font-weight: 600; line-height: 1.08;
     color: #FFFFFF;
     letter-spacing: -0.03em;
@@ -385,13 +387,13 @@
     .hero-content { padding: 0 5% 0 36%; }
     .hero-headline-group { margin-top: 48vh; }
     .hero-sub-group { padding-bottom: 9vh; }
-    .hero-h1 { font-size: clamp(1.3rem, 5.5vw, 2.0rem); }
+    .hero-h1 { font-size: clamp(1.4rem, 5.8vw, 2.1rem); }
 
     section { padding: 3.5rem 1.25rem; }
     .divider { margin: 0 1.25rem; }
 
     .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .photo-frame { aspect-ratio: 3/2; }
+    .photo-frame { aspect-ratio: 4/5; }
 
     .services-grid { grid-template-columns: 1fr; }
     .process-strip { grid-template-columns: 1fr; }
@@ -417,7 +419,7 @@
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
     <li><a href="#about">About</a></li>
-    <li><a href="#contact" class="nav-cta">Get in touch</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
@@ -433,7 +435,7 @@
         <h1 class="hero-h1">Simple solutions <br>for technical flow.</h1>
       </div>
       <div class="hero-sub-group" id="hero-sub">
-        <a href="#contact" class="btn-hero">Get in touch</a>
+        <a href="#contact" class="btn-hero">Contact</a>
       </div>
     </div>
 
@@ -551,7 +553,7 @@
         <div class="photo-frame">
           <img src="tom.jpg" alt="Tom Quantrill" loading="lazy" />
         </div>
-        <div class="about-tag">📍 Zell am See, Austria</div>
+        <div class="about-tag">Zell am See, Austria</div>
       </div>
       <div class="about-right">
         <p>I'm Tom Quantrill, originally from Newcastle, now based in Zell am See in the Austrian Alps.</p>
@@ -568,20 +570,20 @@
 <!-- ─── CONTACT ───────────────────────────────────── -->
 <section id="contact" class="contact-section">
   <div class="section-inner">
-    <p class="section-label">Get in touch</p>
+    <p class="section-label">Contact</p>
     <div class="contact-grid">
       <div class="contact-left">
         <h2>Let's have a conversation.</h2>
         <p>The first consultation is free. Tell me what you're dealing with and I'll be honest about whether I can help.</p>
         <div class="contact-detail"><span aria-hidden="true" style="font-size:15px;">✉</span><span><strong>tom@quantrill.me</strong></span></div>
         <div class="contact-detail"><span aria-hidden="true" style="font-size:15px;">📞</span><span><strong>+43 660 837 5882</strong></span></div>
-        <div class="contact-detail"><span aria-hidden="true" style="font-size:15px;">📍</span><span>Zell am See, Salzburg</span></div>
+        <div class="contact-detail"><span>Zell am See, Salzburg</span></div>
       </div>
       <form class="form-card" action="https://formspree.io/f/xbdewavv" method="POST" id="contact-form">
         <div class="form-row">
           <div class="form-group">
             <label for="first_name">First name</label>
-            <input type="text" id="first_name" name="first_name" placeholder="Anna" required>
+            <input type="text" id="first_name" name="first_name" placeholder="Thomas" required>
           </div>
           <div class="form-group">
             <label for="last_name">Last name</label>
@@ -590,7 +592,7 @@
         </div>
         <div class="form-group">
           <label for="business_name">Business name <span style="font-weight:300;text-transform:none;letter-spacing:0;">(optional)</span></label>
-          <input type="text" id="business_name" name="business_name" placeholder="Acme Ltd">
+          <input type="text" id="business_name" name="business_name" placeholder="Bayern">
         </div>
         <div class="form-group">
           <label for="business_type">Type of enquiry</label>
@@ -606,7 +608,7 @@
         </div>
         <div class="form-group">
           <label for="email">Email address</label>
-          <input type="email" id="email" name="email" placeholder="anna@example.com" required>
+          <input type="email" id="email" name="email" placeholder="7-1@WC.com" required>
         </div>
         <div class="form-group">
           <label for="message">What are you dealing with?</label>

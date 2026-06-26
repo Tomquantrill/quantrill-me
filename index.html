@@ -173,12 +173,16 @@
     letter-spacing: 0.22em; text-transform: uppercase;
     color: rgba(255,255,255,0.55);
     margin-bottom: 1.1rem;
-    display: flex; align-items: center; gap: 12px;
+    display: block;
+    padding-left: 40px;
+    position: relative;
+    line-height: 1.9;
   }
   .hero-eyebrow::before {
     content: '';
-    display: inline-block; width: 28px; height: 1.5px;
-    background: var(--sage); flex-shrink: 0;
+    position: absolute; left: 0; top: 0.55em;
+    display: block; width: 28px; height: 1.5px;
+    background: var(--sage);
   }
 
   .hero-h1 {
@@ -190,20 +194,12 @@
     max-width: 700px;
   }
 
-  /* Sub text and CTA: sit on the grass */
+  /* CTA: sits on the grass */
   .hero-sub-group {
     margin-top: auto;
     padding-bottom: 10vh;
     opacity: 0;
     will-change: opacity, transform, filter;
-  }
-
-  .hero-sub {
-    color: rgba(255,255,255,0.78);
-    font-size: 0.9375rem; line-height: 1.8;
-    font-weight: 300; max-width: 460px;
-    margin-bottom: 1.85rem;
-    text-shadow: 0 1px 16px rgba(0,0,0,0.32);
   }
 
   .btn-hero {
@@ -366,7 +362,6 @@
     .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
     #form-success { grid-column: 1; }
     .form-row { grid-template-columns: 1fr; }
-    .map-section { padding: 0 2rem 4rem; }
     /* Tablet hero: slightly less left padding, figure still left of text */
     .hero-content { padding: 0 6% 0 18%; }
   }
@@ -384,20 +379,15 @@
     .hero-bg { object-position: 32% center; }
     .hero-content { padding: 0 5% 0 36%; }
     .hero-headline-group { margin-top: 48vh; }
-    .hero-sub-group { padding-bottom: 5vh; }
+    .hero-sub-group { padding-bottom: 9vh; }
     .hero-h1 { font-size: clamp(1.8rem, 7.5vw, 2.6rem); }
     .hero-h1 br { display: none; }
-    .hero-sub { font-size: 0.875rem; max-width: 100%; }
-    .hero-sub-group { padding-bottom: 9vh; }
 
     section { padding: 3.5rem 1.25rem; }
     .divider { margin: 0 1.25rem; }
 
     .about-grid { grid-template-columns: 1fr; gap: 2rem; }
     .photo-frame { aspect-ratio: 3/2; }
-
-    .map-section { padding: 0 1.25rem 3.5rem; }
-    .map-container { height: 260px; }
 
     .services-grid { grid-template-columns: 1fr; }
 
@@ -420,8 +410,8 @@
     <span class="nav-name">quantrill.me</span>
   </div>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
     <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
     <li><a href="#contact" class="nav-cta">Get in touch</a></li>
   </ul>
 </nav>
@@ -429,12 +419,12 @@
 <!-- ─── HERO ──────────────────────────────────────── -->
 <div class="hero-scroll-wrapper">
   <div class="hero-sticky">
-    <img class="hero-bg" src="dolomites.jpg" alt="The Dolomites, Salzburg Alps" />
+    <img class="hero-bg" src="dolomites.jpg" alt="A hiker standing on an Alpine mountain ridge above the clouds" />
     <div class="hero-overlay"></div>
 
     <div class="hero-content">
       <div class="hero-headline-group" id="hero-headline">
-        <p class="hero-eyebrow">Digital Consultancy · Zell am See</p>
+        <p class="hero-eyebrow">Digital Consultancy<br>Zell am See</p>
         <h1 class="hero-h1">Simple solutions <br>for digital flow.</h1>
       </div>
       <div class="hero-sub-group" id="hero-sub">

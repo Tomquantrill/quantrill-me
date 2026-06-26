@@ -81,6 +81,7 @@
     background: rgba(250,250,248,0); /* same hue as site bg, alpha animates to opaque */
     border-bottom: 1px solid rgba(0,0,0,0);
     transition: background 0.35s ease, border-color 0.35s ease;
+    will-change: transform; /* compositor layer — transform updates skip layout reflow */
   }
   nav.past-hero {
     background: rgba(250,250,248,0.92);
@@ -639,15 +640,17 @@
     var scrolled    = clamp(-rect.top, 0, totalScroll);
     var p           = totalScroll > 0 ? scrolled / totalScroll : 0;
 
-    /* Nav: ride image bottom edge up, then pin at top — no snap, continuous motion */
-    var stickyB = sticky.getBoundingClientRect().bottom;
-    var navH    = nav.offsetHeight;
-    var navTop  = Math.max(0, stickyB - navH - 32); /* 32px = 2rem breathing room */
-    nav.style.top = navTop + 'px';
+    /* Nav: ride image bottom edge — transform instead of top avoids layout reflow */
+    var stickyB   = sticky.getBoundingClientRect().bottom;
+    var navH      = nav.offsetHeight;
+    var translateY = Math.max(0, stickyB - navH - 32); /* 32px = 2rem breathing room */
+    nav.style.transform = translateY > 0 ? 'translateY(' + translateY + 'px)' : '';
     var pastHero = stickyB <= 0; /* true once image has fully left the viewport */
     nav.classList.toggle('past-hero', pastHero);
 
     if (reducedMotion) {
+      nav.style.transform = ''; /* pin at top immediately */
+      nav.classList.add('past-hero');
       nav.style.opacity = '1';
       bg.style.opacity = 1; bg.style.transform = 'none'; bg.style.filter = 'none';
       eyebrow.style.opacity = 1; eyebrow.style.transform = 'none'; eyebrow.style.filter = 'none';

@@ -168,6 +168,7 @@
 
   .hero-h1 {
     font-size: 3rem; /* fallback before JS runs; overridden by setAnchor() */
+    white-space: nowrap; /* lines locked by <br> — overflow clips at viewport edge */
     font-weight: 600; line-height: 1.08;
     color: #FFFFFF;
     letter-spacing: -0.03em;
@@ -705,8 +706,8 @@
      The image is sized by JS (no object-fit), so the anchor never drifts
      regardless of viewport shape or breakpoint. */
   var IMG_W = 1920, IMG_H = 1080;
-  var ANCHOR_IMG_X = 630, ANCHOR_IMG_Y = 550;
-  var ANCHOR_VP_Y  = 0.51;
+  var ANCHOR_IMG_X = 630, ANCHOR_IMG_Y = 420;
+  var ANCHOR_VP_Y  = 0.389; /* 420/1080 — cloud/mist band */
   var h1           = document.querySelector('.hero-h1');
   var BASE_H1_PX   = 56; /* font size at native 1920×1080 */
 
@@ -722,8 +723,9 @@
     bg.style.transformOrigin = Math.round(ANCHOR_IMG_X * scale) + 'px ' +
                                Math.round(ANCHOR_IMG_Y * scale) + 'px';
     group.style.top  = Math.round(vpH * ANCHOR_VP_Y) + 'px';
-    /* Font tracks the same scale as the image — text stays proportional to the zone */
-    h1.style.fontSize = Math.max(22, Math.round(BASE_H1_PX * scale)) + 'px';
+    /* Font tracks image scale; cap at 30px on mobile so lines don't dominate the frame */
+    var cap = vpW <= 640 ? 30 : 999;
+    h1.style.fontSize = Math.min(cap, Math.max(22, Math.round(BASE_H1_PX * scale))) + 'px';
   }
 
   function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }

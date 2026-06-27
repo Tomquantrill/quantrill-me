@@ -119,16 +119,11 @@
   }
 
   .hero-bg {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;
-    /* 30% horizontal: shifts image left so figure sits at ~22% viewport left
-       and the cloud/mist zone around the peak lands at ~30% where text starts */
-    object-position: 30% 28%;
+    position: absolute;
     display: block;
-    opacity: 0; /* JS animates this during load */
+    opacity: 0;
     transform: scale(1.12);
-    transform-origin: center center;
+    transform-origin: center center; /* updated by setAnchor() */
     will-change: transform, filter, opacity;
   }
 
@@ -394,10 +389,6 @@
     .nav-name { display: none; }
 
     .hero-scroll-wrapper { height: 200vh; }
-    /* 30% pushes the image further right so the figure lands near the
-       left edge (~10-15% from viewport left), leaving the cloud/mist
-       and sandy rock face filling the right portion of the frame */
-    .hero-bg { object-position: 32% center; }
     .hero-content { padding: 0 5% 0 37%; }
     .hero-h1 { font-size: clamp(1.3rem, 5.0vw, 2.0rem); }
 
@@ -706,32 +697,29 @@
   var headline = document.getElementById('hero-headline');
   var hint     = document.getElementById('scroll-hint');
   var group    = document.querySelector('.hero-headline-group');
+  var content  = document.querySelector('.hero-content');
 
-  /* Image-anchored text positioning.
-     object-fit:cover changes which vertical slice of the image is shown
-     depending on whether the viewport is narrower or wider than the image's
-     own aspect ratio (16:9). A plain top:% drifts as the window resizes
-     across that threshold. This function computes where TARGET_IMAGE_Y
-     (a y-coordinate in the source image) actually lands on screen and pins
-     the text group there, so the text always sits in the cloud/cliff band
-     regardless of viewport shape. */
-  var IMG_W = 1920, IMG_H = 1080, OBJ_POS_Y = 0.28;
-  var TARGET_IMAGE_Y = 550; /* px into the 1920×1080 image — cloud/cliff zone */
+  /* Direct image anchoring.
+     Pins image pixel (ANCHOR_IMG_X, ANCHOR_IMG_Y) — the cliff/cloud band —
+     to viewport position (computed pad-left, ANCHOR_VP_Y × vpH).
+     The image is sized by JS (no object-fit), so the anchor never drifts
+     regardless of viewport shape or breakpoint. */
+  var IMG_W = 1920, IMG_H = 1080;
+  var ANCHOR_IMG_X = 630, ANCHOR_IMG_Y = 550;
+  var ANCHOR_VP_Y  = 0.51;
 
-  function setHeroTextTop() {
-    var vpW = window.innerWidth;
-    var vpH = window.innerHeight;
-    var screenY;
-    if (vpW / vpH <= IMG_W / IMG_H) {
-      /* Scale-by-height: image fills height, no Y overflow — simple linear map */
-      screenY = TARGET_IMAGE_Y * (vpH / IMG_H);
-    } else {
-      /* Scale-by-width: image fills width, overflows vertically.
-         OBJ_POS_Y (28%) determines how much is cropped from the top. */
-      var scale = vpW / IMG_W;
-      screenY = TARGET_IMAGE_Y * scale - (IMG_H * scale - vpH) * OBJ_POS_Y;
-    }
-    group.style.top = Math.round(screenY) + 'px';
+  function setAnchor() {
+    var vpW     = window.innerWidth;
+    var vpH     = window.innerHeight;
+    var scale   = Math.max(vpW / IMG_W, vpH / IMG_H); /* cover: fill the viewport */
+    var padLeft = parseFloat(getComputedStyle(content).paddingLeft);
+    bg.style.width          = Math.ceil(IMG_W * scale) + 'px';
+    bg.style.height         = Math.ceil(IMG_H * scale) + 'px';
+    bg.style.left           = Math.round(padLeft - ANCHOR_IMG_X * scale) + 'px';
+    bg.style.top            = Math.round(vpH * ANCHOR_VP_Y - ANCHOR_IMG_Y * scale) + 'px';
+    bg.style.transformOrigin = Math.round(ANCHOR_IMG_X * scale) + 'px ' +
+                               Math.round(ANCHOR_IMG_Y * scale) + 'px';
+    group.style.top = Math.round(vpH * ANCHOR_VP_Y) + 'px';
   }
 
   function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
@@ -809,8 +797,8 @@
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', function () { setHeroTextTop(); onScroll(); });
-  setHeroTextTop(); /* set before first paint */
+  window.addEventListener('resize', function () { setAnchor(); onScroll(); });
+  setAnchor(); /* set before first paint */
   tick(); /* kick off immediately — starts the load animation */
 
   /* Service cards: click and keyboard */

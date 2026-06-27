@@ -119,11 +119,14 @@
   }
 
   .hero-bg {
-    position: absolute;
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: 30% 28%;
     display: block;
     opacity: 0;
     transform: scale(1.12);
-    transform-origin: center center; /* updated by setAnchor() */
+    transform-origin: center center;
     will-change: transform, filter, opacity;
   }
 
@@ -150,8 +153,7 @@
   #hero-headline { opacity: 0; }
 
   .hero-headline-group {
-    position: absolute;
-    top: 52%; /* JS overrides this with an image-anchored pixel value */
+    margin-top: 58vh;
     opacity: 1;
     transform-origin: center bottom;
     will-change: opacity, transform, filter;
@@ -167,8 +169,7 @@
   }
 
   .hero-h1 {
-    font-size: 3rem; /* fallback before JS runs; overridden by setAnchor() */
-    white-space: nowrap; /* lines locked by <br> — overflow clips at viewport edge */
+    font-size: clamp(2.2rem, 4.2vw, 3.5rem);
     font-weight: 600; line-height: 1.08;
     color: #FFFFFF;
     letter-spacing: -0.03em;
@@ -379,8 +380,7 @@
     .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
     #form-success { grid-column: 1; }
     .form-row { grid-template-columns: 1fr; }
-    /* Tablet hero: match desktop left padding to keep text over cliff/cloud zone */
-    .hero-content { padding: 0 6% 0 34%; }
+    .hero-content { padding: 0 6% 0 18%; }
   }
 
   /* Mobile */
@@ -390,8 +390,10 @@
     .nav-name { display: none; }
 
     .hero-scroll-wrapper { height: 200vh; }
+    .hero-bg { object-position: 32% center; }
     .hero-content { padding: 0 5% 0 37%; }
-    /* hero-h1 font-size set by setAnchor() JS */
+    .hero-headline-group { margin-top: 48vh; }
+    .hero-h1 { font-size: clamp(1.3rem, 5.0vw, 2.0rem); }
 
     section { padding: 3.5rem 1.25rem; }
     .divider { margin: 0 1.25rem; }
@@ -698,35 +700,6 @@
   var headline = document.getElementById('hero-headline');
   var hint     = document.getElementById('scroll-hint');
   var group    = document.querySelector('.hero-headline-group');
-  var content  = document.querySelector('.hero-content');
-
-  /* Direct image anchoring.
-     Pins image pixel (ANCHOR_IMG_X, ANCHOR_IMG_Y) — the cliff/cloud band —
-     to viewport position (computed pad-left, ANCHOR_VP_Y × vpH).
-     The image is sized by JS (no object-fit), so the anchor never drifts
-     regardless of viewport shape or breakpoint. */
-  var IMG_W = 1920, IMG_H = 1080;
-  var ANCHOR_IMG_X = 630, ANCHOR_IMG_Y = 420;
-  var ANCHOR_VP_Y  = 0.389; /* 420/1080 — cloud/mist band */
-  var h1           = document.querySelector('.hero-h1');
-  var BASE_H1_PX   = 56; /* font size at native 1920×1080 */
-
-  function setAnchor() {
-    var vpW     = window.innerWidth;
-    var vpH     = window.innerHeight;
-    var scale   = Math.max(vpW / IMG_W, vpH / IMG_H); /* cover: fill the viewport */
-    var padLeft = parseFloat(getComputedStyle(content).paddingLeft);
-    bg.style.width          = Math.ceil(IMG_W * scale) + 'px';
-    bg.style.height         = Math.ceil(IMG_H * scale) + 'px';
-    bg.style.left           = Math.round(padLeft - ANCHOR_IMG_X * scale) + 'px';
-    bg.style.top            = Math.round(vpH * ANCHOR_VP_Y - ANCHOR_IMG_Y * scale) + 'px';
-    bg.style.transformOrigin = Math.round(ANCHOR_IMG_X * scale) + 'px ' +
-                               Math.round(ANCHOR_IMG_Y * scale) + 'px';
-    group.style.top  = Math.round(vpH * ANCHOR_VP_Y) + 'px';
-    /* Font tracks image scale; cap at 30px on mobile so lines don't dominate the frame */
-    var cap = vpW <= 640 ? 30 : 999;
-    h1.style.fontSize = Math.min(cap, Math.max(22, Math.round(BASE_H1_PX * scale))) + 'px';
-  }
 
   function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
   function norm(v, a, b)    { return clamp((v - a) / (b - a), 0, 1); }
@@ -803,8 +776,7 @@
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', function () { setAnchor(); onScroll(); });
-  setAnchor(); /* set before first paint */
+  window.addEventListener('resize', onScroll);
   tick(); /* kick off immediately — starts the load animation */
 
   /* Service cards: click and keyboard */

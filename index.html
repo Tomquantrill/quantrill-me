@@ -4,18 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tom Quantrill - Digital Consultancy, Zell am See</title>
-<meta name="description" content="Simple solutions for digital direction. Digital consultancy based in Zell am See, Austria.">
+<meta name="description" content="Simple solutions for digital direction. Digital consultancy based in Zell am See.">
 
 <!-- Open Graph / social sharing -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.quantrill.me">
 <meta property="og:title" content="Tom Quantrill - Digital Consultancy, Zell am See">
-<meta property="og:description" content="Simple solutions for digital direction. Digital consultancy based in Zell am See, Austria.">
-<meta property="og:image" content="https://www.quantrill.me/dolomites.jpg">
+<meta property="og:description" content="Simple solutions for digital direction. Digital consultancy based in Zell am See.">
+<meta property="og:image" content="https://www.quantrill.me/cover.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Tom Quantrill - Digital Consultancy, Zell am See">
-<meta name="twitter:description" content="Simple solutions for digital direction. Digital consultancy based in Zell am See, Austria.">
-<meta name="twitter:image" content="https://www.quantrill.me/dolomites.jpg">
+<meta name="twitter:description" content="Simple solutions for digital direction. Digital consultancy based in Zell am See.">
+<meta name="twitter:image" content="https://www.quantrill.me/cover.jpg">
 
 <link rel="canonical" href="https://www.quantrill.me">
 
@@ -27,7 +27,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <!-- Preload hero image so it starts fetching immediately -->
-<link rel="preload" as="image" href="dolomites.jpg">
+<link rel="preload" as="image" href="cover.webp" type="image/webp">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -37,7 +37,7 @@
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   "name": "Tom Quantrill - Digital Consultancy",
-  "description": "Simple solutions for digital direction. Digital consultancy based in Zell am See, Austria.",
+  "description": "Simple solutions for digital direction. Digital consultancy based in Zell am See.",
   "url": "https://www.quantrill.me",
   "telephone": "+436608375882",
   "email": "tom@quantrill.me",
@@ -61,6 +61,7 @@
     --slate:  #5F6B79; /* darkened from #6B7280 - passes WCAG AA contrast */
     --ink:    #1C1C1A;
     --sage:   #7D9B8A;
+    --sage-dark: #527060;
     --border: rgba(0,0,0,0.08);
   }
   html { scroll-behavior: smooth; }
@@ -154,7 +155,8 @@
   #hero-headline { opacity: 0; }
 
   .hero-headline-group {
-    margin-top: 58vh;
+    position: absolute;
+    top: 52%; /* JS overrides this with an image-anchored pixel value */
     opacity: 1;
     transform-origin: center bottom;
     will-change: opacity, transform, filter;
@@ -322,8 +324,41 @@
     border: none; border-radius: 4px; font-family: 'Inter', sans-serif;
     font-size: 13px; font-weight: 500; cursor: pointer; margin-top: 0.5rem; transition: background 0.2s;
   }
-  .form-submit:hover { background: var(--sage); }
+  .form-submit:hover { background: var(--sage-dark); }
   .form-note { text-align: center; font-size: 11px; color: var(--slate); margin-top: 0.6rem; font-weight: 300; }
+
+  /* ─── TESTIMONIALS ──────────────────────────────── */
+  .testimonials-section { background: var(--white); }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .testimonial-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 1.75rem; display: flex; flex-direction: column; gap: 1rem;
+    min-height: 180px;
+  }
+  .testimonial-quote { font-size: 0.9375rem; color: var(--ink); line-height: 1.7; font-weight: 300; }
+  .testimonial-attribution { margin-top: auto; padding-top: 0.5rem; border-top: 1px solid var(--border); }
+  .testimonial-name { font-size: 12px; font-weight: 500; color: var(--ink); display: block; }
+  .testimonial-business { font-size: 11px; color: var(--slate); display: block; margin-top: 2px; }
+  @media (max-width: 860px) {
+    .testimonials-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ─── LANG TOGGLE ───────────────────────────────── */
+  .nav-lang { display: inline-flex; }
+  .lang-toggle {
+    background: none; border: none; padding: 4px 0; margin: 0;
+    font-family: inherit; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.55);
+    transition: color 0.2s;
+  }
+  .lang-opt { color: rgba(255,255,255,0.45); transition: color 0.2s; }
+  .lang-opt--active { color: rgba(255,255,255,0.95); }
+  .lang-sep { opacity: 0.4; font-weight: 300; }
+  nav.past-hero .lang-toggle { color: var(--slate); }
+  nav.past-hero .lang-opt { color: var(--slate); }
+  nav.past-hero .lang-opt--active { color: var(--ink); }
 
   /* ─── FOOTER ────────────────────────────────────── */
   footer { background: var(--ink); color: rgba(255,255,255,0.4); padding: 1.75rem 3rem; display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
@@ -354,8 +389,9 @@
 
   /* Mobile */
   @media (max-width: 640px) {
-    nav { padding: 0.9rem 1.25rem; }
-    .nav-links { gap: 1.25rem; }
+    nav { padding: 0.9rem 1.1rem; }
+    .nav-links { gap: 0.95rem; }
+    .nav-name { display: none; }
 
     .hero-scroll-wrapper { height: 200vh; }
     /* 30% pushes the image further right so the figure lands near the
@@ -363,7 +399,6 @@
        and sandy rock face filling the right portion of the frame */
     .hero-bg { object-position: 32% center; }
     .hero-content { padding: 0 5% 0 37%; }
-    .hero-headline-group { margin-top: 48vh; }
     .hero-h1 { font-size: clamp(1.3rem, 5.0vw, 2.0rem); }
 
     section { padding: 3.5rem 1.25rem; }
@@ -400,9 +435,16 @@
     <span class="nav-name">quantrill.me</span>
   </div>
   <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#services" data-i18n="nav.services">Services</a></li>
+    <li><a href="#about" data-i18n="nav.about">About</a></li>
+    <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+    <li class="nav-lang">
+      <button class="lang-toggle" id="lang-toggle" type="button" aria-label="Switch language">
+        <span class="lang-opt lang-opt--active" data-lang="en">EN</span>
+        <span class="lang-sep">/</span>
+        <span class="lang-opt" data-lang="de">DE</span>
+      </button>
+    </li>
   </ul>
 </nav>
 
@@ -410,14 +452,17 @@
 <!-- ─── HERO ──────────────────────────────────────── -->
 <div class="hero-scroll-wrapper">
   <div class="hero-sticky">
-    <img class="hero-bg" src="dolomites.jpg" alt="A hiker standing on an Alpine mountain ridge above the clouds" fetchpriority="high" />
+    <picture>
+      <source srcset="cover.webp" type="image/webp">
+      <img class="hero-bg" src="cover.jpg" alt="A hiker standing on an Alpine mountain ridge above the clouds" fetchpriority="high" width="1920" height="1080" />
+    </picture>
     <div class="hero-overlay"></div>
 
     <div class="hero-content">
       <div class="hero-headline-group">
-        <p class="hero-eyebrow" id="hero-eyebrow">Digital Consultancy<br>Based in the Alps</p>
+        <p class="hero-eyebrow" id="hero-eyebrow" data-i18n="hero.eyebrow" data-i18n-html>Digital Consultancy<br>Based in the Alps</p>
         <div id="hero-headline">
-          <h1 class="hero-h1">Simple solutions <br>for digital direction.</h1>
+          <h1 class="hero-h1" data-i18n="hero.headline" data-i18n-html>Simple solutions <br>for digital direction.</h1>
         </div>
       </div>
     </div>
@@ -434,10 +479,10 @@
 <!-- ─── PHILOSOPHY ────────────────────────────────── -->
 <section class="philosophy-section">
   <div class="section-inner">
-    <h2 class="section-label">Philosophy</h2>
-    <p>I'm a firm believer that any good technology, software or system should be there to serve us and to simplify a certain process for us, to make our lives easier, to allow us to be more present, and to remove the administrative and digital tasks that have arisen with the abundance of technology that we now have.</p>
-    <p>There's no use in having a brand new phone, a brand new laptop, a subscription service or a piece of software, whether for business or personal use, if it's not being implemented or used to its full potential. People are often in the habit of purchasing something without fully understanding it or how to use it.</p>
-    <p>Technology is really there to enable your life, to make your life simpler. I look for solutions across the spectrum to assist you in your digital life, to allow you to be more present, to make things flow easier and to generally just enjoy your technology with less of a headache.</p>
+    <h2 class="section-label" data-i18n="philosophy.label">Philosophy</h2>
+    <p data-i18n="philosophy.p1">Good technology should serve the work, not generate more of it. The right system runs in the background, takes the admin off your desk, and stays out of the way while you do the actual job.</p>
+    <p data-i18n="philosophy.p2">Most of the tools small operators pay for aren't broken. They're underused. Software bought without a plan to implement it becomes another subscription line on the credit card statement. I look at what you already have before suggesting anything new.</p>
+    <p data-i18n="philosophy.p3">I'm based in Zell am See and I work with businesses across the valley. The mountain doesn't care about your booking system, but the guests it brings you do. The job, as I see it, is putting the right tool in the right place, configuring it properly, and then getting out of the way.</p>
   </div>
 </section>
 
@@ -446,19 +491,19 @@
 <!-- ─── SERVICES ──────────────────────────────────── -->
 <section id="services">
   <div class="section-inner">
-    <h2 class="section-label">What I do</h2>
-    <p class="services-intro">There are four ways I can help. Most people don't know which one fits until we've talked it through, so the first call is free.</p>
+    <h2 class="section-label" data-i18n="services.label">What I do</h2>
+    <p class="services-intro" data-i18n="services.intro">Four services, arranged as a ladder. Most operators come in at the second rung; some only need the first conversation. Everything I build is meant to run on its own after handover — clear documentation, no lock-in, no monthly retainer keeping the lights on.</p>
 
     <div class="process-strip process-strip--2col">
       <div class="process-step">
-        <div class="process-num">STEP 01</div>
-        <div class="process-title">Free consultation</div>
-        <div class="process-desc">30 minutes by video call or in person in Zell am See. No pitch, no invoice.</div>
+        <div class="process-num" data-i18n="services.step1_num">STEP 01</div>
+        <div class="process-title" data-i18n="services.step1_title">Free consultation</div>
+        <div class="process-desc" data-i18n="services.step1_desc">30 minutes by video call or in person in Zell am See. No pitch, no invoice.</div>
       </div>
       <div class="process-step">
-        <div class="process-num">STEP 02</div>
-        <div class="process-title">Matched service</div>
-        <div class="process-desc">I tell you which service fits. If it's more than one, I'll say so. Either way, you get a clear proposal.</div>
+        <div class="process-num" data-i18n="services.step2_num">STEP 02</div>
+        <div class="process-title" data-i18n="services.step2_title">Matched service</div>
+        <div class="process-desc" data-i18n="services.step2_desc">I tell you which service fits. If it's more than one, I'll say so. Either way, you get a clear proposal.</div>
       </div>
     </div>
 
@@ -466,45 +511,45 @@
 
       <div class="service-card" tabindex="0" role="button" aria-expanded="false">
         <div class="service-card-header">
-          <div class="service-title">Digital Reset</div>
+          <div class="service-title" data-i18n="service1.title">Digital Foundations</div>
           <span class="service-expand-icon" aria-hidden="true">+</span>
         </div>
-        <div class="service-desc">Devices, accounts, passwords, email, photos, backups. The things that have been quietly bothering you for years.</div>
+        <div class="service-desc" data-i18n="service1.desc">A structured audit and implementation sprint for businesses that know they're behind on the digital side and want it fixed properly. The usual entry point.</div>
         <div class="service-expand"><div class="service-expand-inner">
-          <p>We work through it together in a single session, remotely, at your pace. You finish with everything set up properly, a clear document explaining how it all works and the option to have your photos and files backed up to a hard drive posted directly to you.</p>
+          <p data-i18n="service1.expand">We go through what's actually in use — accounts, devices, files, email, the workarounds your team has built up over time. I document the current state, fix what's worth fixing in a focused sprint, and hand back a clean foundation you can run yourself.</p>
         </div></div>
       </div>
 
       <div class="service-card" tabindex="0" role="button" aria-expanded="false">
         <div class="service-card-header">
-          <div class="service-title">Website Build</div>
+          <div class="service-title" data-i18n="service2.title">Website</div>
           <span class="service-expand-icon" aria-hidden="true">+</span>
         </div>
-        <div class="service-desc">A clean, functional website built around what you actually need.</div>
+        <div class="service-desc" data-i18n="service2.desc">A website you actually own. Clean, fast, no monthly bloat.</div>
         <div class="service-expand"><div class="service-expand-inner">
-          <p>No bloated templates, no features you'll never use, no unnecessary monthly costs. I handle the design, build and setup. You get something you can manage yourself.</p>
+          <p data-i18n="service2.expand">A lot of small tourism businesses are stuck in expensive agency retainers or template platforms they can't manage themselves. This is the honest alternative. I design, build, and hand over the keys. When you want to change a phone number, you don't have to call anyone.</p>
         </div></div>
       </div>
 
       <div class="service-card" tabindex="0" role="button" aria-expanded="false">
         <div class="service-card-header">
-          <div class="service-title">Digital Automation</div>
+          <div class="service-title" data-i18n="service3.title">Automated Systems</div>
           <span class="service-expand-icon" aria-hidden="true">+</span>
         </div>
-        <div class="service-desc">If your business runs on spreadsheets, group chats and remembered processes, there's probably a better way.</div>
+        <div class="service-desc" data-i18n="service3.desc">Operational efficiency, built around how your business already runs.</div>
         <div class="service-expand"><div class="service-expand-inner">
-          <p>I map out how you work, find where time is being lost and build something to handle it, using tools your team already knows.</p>
+          <p data-i18n="service3.expand">If your day runs on shared spreadsheets, group chats and processes only held in someone's head, there's usually an automation that pays for itself inside a fortnight. I map how you actually work, find the slow seams, and put something quiet in place to handle them — using tools your team already knows.</p>
         </div></div>
       </div>
 
       <div class="service-card" tabindex="0" role="button" aria-expanded="false">
         <div class="service-card-header">
-          <div class="service-title">Custom Build</div>
+          <div class="service-title" data-i18n="service4.title">Custom Build</div>
           <span class="service-expand-icon" aria-hidden="true">+</span>
         </div>
-        <div class="service-desc">Sometimes the right tool doesn't exist yet.</div>
+        <div class="service-desc" data-i18n="service4.desc">Bespoke software, scoped per project. The top of the ladder.</div>
         <div class="service-expand"><div class="service-expand-inner">
-          <p>I'll build it. We talk through what you need, I handle the build, and hand it over with documentation so you can run it yourself.</p>
+          <p data-i18n="service4.expand">Sometimes the right tool doesn't exist yet, or the one that does is the wrong shape. We scope it together, I build it, and it ships with documentation thorough enough that anyone could pick it up if you ever needed them to.</p>
         </div></div>
       </div>
 
@@ -512,9 +557,9 @@
 
     <div class="process-strip process-strip--1col">
       <div class="process-step">
-        <div class="process-num">STEP 03</div>
-        <div class="process-title">Scope, timeline and cost</div>
-        <div class="process-desc">A written proposal with everything agreed upfront. No vague estimates, no surprises.</div>
+        <div class="process-num" data-i18n="services.step3_num">STEP 03</div>
+        <div class="process-title" data-i18n="services.step3_title">Scope, timeline and cost</div>
+        <div class="process-desc" data-i18n="services.step3_desc">A written proposal with everything agreed upfront. No vague estimates, no surprises.</div>
       </div>
     </div>
 
@@ -523,11 +568,48 @@
 
 <div class="divider"></div>
 
+<!-- ─── TESTIMONIALS ──────────────────────────────────
+     Hidden until real testimonials from Zell am See clients
+     are added. To enable: remove style="display:none" below
+     and replace the three placeholder cards with real content. -->
+<section class="testimonials-section" id="testimonials" style="display:none;">
+  <div class="section-inner">
+    <h2 class="section-label" data-i18n="testimonials.label">From the people I work with</h2>
+    <div class="testimonials-grid">
+
+      <article class="testimonial-card">
+        <p class="testimonial-quote">&ldquo;[Testimonial quote — to be added]&rdquo;</p>
+        <div class="testimonial-attribution">
+          <span class="testimonial-name">Name</span>
+          <span class="testimonial-business">Business, Zell am See</span>
+        </div>
+      </article>
+
+      <article class="testimonial-card">
+        <p class="testimonial-quote">&ldquo;[Testimonial quote — to be added]&rdquo;</p>
+        <div class="testimonial-attribution">
+          <span class="testimonial-name">Name</span>
+          <span class="testimonial-business">Business, Zell am See</span>
+        </div>
+      </article>
+
+      <article class="testimonial-card">
+        <p class="testimonial-quote">&ldquo;[Testimonial quote — to be added]&rdquo;</p>
+        <div class="testimonial-attribution">
+          <span class="testimonial-name">Name</span>
+          <span class="testimonial-business">Business, Zell am See</span>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
 <!-- ─── ABOUT ─────────────────────────────────────── -->
 <section id="about" class="about-section">
   <div class="section-inner">
-    <h2 class="section-label">About</h2>
-    <p class="about-intro">I'm Tom Quantrill, originally from Newcastle, now based in Zell am See in the Austrian Alps.</p>
+    <h2 class="section-label" data-i18n="about.label">About</h2>
+    <p class="about-intro" data-i18n="about.intro">I'm Tom Quantrill, originally from Newcastle, now based in Zell am See.</p>
     <div class="about-grid">
       <div class="about-left">
         <div class="photo-frame">
@@ -535,9 +617,9 @@
         </div>
       </div>
       <div class="about-right">
-        <p>I've spent fifteen years working across tourism, customer experience and operations in resorts and businesses across Europe. I've managed teams, built processes from scratch and spent a lot of time working out why things weren't working as well as they should.</p>
-        <p>I work alone, which means the person you speak to is the person who does the work. I offer my services in English and work remotely wherever possible.</p>
-        <p>If you're in Zell am See, we can meet in person.</p>
+        <p data-i18n="about.p1">Fifteen years across tourism, customer experience and operations in resorts and businesses around Europe. Managed teams, built processes from scratch, and spent a lot of time working out why things weren't running the way they should.</p>
+        <p data-i18n="about.p2">I work alone. The person you speak to is the person who does the work — no subcontractors, no agency layer, no hand-off to a junior.</p>
+        <p data-i18n="about.p3">Most of the work is remote. If you're in Zell am See, we can meet over a coffee.</p>
       </div>
     </div>
   </div>
@@ -548,56 +630,56 @@
 <!-- ─── CONTACT ───────────────────────────────────── -->
 <section id="contact" class="contact-section">
   <div class="section-inner">
-    <h2 class="section-label">Contact</h2>
+    <h2 class="section-label" data-i18n="contact.label">Contact</h2>
     <div class="contact-grid">
       <div class="contact-left">
-        <h3>Let's have a conversation.</h3>
-        <p>The first consultation is free. Tell me what you're dealing with and I'll be honest about whether I can help.</p>
+        <h3 data-i18n="contact.heading">Let's have a conversation.</h3>
+        <p data-i18n="contact.intro">The first consultation is free. Tell me what you're dealing with and I'll be honest about whether I can help.</p>
         <div class="contact-detail"><span aria-hidden="true" style="font-size:15px;">✉</span><a href="mailto:tom@quantrill.me"><strong>tom@quantrill.me</strong></a></div>
         <div class="contact-detail"><span aria-hidden="true" style="font-size:15px;">📞</span><a href="tel:+436608375882"><strong>+43 660 837 5882</strong></a></div>
-        <div class="contact-detail"><span>Zell am See, Salzburg</span></div>
+        <div class="contact-detail"><span data-i18n="contact.location">Zell am See, Salzburg</span></div>
       </div>
       <form class="form-card" action="https://formspree.io/f/xbdewavv" method="POST" id="contact-form">
         <div class="form-row">
           <div class="form-group">
-            <label for="first_name">First name</label>
+            <label for="first_name" data-i18n="form.first_name">First name</label>
             <input type="text" id="first_name" name="first_name" placeholder="Thomas" autocomplete="given-name" required>
           </div>
           <div class="form-group">
-            <label for="last_name">Last name</label>
+            <label for="last_name" data-i18n="form.last_name">Last name</label>
             <input type="text" id="last_name" name="last_name" placeholder="Muller" autocomplete="family-name">
           </div>
         </div>
         <div class="form-group">
-          <label for="business_name">Business name <span style="font-weight:300;text-transform:none;letter-spacing:0;">(optional)</span></label>
+          <label for="business_name" data-i18n="form.business_name" data-i18n-html>Business name <span style="font-weight:300;text-transform:none;letter-spacing:0;">(optional)</span></label>
           <input type="text" id="business_name" name="business_name" placeholder="Bayern">
         </div>
         <div class="form-group">
-          <label for="business_type">Type of enquiry</label>
+          <label for="business_type" data-i18n="form.business_type">Type of enquiry</label>
           <select id="business_type" name="business_type">
-            <option value="">Select one...</option>
-            <option>Freelancer / Sole trader</option>
-            <option>Small business</option>
-            <option>Established business</option>
-            <option>Family / Personal</option>
-            <option>Organisation / Charity</option>
-            <option>Other</option>
+            <option value="" data-i18n="form.option_select">Select one...</option>
+            <option data-i18n="form.option_freelancer">Freelancer / Sole trader</option>
+            <option data-i18n="form.option_small">Small business</option>
+            <option data-i18n="form.option_established">Established business</option>
+            <option data-i18n="form.option_family">Family / Personal</option>
+            <option data-i18n="form.option_org">Organisation / Charity</option>
+            <option data-i18n="form.option_other">Other</option>
           </select>
         </div>
         <div class="form-group">
-          <label for="email">Email address</label>
+          <label for="email" data-i18n="form.email">Email address</label>
           <input type="email" id="email" name="email" placeholder="tom@example.com" autocomplete="email" required>
         </div>
         <div class="form-group">
-          <label for="message">What are you dealing with?</label>
-          <textarea id="message" name="message" placeholder="Tell me what's going on..." required></textarea>
+          <label for="message" data-i18n="form.message">What are you dealing with?</label>
+          <textarea id="message" name="message" placeholder="Tell me what's going on..." data-i18n-placeholder="form.message_placeholder" required></textarea>
         </div>
-        <button type="submit" class="form-submit" id="form-submit-btn">Request free consultation</button>
-        <p class="form-note">No commitment, happy to chat.</p>
+        <button type="submit" class="form-submit" id="form-submit-btn" data-i18n="form.submit">Request free consultation</button>
+        <p class="form-note" data-i18n="form.note">No commitment, happy to chat.</p>
       </form>
       <div id="form-success" aria-live="polite" style="display:none; background:var(--card); border:1px solid var(--border); border-radius:8px; padding:2rem; text-align:center;">
-        <p style="font-size:1.3rem; font-weight:600; color:var(--ink); margin-bottom:0.75rem;">Thanks - I'll be in touch.</p>
-        <p style="font-size:13px; color:var(--slate); font-weight:300;">I'll get back to you within one business day.</p>
+        <p style="font-size:1.3rem; font-weight:600; color:var(--ink); margin-bottom:0.75rem;" data-i18n="form.success_title">Thanks - I'll be in touch.</p>
+        <p style="font-size:13px; color:var(--slate); font-weight:300;" data-i18n="form.success_desc">I'll get back to you within one business day.</p>
       </div>
     </div>
   </div>
@@ -611,7 +693,7 @@
     <div class="footer-logo-mark"><img src="tq-logo.png" alt="TQ" width="32" height="32" style="display:block;border-radius:4px;"></div>
     quantrill.me
   </div>
-  <span>Tom Quantrill - Digital Consultancy - Zell am See, Austria</span>
+  <span data-i18n="footer.tagline">Tom Quantrill - Digital Consultancy - Zell am See</span>
 </footer>
 
 <script>
@@ -623,6 +705,34 @@
   var eyebrow  = document.getElementById('hero-eyebrow');
   var headline = document.getElementById('hero-headline');
   var hint     = document.getElementById('scroll-hint');
+  var group    = document.querySelector('.hero-headline-group');
+
+  /* Image-anchored text positioning.
+     object-fit:cover changes which vertical slice of the image is shown
+     depending on whether the viewport is narrower or wider than the image's
+     own aspect ratio (16:9). A plain top:% drifts as the window resizes
+     across that threshold. This function computes where TARGET_IMAGE_Y
+     (a y-coordinate in the source image) actually lands on screen and pins
+     the text group there, so the text always sits in the cloud/cliff band
+     regardless of viewport shape. */
+  var IMG_W = 1920, IMG_H = 1080, OBJ_POS_Y = 0.28;
+  var TARGET_IMAGE_Y = 550; /* px into the 1920×1080 image — cloud/cliff zone */
+
+  function setHeroTextTop() {
+    var vpW = window.innerWidth;
+    var vpH = window.innerHeight;
+    var screenY;
+    if (vpW / vpH <= IMG_W / IMG_H) {
+      /* Scale-by-height: image fills height, no Y overflow — simple linear map */
+      screenY = TARGET_IMAGE_Y * (vpH / IMG_H);
+    } else {
+      /* Scale-by-width: image fills width, overflows vertically.
+         OBJ_POS_Y (28%) determines how much is cropped from the top. */
+      var scale = vpW / IMG_W;
+      screenY = TARGET_IMAGE_Y * scale - (IMG_H * scale - vpH) * OBJ_POS_Y;
+    }
+    group.style.top = Math.round(screenY) + 'px';
+  }
 
   function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
   function norm(v, a, b)    { return clamp((v - a) / (b - a), 0, 1); }
@@ -699,7 +809,8 @@
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
+  window.addEventListener('resize', function () { setHeroTextTop(); onScroll(); });
+  setHeroTextTop(); /* set before first paint */
   tick(); /* kick off immediately — starts the load animation */
 
   /* Service cards: click and keyboard */
@@ -713,6 +824,159 @@
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
     });
   });
+
+  /* ─── i18n ──────────────────────────────────────────
+     German strings are placeholders for review by a native
+     speaker. Structure first, polish later. */
+  var i18n = {
+    en: {
+      'meta.title': 'Tom Quantrill - Digital Consultancy, Zell am See',
+      'meta.description': 'Simple solutions for digital direction. Digital consultancy based in Zell am See.',
+      'nav.services': 'Services',
+      'nav.about': 'About',
+      'nav.contact': 'Contact',
+      'hero.eyebrow': 'Digital Consultancy<br>Based in the Alps',
+      'hero.headline': 'Simple solutions <br>for digital direction.',
+      'philosophy.label': 'Philosophy',
+      'philosophy.p1': "Good technology should serve the work, not generate more of it. The right system runs in the background, takes the admin off your desk, and stays out of the way while you do the actual job.",
+      'philosophy.p2': "Most of the tools small operators pay for aren't broken. They're underused. Software bought without a plan to implement it becomes another subscription line on the credit card statement. I look at what you already have before suggesting anything new.",
+      'philosophy.p3': "I'm based in Zell am See and I work with businesses across the valley. The mountain doesn't care about your booking system, but the guests it brings you do. The job, as I see it, is putting the right tool in the right place, configuring it properly, and then getting out of the way.",
+      'services.label': 'What I do',
+      'services.intro': "Four services, arranged as a ladder. Most operators come in at the second rung; some only need the first conversation. Everything I build is meant to run on its own after handover — clear documentation, no lock-in, no monthly retainer keeping the lights on.",
+      'services.step1_num': 'STEP 01', 'services.step1_title': 'Free consultation', 'services.step1_desc': '30 minutes by video call or in person in Zell am See. No pitch, no invoice.',
+      'services.step2_num': 'STEP 02', 'services.step2_title': 'Matched service', 'services.step2_desc': "I tell you which service fits. If it's more than one, I'll say so. Either way, you get a clear proposal.",
+      'services.step3_num': 'STEP 03', 'services.step3_title': 'Scope, timeline and cost', 'services.step3_desc': 'A written proposal with everything agreed upfront. No vague estimates, no surprises.',
+      'service1.title': 'Digital Foundations',
+      'service1.desc': "A structured audit and implementation sprint for businesses that know they're behind on the digital side and want it fixed properly. The usual entry point.",
+      'service1.expand': "We go through what's actually in use — accounts, devices, files, email, the workarounds your team has built up over time. I document the current state, fix what's worth fixing in a focused sprint, and hand back a clean foundation you can run yourself.",
+      'service2.title': 'Website',
+      'service2.desc': 'A website you actually own. Clean, fast, no monthly bloat.',
+      'service2.expand': "A lot of small tourism businesses are stuck in expensive agency retainers or template platforms they can't manage themselves. This is the honest alternative. I design, build, and hand over the keys. When you want to change a phone number, you don't have to call anyone.",
+      'service3.title': 'Automated Systems',
+      'service3.desc': 'Operational efficiency, built around how your business already runs.',
+      'service3.expand': "If your day runs on shared spreadsheets, group chats and processes only held in someone's head, there's usually an automation that pays for itself inside a fortnight. I map how you actually work, find the slow seams, and put something quiet in place to handle them — using tools your team already knows.",
+      'service4.title': 'Custom Build',
+      'service4.desc': 'Bespoke software, scoped per project. The top of the ladder.',
+      'service4.expand': "Sometimes the right tool doesn't exist yet, or the one that does is the wrong shape. We scope it together, I build it, and it ships with documentation thorough enough that anyone could pick it up if you ever needed them to.",
+      'testimonials.label': 'From the people I work with',
+      'about.label': 'About',
+      'about.intro': "I'm Tom Quantrill, originally from Newcastle, now based in Zell am See.",
+      'about.p1': "Fifteen years across tourism, customer experience and operations in resorts and businesses around Europe. Managed teams, built processes from scratch, and spent a lot of time working out why things weren't running the way they should.",
+      'about.p2': 'I work alone. The person you speak to is the person who does the work — no subcontractors, no agency layer, no hand-off to a junior.',
+      'about.p3': "Most of the work is remote. If you're in Zell am See, we can meet over a coffee.",
+      'contact.label': 'Contact',
+      'contact.heading': "Let's have a conversation.",
+      'contact.intro': "The first consultation is free. Tell me what you're dealing with and I'll be honest about whether I can help.",
+      'contact.location': 'Zell am See, Salzburg',
+      'form.first_name': 'First name', 'form.last_name': 'Last name',
+      'form.business_name': 'Business name <span style="font-weight:300;text-transform:none;letter-spacing:0;">(optional)</span>',
+      'form.business_type': 'Type of enquiry',
+      'form.option_select': 'Select one...', 'form.option_freelancer': 'Freelancer / Sole trader', 'form.option_small': 'Small business', 'form.option_established': 'Established business', 'form.option_family': 'Family / Personal', 'form.option_org': 'Organisation / Charity', 'form.option_other': 'Other',
+      'form.email': 'Email address',
+      'form.message': "What are you dealing with?", 'form.message_placeholder': "Tell me what's going on...",
+      'form.submit': 'Request free consultation', 'form.note': 'No commitment, happy to chat.',
+      'form.success_title': "Thanks - I'll be in touch.", 'form.success_desc': "I'll get back to you within one business day.",
+      'footer.tagline': 'Tom Quantrill - Digital Consultancy - Zell am See'
+    },
+    de: {
+      'meta.title': 'Tom Quantrill - Digitalberatung, Zell am See',
+      'meta.description': 'Einfache Lösungen für digitale Ausrichtung. Digitalberatung in Zell am See.',
+      'nav.services': 'Leistungen',
+      'nav.about': 'Über mich',
+      'nav.contact': 'Kontakt',
+      'hero.eyebrow': 'Digitalberatung<br>In den Alpen',
+      'hero.headline': 'Einfache Lösungen <br>für digitale Klarheit.',
+      'philosophy.label': 'Philosophie',
+      'philosophy.p1': 'Gute Technologie soll der Arbeit dienen und nicht mehr davon erzeugen. Das richtige System läuft im Hintergrund, nimmt die Verwaltung vom Schreibtisch und bleibt aus dem Weg, während Sie Ihre eigentliche Arbeit machen.',
+      'philosophy.p2': 'Die meisten Werkzeuge, für die kleine Betriebe bezahlen, sind nicht kaputt. Sie werden nur nicht genutzt. Software, die ohne Einführungsplan gekauft wird, landet als weitere Abobuchung auf der Kreditkartenabrechnung. Ich schaue zuerst, was schon da ist, bevor ich etwas Neues vorschlage.',
+      'philosophy.p3': 'Ich bin in Zell am See ansässig und arbeite mit Betrieben aus dem ganzen Tal. Der Berg interessiert sich nicht für Ihr Buchungssystem, aber die Gäste, die er Ihnen bringt, schon. Meine Aufgabe ist es, das passende Werkzeug an die richtige Stelle zu setzen, es ordentlich einzurichten und mich dann zurückzuziehen.',
+      'services.label': 'Was ich mache',
+      'services.intro': 'Vier Leistungen, aufgebaut wie eine Leiter. Die meisten Betriebe steigen auf der zweiten Stufe ein; manche brauchen nur das erste Gespräch. Alles, was ich baue, soll nach der Übergabe ohne mich weiterlaufen — saubere Dokumentation, keine Abhängigkeit, kein monatlicher Wartungsvertrag.',
+      'services.step1_num': 'SCHRITT 01', 'services.step1_title': 'Kostenloses Erstgespräch', 'services.step1_desc': '30 Minuten per Videocall oder persönlich in Zell am See. Kein Verkaufsgespräch, keine Rechnung.',
+      'services.step2_num': 'SCHRITT 02', 'services.step2_title': 'Passende Leistung', 'services.step2_desc': 'Ich sage Ihnen, welche Leistung passt. Wenn es mehr als eine ist, sage ich das auch. So oder so bekommen Sie ein klares Angebot.',
+      'services.step3_num': 'SCHRITT 03', 'services.step3_title': 'Umfang, Zeitplan und Kosten', 'services.step3_desc': 'Ein schriftliches Angebot, alles im Voraus festgehalten. Keine vagen Schätzungen, keine Überraschungen.',
+      'service1.title': 'Digitale Grundlagen',
+      'service1.desc': 'Strukturiertes Audit und Umsetzungssprint für Betriebe, die wissen, dass sie digital hinterherhängen, und es richtig in Ordnung bringen wollen. Der übliche Einstieg.',
+      'service1.expand': 'Wir gehen durch, was tatsächlich im Einsatz ist — Konten, Geräte, Dateien, E-Mail, die Workarounds, die sich im Team angesammelt haben. Ich dokumentiere den Ist-Zustand, behebe in einem fokussierten Sprint, was sich lohnt, und hinterlasse eine saubere Grundlage, die Sie selbst weiterführen können.',
+      'service2.title': 'Website',
+      'service2.desc': 'Eine Website, die wirklich Ihnen gehört. Sauber, schnell, ohne monatlichen Ballast.',
+      'service2.expand': 'Viele kleine Tourismusbetriebe stecken in teuren Agenturverträgen oder in Template-Plattformen, die sie selbst nicht verwalten können. Das ist die ehrliche Alternative. Ich gestalte, baue, übergebe die Schlüssel. Wenn Sie eine Telefonnummer ändern wollen, müssen Sie niemanden anrufen.',
+      'service3.title': 'Automatisierte Systeme',
+      'service3.desc': 'Betriebliche Effizienz, gebaut auf dem Weg, wie Ihr Betrieb ohnehin schon läuft.',
+      'service3.expand': 'Wenn Ihr Alltag aus gemeinsamen Tabellen, Gruppenchats und Prozessen besteht, die nur jemand im Kopf hat, gibt es meistens eine Automatisierung, die sich in zwei Wochen rechnet. Ich erfasse, wie Sie tatsächlich arbeiten, finde die langsamen Stellen und setze leise etwas dagegen — mit Werkzeugen, die Ihr Team bereits kennt.',
+      'service4.title': 'Maßgeschneiderter Aufbau',
+      'service4.desc': 'Maßgeschneiderte Software, projektweise abgesteckt. Die oberste Stufe.',
+      'service4.expand': 'Manchmal gibt es das richtige Werkzeug noch nicht, oder das vorhandene hat die falsche Form. Wir definieren den Umfang gemeinsam, ich baue es, und es wird mit einer Dokumentation ausgeliefert, die gründlich genug ist, dass es jemand anderer übernehmen könnte, falls Sie das jemals brauchen.',
+      'testimonials.label': 'Aus dem Tal',
+      'about.label': 'Über mich',
+      'about.intro': 'Ich bin Tom Quantrill, ursprünglich aus Newcastle, jetzt in Zell am See ansässig.',
+      'about.p1': 'Fünfzehn Jahre quer durch Tourismus, Kundenerlebnis und Betrieb in Resorts und Unternehmen in ganz Europa. Teams geführt, Prozesse von Grund auf aufgebaut und viel Zeit damit verbracht herauszufinden, warum Dinge nicht so liefen, wie sie sollten.',
+      'about.p2': 'Ich arbeite allein. Die Person, mit der Sie sprechen, ist die Person, die die Arbeit macht — keine Subunternehmer, keine Agenturebene, keine Übergabe an einen Junior.',
+      'about.p3': 'Der Großteil läuft remote. Wenn Sie in Zell am See sind, treffen wir uns auf einen Kaffee.',
+      'contact.label': 'Kontakt',
+      'contact.heading': 'Lassen Sie uns sprechen.',
+      'contact.intro': 'Das erste Gespräch ist kostenlos. Erzählen Sie mir, woran Sie gerade arbeiten, und ich sage Ihnen ehrlich, ob ich helfen kann.',
+      'contact.location': 'Zell am See, Salzburg',
+      'form.first_name': 'Vorname', 'form.last_name': 'Nachname',
+      'form.business_name': 'Firmenname <span style="font-weight:300;text-transform:none;letter-spacing:0;">(optional)</span>',
+      'form.business_type': 'Art der Anfrage',
+      'form.option_select': 'Bitte auswählen...', 'form.option_freelancer': 'Freiberufler / Einzelunternehmen', 'form.option_small': 'Kleinbetrieb', 'form.option_established': 'Etablierter Betrieb', 'form.option_family': 'Familie / Privat', 'form.option_org': 'Organisation / Verein', 'form.option_other': 'Sonstiges',
+      'form.email': 'E-Mail-Adresse',
+      'form.message': 'Was beschäftigt Sie?', 'form.message_placeholder': 'Erzählen Sie mir, worum es geht...',
+      'form.submit': 'Kostenloses Erstgespräch anfragen', 'form.note': 'Unverbindlich, gerne ein Gespräch.',
+      'form.success_title': 'Danke - ich melde mich.', 'form.success_desc': 'Innerhalb eines Werktages höre ich von mir.',
+      'footer.tagline': 'Tom Quantrill - Digitalberatung - Zell am See'
+    }
+  };
+
+  function applyLang(lang) {
+    if (!i18n[lang]) lang = 'en';
+    var dict = i18n[lang];
+    document.documentElement.lang = lang;
+    if (dict['meta.title']) document.title = dict['meta.title'];
+    if (dict['meta.description']) {
+      var metaDesc = document.querySelector('meta[name="description"]');
+      var ogDesc   = document.querySelector('meta[property="og:description"]');
+      var twDesc   = document.querySelector('meta[name="twitter:description"]');
+      if (metaDesc) metaDesc.setAttribute('content', dict['meta.description']);
+      if (ogDesc)   ogDesc.setAttribute('content', dict['meta.description']);
+      if (twDesc)   twDesc.setAttribute('content', dict['meta.description']);
+    }
+
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n');
+      var value = dict[key];
+      if (value === undefined) return;
+      if (el.hasAttribute('data-i18n-html')) {
+        el.innerHTML = value;
+      } else {
+        el.textContent = value;
+      }
+    });
+
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n-placeholder');
+      var value = dict[key];
+      if (value !== undefined) el.setAttribute('placeholder', value);
+    });
+
+    document.querySelectorAll('.lang-opt').forEach(function (opt) {
+      opt.classList.toggle('lang-opt--active', opt.getAttribute('data-lang') === lang);
+    });
+
+    try { localStorage.setItem('quantrill-lang', lang); } catch (e) {}
+  }
+
+  var storedLang = null;
+  try { storedLang = localStorage.getItem('quantrill-lang'); } catch (e) {}
+  applyLang(storedLang === 'de' ? 'de' : 'en');
+
+  var langToggle = document.getElementById('lang-toggle');
+  if (langToggle) {
+    langToggle.addEventListener('click', function () {
+      applyLang(document.documentElement.lang === 'de' ? 'en' : 'de');
+    });
+  }
 
   /* Contact form */
   var form = document.getElementById('contact-form');

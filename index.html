@@ -840,6 +840,7 @@
       'form.option_select': 'Select one...', 'form.option_freelancer': 'Freelancer / Sole trader', 'form.option_small': 'Small business', 'form.option_established': 'Established business', 'form.option_family': 'Family / Personal', 'form.option_org': 'Organisation / Charity', 'form.option_other': 'Other',
       'form.email': 'Email address',
       'form.message': "What are you dealing with?", 'form.message_placeholder': "Tell me what's going on...",
+      'form.sending': 'Sending...',
       'form.submit': 'Request free consultation', 'form.note': 'No commitment, happy to chat.',
       'form.success_title': "Thanks - I'll be in touch.", 'form.success_desc': "I'll get back to you within one business day.",
       'form.error': 'Something went wrong. Please email <a href="mailto:tom@quantrill.me">tom@quantrill.me</a> directly.',
@@ -890,6 +891,7 @@
       'form.option_select': 'Bitte auswählen...', 'form.option_freelancer': 'Freiberufler / Einzelunternehmen', 'form.option_small': 'Kleinbetrieb', 'form.option_established': 'Etablierter Betrieb', 'form.option_family': 'Familie / Privat', 'form.option_org': 'Organisation / Verein', 'form.option_other': 'Sonstiges',
       'form.email': 'E-Mail-Adresse',
       'form.message': 'Was beschäftigt Sie?', 'form.message_placeholder': 'Erzählen Sie mir, worum es geht...',
+      'form.sending': 'Wird gesendet...',
       'form.submit': 'Kostenloses Erstgespräch anfragen', 'form.note': 'Unverbindlich, gerne ein Gespräch.',
       'form.success_title': 'Danke - ich melde mich.', 'form.success_desc': 'Innerhalb eines Werktages höre ich von mir.',
       'form.error': 'Etwas ist schiefgelaufen. Bitte schreiben Sie mir direkt an <a href="mailto:tom@quantrill.me">tom@quantrill.me</a>.',
@@ -951,7 +953,7 @@
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var btn = document.getElementById('form-submit-btn');
-    btn.textContent = 'Sending...';
+    btn.textContent = i18n[document.documentElement.lang]['form.sending'] || i18n.en['form.sending'];
     btn.disabled = true;
     fetch(form.action, {
       method: 'POST',

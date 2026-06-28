@@ -413,10 +413,19 @@
     footer { flex-direction: column; gap: 0.4rem; text-align: center; padding: 1.5rem 1.25rem; }
   }
 
+  /* ─── SCROLL REVEAL ────────────────────────────── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .scroll-hint-line { animation: none; }
     .service-expand { transition: none; }
+    .reveal { opacity: 1; transform: none; transition: none; }
   }
 </style>
 </head>
@@ -790,6 +799,30 @@
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
     });
   });
+
+  /* Scroll reveal: one-time IntersectionObserver, respects reducedMotion */
+  if (!reducedMotion) {
+    var revealTargets = document.querySelectorAll(
+      '.section-label, .philosophy-section p, .services-intro, .service-card, .about-grid, .contact-left, .form-card'
+    );
+    revealTargets.forEach(function(el) { el.classList.add('reveal'); });
+
+    /* Stagger service cards by index */
+    document.querySelectorAll('.service-card').forEach(function(card, i) {
+      card.style.transitionDelay = (i * 60) + 'ms';
+    });
+
+    var revealObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealTargets.forEach(function(el) { revealObs.observe(el); });
+  }
 
   /* ─── i18n ──────────────────────────────────────────
      German strings are placeholders for review by a native

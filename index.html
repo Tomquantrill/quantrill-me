@@ -76,15 +76,15 @@
 
   /* ─── NAV ─────────────────────────────────────── */
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    position: absolute; bottom: 2rem; left: 0; right: 0; z-index: 100;
     display: flex; justify-content: space-between; align-items: center;
     padding: 1rem 3rem;
-    background: rgba(250,250,248,0); /* same hue as site bg, alpha animates to opaque */
+    background: rgba(250,250,248,0);
     border-bottom: 1px solid rgba(0,0,0,0);
     transition: background 0.35s ease, border-color 0.35s ease;
-    will-change: transform; /* compositor layer — transform updates skip layout reflow */
   }
   nav.past-hero {
+    position: fixed; top: 0; bottom: auto;
     background: rgba(250,250,248,0.92);
     backdrop-filter: blur(20px) saturate(160%);
     -webkit-backdrop-filter: blur(20px) saturate(160%);
@@ -421,31 +421,30 @@
 </head>
 <body>
 
-<nav id="main-nav" aria-label="Main navigation">
-  <div class="nav-logo">
-    <div class="logo-mark">
-      <img src="logo.png" alt="TQ" width="32" height="32" style="display:block;border-radius:5px;">
-    </div>
-    <span class="nav-name">quantrill.me</span>
-  </div>
-  <ul class="nav-links">
-    <li><a href="#services" data-i18n="nav.services">Services</a></li>
-    <li><a href="#about" data-i18n="nav.about">About</a></li>
-    <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
-    <li class="nav-lang">
-      <button class="lang-toggle" id="lang-toggle" type="button" aria-label="Switch language">
-        <span class="lang-opt lang-opt--active" data-lang="en">EN</span>
-        <span class="lang-sep">/</span>
-        <span class="lang-opt" data-lang="de">DE</span>
-      </button>
-    </li>
-  </ul>
-</nav>
-
 <main>
 <!-- ─── HERO ──────────────────────────────────────── -->
 <div class="hero-scroll-wrapper">
   <div class="hero-sticky">
+    <nav id="main-nav" aria-label="Main navigation">
+      <div class="nav-logo">
+        <div class="logo-mark">
+          <img src="logo.png" alt="TQ" width="32" height="32" style="display:block;border-radius:5px;">
+        </div>
+        <span class="nav-name">quantrill.me</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#services" data-i18n="nav.services">Services</a></li>
+        <li><a href="#about" data-i18n="nav.about">About</a></li>
+        <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+        <li class="nav-lang">
+          <button class="lang-toggle" id="lang-toggle" type="button" aria-label="Switch language">
+            <span class="lang-opt lang-opt--active" data-lang="en">EN</span>
+            <span class="lang-sep">/</span>
+            <span class="lang-opt" data-lang="de">DE</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
     <img class="hero-bg" src="cover.jpg" alt="A hiker standing on an Alpine mountain ridge above the clouds" fetchpriority="high" />
     <div class="hero-overlay"></div>
 
@@ -714,16 +713,15 @@
     var scrolled    = clamp(-rect.top, 0, totalScroll);
     var p           = totalScroll > 0 ? scrolled / totalScroll : 0;
 
-    /* Nav: ride image bottom edge — transform instead of top avoids layout reflow */
-    var stickyB   = sticky.getBoundingClientRect().bottom;
-    var navH      = nav.offsetHeight;
-    var translateY = Math.max(0, stickyB - navH - 32); /* 32px = 2rem breathing room */
-    nav.style.transform = translateY > 0 ? 'translateY(' + translateY + 'px)' : '';
-    var pastHero = stickyB <= 0; /* true once image has fully left the viewport */
+    /* Nav lives inside .hero-sticky (position:absolute; bottom:2rem) so it rides
+       the sticky container with zero JS. We only toggle past-hero when the nav
+       has physically risen to the viewport top, switching it to position:fixed. */
+    var stickyB  = sticky.getBoundingClientRect().bottom;
+    var navH     = nav.offsetHeight;
+    var pastHero = stickyB <= navH + 32;
     nav.classList.toggle('past-hero', pastHero);
 
     if (reducedMotion) {
-      nav.style.transform = ''; /* pin at top immediately */
       nav.classList.add('past-hero');
       nav.style.opacity = '1';
       bg.style.opacity = 1; bg.style.transform = 'none'; bg.style.filter = 'none';
@@ -740,7 +738,7 @@
     var lv = easeOut(lp);
 
     /* Nav opacity: hidden during load+text reveal, fades in, stays visible while riding */
-    nav.style.opacity = String(lp < 1 ? 0 : stickyB > 0 ? easeOut(norm(p, 0.55, 0.68)) : 1);
+    nav.style.opacity = String(lp < 1 ? 0 : !pastHero ? easeOut(norm(p, 0.55, 0.68)) : 1);
 
     /* Opening reveal: zoom 1.12 → 1.06, fade in, desaturate → full colour */
     var scale = 1.12 - 0.06 * lv;

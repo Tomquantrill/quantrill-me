@@ -714,13 +714,18 @@
     var scrolled    = clamp(-rect.top, 0, totalScroll);
     var p           = totalScroll > 0 ? scrolled / totalScroll : 0;
 
-    /* Nav: ride image bottom edge — transform instead of top avoids layout reflow */
-    var stickyB   = sticky.getBoundingClientRect().bottom;
-    var navH      = nav.offsetHeight;
+    /* Nav: ride image bottom edge — transform instead of top avoids layout reflow.
+       While the hero is fully pinned (scrolled < totalScroll), stickyB is exactly
+       window.innerHeight — use that directly to avoid getBCR subpixel jitter.
+       Only call getBCR during the exit phase when the hero is scrolling off. */
+    var navH    = nav.offsetHeight;
+    var stickyB = scrolled < totalScroll
+      ? window.innerHeight
+      : sticky.getBoundingClientRect().bottom;
+    var pastHero   = stickyB <= 0;
+    nav.classList.toggle('past-hero', pastHero);
     var translateY = Math.max(0, stickyB - navH - 32); /* 32px = 2rem breathing room */
     nav.style.transform = translateY > 0 ? 'translateY(' + translateY + 'px)' : '';
-    var pastHero = stickyB <= 0; /* true once image has fully left the viewport */
-    nav.classList.toggle('past-hero', pastHero);
 
     if (reducedMotion) {
       nav.style.transform = ''; /* pin at top immediately */

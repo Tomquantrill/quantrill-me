@@ -83,8 +83,7 @@
     border-bottom: 1px solid rgba(0,0,0,0);
     transition: background 0.35s ease, border-color 0.35s ease;
     will-change: transform;
-    transform: translateY(calc(100vh - 100% - 2rem)); /* fallback */
-    transform: translateY(calc(100dvh - 100% - 2rem)); /* pins to viewport bottom — CSS, no JS */
+    transform: translateY(var(--nav-hero-y, 0px)); /* set once on load/resize, never on scroll */
   }
   nav.past-hero {
     background: rgba(250,250,248,0.92);
@@ -717,19 +716,11 @@
     var scrolled    = clamp(-rect.top, 0, totalScroll);
     var p           = totalScroll > 0 ? scrolled / totalScroll : 0;
 
-    /* Nav position is CSS-driven during the pinned hero phase
-       (transform: translateY(calc(100dvh - 100% - 2rem)) in stylesheet).
-       JS only takes over for the brief exit phase as the hero scrolls off,
-       then past-hero class takes it from there. */
+    /* Nav: JS only toggles past-hero class. Position is set once as a CSS custom
+       property (--nav-hero-y) on load/resize — never touched during scroll. */
     var stickyB  = sticky.getBoundingClientRect().bottom;
     var pastHero = stickyB <= 0;
     nav.classList.toggle('past-hero', pastHero);
-    if (!pastHero && scrolled >= totalScroll) {
-      var navH = nav.offsetHeight;
-      nav.style.transform = 'translateY(' + Math.max(0, stickyB - navH - 32) + 'px)';
-    } else {
-      nav.style.transform = ''; /* hand back to CSS */
-    }
 
     if (reducedMotion) {
       nav.style.transform = ''; /* pin at top immediately */
@@ -749,7 +740,7 @@
     var lv = easeOut(lp);
 
     /* Nav opacity: hidden during load+text reveal, fades in, stays visible while riding */
-    nav.style.opacity = String(lp < 1 ? 0 : stickyB > 0 ? easeOut(norm(p, 0.55, 0.68)) : 1);
+    nav.style.opacity = String(lp < 1 ? 0 : !pastHero ? easeOut(norm(p, 0.55, 0.68)) : 1);
 
     /* Opening reveal: zoom 1.12 → 1.06, fade in, desaturate → full colour */
     var scale = 1.12 - 0.06 * lv;
@@ -781,8 +772,14 @@
     if (!ticking) { requestAnimationFrame(tick); ticking = true; }
   }
 
+  /* Calculate nav bottom-of-viewport position once — never recalculate on scroll */
+  function setNavBottom() {
+    nav.style.setProperty('--nav-hero-y', (window.innerHeight - nav.offsetHeight - 32) + 'px');
+  }
+
   window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
+  window.addEventListener('resize', function () { setNavBottom(); onScroll(); });
+  setNavBottom();
   tick(); /* kick off immediately — starts the load animation */
 
   /* Service cards: click and keyboard */

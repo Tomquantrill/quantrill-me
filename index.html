@@ -79,18 +79,16 @@
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; justify-content: space-between; align-items: center;
     padding: 1rem 3rem;
-    background: rgba(250,250,248,0);
+    background: rgba(250,250,248,0); /* same hue as site bg, alpha animates to opaque */
     border-bottom: 1px solid rgba(0,0,0,0);
     transition: background 0.35s ease, border-color 0.35s ease;
-    will-change: transform;
-    transform: translateY(var(--nav-hero-y, 0px)); /* set once on load/resize, never on scroll */
+    will-change: transform; /* compositor layer — transform updates skip layout reflow */
   }
   nav.past-hero {
     background: rgba(250,250,248,0.92);
     backdrop-filter: blur(20px) saturate(160%);
     -webkit-backdrop-filter: blur(20px) saturate(160%);
     border-bottom: 1px solid rgba(0,0,0,0.06);
-    transform: none;
   }
   .nav-logo { display: flex; align-items: center; gap: 10px; }
   .logo-mark {
@@ -716,10 +714,12 @@
     var scrolled    = clamp(-rect.top, 0, totalScroll);
     var p           = totalScroll > 0 ? scrolled / totalScroll : 0;
 
-    /* Nav: JS only toggles past-hero class. Position is set once as a CSS custom
-       property (--nav-hero-y) on load/resize — never touched during scroll. */
-    var stickyB  = sticky.getBoundingClientRect().bottom;
-    var pastHero = stickyB <= 0;
+    /* Nav: ride image bottom edge — transform instead of top avoids layout reflow */
+    var stickyB   = sticky.getBoundingClientRect().bottom;
+    var navH      = nav.offsetHeight;
+    var translateY = Math.max(0, stickyB - navH - 32); /* 32px = 2rem breathing room */
+    nav.style.transform = translateY > 0 ? 'translateY(' + translateY + 'px)' : '';
+    var pastHero = stickyB <= 0; /* true once image has fully left the viewport */
     nav.classList.toggle('past-hero', pastHero);
 
     if (reducedMotion) {
@@ -740,7 +740,7 @@
     var lv = easeOut(lp);
 
     /* Nav opacity: hidden during load+text reveal, fades in, stays visible while riding */
-    nav.style.opacity = String(lp < 1 ? 0 : !pastHero ? easeOut(norm(p, 0.55, 0.68)) : 1);
+    nav.style.opacity = String(lp < 1 ? 0 : stickyB > 0 ? easeOut(norm(p, 0.55, 0.68)) : 1);
 
     /* Opening reveal: zoom 1.12 → 1.06, fade in, desaturate → full colour */
     var scale = 1.12 - 0.06 * lv;
@@ -772,14 +772,8 @@
     if (!ticking) { requestAnimationFrame(tick); ticking = true; }
   }
 
-  /* Calculate nav bottom-of-viewport position once — never recalculate on scroll */
-  function setNavBottom() {
-    nav.style.setProperty('--nav-hero-y', (window.innerHeight - nav.offsetHeight - 32) + 'px');
-  }
-
   window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', function () { setNavBottom(); onScroll(); });
-  setNavBottom();
+  window.addEventListener('resize', onScroll);
   tick(); /* kick off immediately — starts the load animation */
 
   /* Service cards: click and keyboard */

@@ -240,11 +240,11 @@
   .about-right p:last-child { margin-bottom: 0; }
 
   /* ─── PHILOSOPHY ────────────────────────────────── */
-  .philosophy-section p {
-    font-size: 0.9375rem; color: var(--slate); line-height: 1.85;
-    font-weight: 300; margin-bottom: 1rem; max-width: 680px;
-  }
-  .philosophy-section p:last-child { margin-bottom: 0; }
+  .philosophy-section { background: var(--stone); }
+  .philosophy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .philosophy-lead { font-size: 1.4rem; font-weight: 500; color: var(--ink); line-height: 1.4; }
+  .philosophy-body p { font-size: 0.9375rem; color: var(--slate); line-height: 1.85; font-weight: 300; margin-bottom: 1rem; }
+  .philosophy-body p:last-child { margin-bottom: 0; }
 
   /* ─── SERVICES ──────────────────────────────────── */
   .services-grid {
@@ -401,6 +401,8 @@
     section { padding: 3.5rem 1.25rem; }
     .divider { margin: 0 1.25rem; }
 
+    .philosophy-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .philosophy-lead { font-size: 1.15rem; }
     .about-grid { grid-template-columns: 1fr; gap: 2rem; }
     .photo-frame { aspect-ratio: 4/5; }
 
@@ -479,19 +481,19 @@
   </div>
 </div>
 
-<div class="divider"></div>
-
 <!-- ─── PHILOSOPHY ────────────────────────────────── -->
 <section class="philosophy-section" id="philosophy">
   <div class="section-inner">
     <h2 class="section-label" data-i18n="philosophy.label">Philosophy</h2>
-    <p data-i18n="philosophy.p1">Good technology should serve the work, not generate more of it. The right system runs in the background, takes the admin off your desk, and stays out of the way while you do the actual job.</p>
-    <p data-i18n="philosophy.p2">Most of the tools small operators pay for aren't broken. They're underused. Software bought without a plan to implement it becomes another subscription line on the credit card statement. I look at what you already have before suggesting anything new.</p>
-    <p data-i18n="philosophy.p3">I'm based in Zell am See and I work with businesses across the valley. The mountain doesn't care about your booking system, but the guests it brings you do. The job, as I see it, is putting the right tool in the right place, configuring it properly, and then getting out of the way.</p>
+    <div class="philosophy-grid">
+      <p class="philosophy-lead" data-i18n="philosophy.p1">Good technology should serve the work, not generate more of it. The right system runs in the background, takes the admin off your desk, and stays out of the way while you do the actual job.</p>
+      <div class="philosophy-body">
+        <p data-i18n="philosophy.p2">Most of the tools small operators pay for aren't broken. They're underused. Software bought without a plan to implement it becomes another subscription line on the credit card statement. I look at what you already have before suggesting anything new.</p>
+        <p data-i18n="philosophy.p3">I'm based in Zell am See and I work with businesses across the valley. The mountain doesn't care about your booking system, but the guests it brings you do. The job, as I see it, is putting the right tool in the right place, configuring it properly, and then getting out of the way.</p>
+      </div>
+    </div>
   </div>
 </section>
-
-<div class="divider"></div>
 
 <!-- ─── SERVICES ──────────────────────────────────── -->
 <section id="services">

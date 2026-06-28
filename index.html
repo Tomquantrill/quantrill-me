@@ -27,7 +27,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <!-- Preload hero image so it starts fetching immediately -->
-<link rel="preload" as="image" href="cover.jpg">
+<link rel="preload" as="image" href="cover.webp" type="image/webp">
+  <link rel="preload" as="image" href="cover.jpg" type="image/jpeg">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -445,7 +446,10 @@
         </li>
       </ul>
     </nav>
-    <img class="hero-bg" src="cover.jpg" alt="A hiker standing on an Alpine mountain ridge above the clouds" fetchpriority="high" />
+    <picture>
+      <source srcset="cover.webp" type="image/webp">
+      <img class="hero-bg" src="cover.jpg" alt="A hiker standing on an Alpine mountain ridge above the clouds" fetchpriority="high" />
+    </picture>
     <div class="hero-overlay"></div>
 
     <div class="hero-content">
@@ -499,46 +503,46 @@
 
     <div class="services-grid services-grid--cards">
 
-      <div class="service-card" tabindex="0" role="button" aria-expanded="false">
+      <div class="service-card" tabindex="0" role="button" aria-expanded="false" aria-controls="service-expand-1">
         <div class="service-card-header">
           <div class="service-title" data-i18n="service1.title">Digital Foundations</div>
           <span class="service-expand-icon" aria-hidden="true">+</span>
         </div>
         <div class="service-desc" data-i18n="service1.desc">A structured audit and implementation sprint for businesses that know they're behind on the digital side and want it fixed properly. The usual entry point.</div>
-        <div class="service-expand"><div class="service-expand-inner">
+        <div class="service-expand" id="service-expand-1"><div class="service-expand-inner">
           <p data-i18n="service1.expand">We go through what's actually in use — accounts, devices, files, email, the workarounds your team has built up over time. I document the current state, fix what's worth fixing in a focused sprint, and hand back a clean foundation you can run yourself.</p>
         </div></div>
       </div>
 
-      <div class="service-card" tabindex="0" role="button" aria-expanded="false">
+      <div class="service-card" tabindex="0" role="button" aria-expanded="false" aria-controls="service-expand-2">
         <div class="service-card-header">
           <div class="service-title" data-i18n="service2.title">Website</div>
           <span class="service-expand-icon" aria-hidden="true">+</span>
         </div>
         <div class="service-desc" data-i18n="service2.desc">A website you actually own. Clean, fast, no monthly bloat.</div>
-        <div class="service-expand"><div class="service-expand-inner">
+        <div class="service-expand" id="service-expand-2"><div class="service-expand-inner">
           <p data-i18n="service2.expand">A lot of small tourism businesses are stuck in expensive agency retainers or template platforms they can't manage themselves. This is the honest alternative. I design, build, and hand over the keys. When you want to change a phone number, you don't have to call anyone.</p>
         </div></div>
       </div>
 
-      <div class="service-card" tabindex="0" role="button" aria-expanded="false">
+      <div class="service-card" tabindex="0" role="button" aria-expanded="false" aria-controls="service-expand-3">
         <div class="service-card-header">
           <div class="service-title" data-i18n="service3.title">Automated Systems</div>
           <span class="service-expand-icon" aria-hidden="true">+</span>
         </div>
         <div class="service-desc" data-i18n="service3.desc">Operational efficiency, built around how your business already runs.</div>
-        <div class="service-expand"><div class="service-expand-inner">
+        <div class="service-expand" id="service-expand-3"><div class="service-expand-inner">
           <p data-i18n="service3.expand">If your day runs on shared spreadsheets, group chats and processes only held in someone's head, there's usually an automation that pays for itself inside a fortnight. I map how you actually work, find the slow seams, and put something quiet in place to handle them — using tools your team already knows.</p>
         </div></div>
       </div>
 
-      <div class="service-card" tabindex="0" role="button" aria-expanded="false">
+      <div class="service-card" tabindex="0" role="button" aria-expanded="false" aria-controls="service-expand-4">
         <div class="service-card-header">
           <div class="service-title" data-i18n="service4.title">Custom Build</div>
           <span class="service-expand-icon" aria-hidden="true">+</span>
         </div>
         <div class="service-desc" data-i18n="service4.desc">Bespoke software, scoped per project. The top of the ladder.</div>
-        <div class="service-expand"><div class="service-expand-inner">
+        <div class="service-expand" id="service-expand-4"><div class="service-expand-inner">
           <p data-i18n="service4.expand">Sometimes the right tool doesn't exist yet, or the one that does is the wrong shape. We scope it together, I build it, and it ships with documentation thorough enough that anyone could pick it up if you ever needed them to.</p>
         </div></div>
       </div>
@@ -603,7 +607,7 @@
     <div class="about-grid">
       <div class="about-left">
         <div class="photo-frame">
-          <img src="profile.jpg" alt="Tom Quantrill" loading="lazy" />
+          <img src="profile.jpg" alt="Tom Quantrill" loading="lazy" width="1366" height="2048" />
         </div>
       </div>
       <div class="about-right">
@@ -671,6 +675,7 @@
         <p style="font-size:1.3rem; font-weight:600; color:var(--ink); margin-bottom:0.75rem;" data-i18n="form.success_title">Thanks - I'll be in touch.</p>
         <p style="font-size:13px; color:var(--slate); font-weight:300;" data-i18n="form.success_desc">I'll get back to you within one business day.</p>
       </div>
+      <div id="form-error" aria-live="assertive" style="display:none; background:var(--card); border:1px solid var(--border); border-radius:8px; padding:1.25rem 1.5rem; margin-top:1rem; font-size:13px; color:var(--slate);" data-i18n="form.error" data-i18n-html>Something went wrong. Please email <a href="mailto:tom@quantrill.me">tom@quantrill.me</a> directly.</div>
     </div>
   </div>
 </section>
@@ -837,6 +842,7 @@
       'form.message': "What are you dealing with?", 'form.message_placeholder': "Tell me what's going on...",
       'form.submit': 'Request free consultation', 'form.note': 'No commitment, happy to chat.',
       'form.success_title': "Thanks - I'll be in touch.", 'form.success_desc': "I'll get back to you within one business day.",
+      'form.error': 'Something went wrong. Please email <a href="mailto:tom@quantrill.me">tom@quantrill.me</a> directly.',
       'footer.tagline': 'Tom Quantrill - Digital Consultancy - Zell am See'
     },
     de: {
@@ -886,6 +892,7 @@
       'form.message': 'Was beschäftigt Sie?', 'form.message_placeholder': 'Erzählen Sie mir, worum es geht...',
       'form.submit': 'Kostenloses Erstgespräch anfragen', 'form.note': 'Unverbindlich, gerne ein Gespräch.',
       'form.success_title': 'Danke - ich melde mich.', 'form.success_desc': 'Innerhalb eines Werktages höre ich von mir.',
+      'form.error': 'Etwas ist schiefgelaufen. Bitte schreiben Sie mir direkt an <a href="mailto:tom@quantrill.me">tom@quantrill.me</a>.',
       'footer.tagline': 'Tom Quantrill - Digitalberatung - Zell am See'
     }
   };
@@ -955,14 +962,14 @@
         form.style.display = 'none';
         document.getElementById('form-success').style.display = 'block';
       } else {
-        btn.textContent = 'Request free consultation';
+        btn.textContent = i18n[document.documentElement.lang]['form.submit'] || i18n.en['form.submit'];
         btn.disabled = false;
-        alert('Something went wrong. Please email tom@quantrill.me directly.');
+        document.getElementById('form-error').style.display = 'block';
       }
     }).catch(function () {
-      btn.textContent = 'Request free consultation';
+      btn.textContent = i18n[document.documentElement.lang]['form.submit'] || i18n.en['form.submit'];
       btn.disabled = false;
-      alert('Something went wrong. Please email tom@quantrill.me directly.');
+      document.getElementById('form-error').style.display = 'block';
     });
   });
 }());

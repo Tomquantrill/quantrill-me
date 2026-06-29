@@ -1,0 +1,534 @@
+/* ─── Layout ─────────────────────────────────────────────────────────────── */
+
+.wrapper {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 2rem 4rem;
+}
+
+.loading,
+.errorPage {
+  padding: 3rem 2rem;
+  font-size: 14px;
+  color: var(--slate);
+  font-weight: 300;
+}
+
+.errorPage {
+  color: #b91c1c;
+}
+
+/* ─── Page header ─────────────────────────────────────────────────────────── */
+
+.pageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.pageHeaderLeft {
+  min-width: 0;
+}
+
+.pageTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pageSubtitle {
+  font-size: 13px;
+  color: var(--slate);
+  font-weight: 300;
+  margin-top: 2px;
+}
+
+.pageHeaderRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* ─── Save status ─────────────────────────────────────────────────────────── */
+
+.saveStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--slate);
+  white-space: nowrap;
+}
+
+.saveStatusDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--slate);
+  flex-shrink: 0;
+}
+
+.saveStatus_saved .saveStatusDot { background: #1e6e3a; }
+.saveStatus_saving .saveStatusDot { background: var(--slate); opacity: 0.5; }
+.saveStatus_unsaved .saveStatusDot { background: #92400e; }
+
+/* ─── Buttons ─────────────────────────────────────────────────────────────── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0.6rem 1rem;
+  background: var(--ink);
+  color: var(--white);
+  border: none;
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+  min-height: 36px;
+}
+
+.btn:hover { background: #2e2e2b; }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0.6rem 1rem;
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+  min-height: 36px;
+}
+
+.btnSecondary:hover { background: var(--overlay); }
+
+/* ─── Part labels ─────────────────────────────────────────────────────────── */
+
+.partLabel {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--slate);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 2rem 0 1rem;
+}
+
+.partLabelDot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  background: var(--ink);
+  border-radius: 1px;
+  opacity: 0.3;
+  flex-shrink: 0;
+}
+
+/* ─── Accordion ───────────────────────────────────────────────────────────── */
+
+.accordion {
+  border-bottom: 1px solid var(--border);
+}
+
+.accordionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  gap: 1rem;
+  min-height: 52px;
+}
+
+.accordionTitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.accordionIcon {
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--slate);
+  line-height: 1;
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.accordionOpen .accordionIcon {
+  transform: rotate(45deg);
+}
+
+.accordionBody {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.35s ease, opacity 0.3s ease;
+}
+
+.accordionBodyOpen {
+  max-height: 9999px;
+  opacity: 1;
+}
+
+.accordionBodyInner {
+  padding: 0.5rem 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ─── Fields ──────────────────────────────────────────────────────────────── */
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.topFields {
+  padding-bottom: 0.5rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fieldLabel {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slate);
+}
+
+.fieldHint {
+  font-size: 11px;
+  color: var(--slate);
+  font-weight: 300;
+  margin-top: -4px;
+}
+
+.fieldGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.fieldGroupLabel {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--slate);
+  letter-spacing: 0.02em;
+  padding-top: 8px;
+}
+
+.subSectionLabel {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--slate);
+  padding-top: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 4px;
+  opacity: 0.7;
+}
+
+/* ─── Inputs ──────────────────────────────────────────────────────────────── */
+
+.input {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+  min-height: 44px;
+}
+
+.input:focus {
+  border-color: var(--ink);
+}
+
+.input::placeholder {
+  color: var(--slate);
+  font-weight: 300;
+}
+
+.textarea {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+  resize: vertical;
+  line-height: 1.65;
+  min-height: 80px;
+}
+
+.textarea:focus {
+  border-color: var(--ink);
+}
+
+.textarea::placeholder {
+  color: var(--slate);
+  font-weight: 300;
+}
+
+/* ─── Radio & checkbox ────────────────────────────────────────────────────── */
+
+.radioGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.radioLabel,
+.checkboxLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  min-height: 36px;
+  padding: 4px 0;
+}
+
+.radioInput,
+.checkboxInput {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  accent-color: var(--ink);
+  cursor: pointer;
+}
+
+.radioText,
+.checkboxText {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+.checkboxGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.inlineRow {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.inlineRow .input {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* ─── Rating ──────────────────────────────────────────────────────────────── */
+
+.ratingGroup {
+  display: flex;
+  gap: 8px;
+}
+
+.ratingBtn {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--card);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--slate);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.ratingBtn:hover {
+  background: var(--stone);
+  color: var(--ink);
+}
+
+.ratingBtnActive {
+  background: var(--ink);
+  color: var(--white);
+  border-color: var(--ink);
+}
+
+/* ─── Part B separator ────────────────────────────────────────────────────── */
+
+.partBSeparator {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 2.5rem 0 1.5rem;
+}
+
+.separatorLine {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.partBLabel {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--slate);
+  white-space: nowrap;
+}
+
+.partBNote {
+  font-size: 12px;
+  color: var(--slate);
+  font-weight: 300;
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--stone);
+  border-radius: 4px;
+}
+
+/* ─── Actions ─────────────────────────────────────────────────────────────── */
+
+.actions {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ─── Summary ─────────────────────────────────────────────────────────────── */
+
+.summarySection {
+  margin-top: 2.5rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.summaryHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  background: var(--stone);
+  border-bottom: 1px solid var(--border);
+}
+
+.summaryTitle {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--slate);
+}
+
+.summaryPre {
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--card);
+  padding: 1.25rem;
+  overflow-x: auto;
+  white-space: pre;
+  margin: 0;
+}
+
+/* ─── Responsive ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .wrapper {
+    padding: 1.25rem 1.25rem 4rem;
+  }
+
+  .pageHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pageHeaderRight {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .fieldGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .radioGroup {
+    flex-direction: column;
+  }
+
+  .inlineRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .inlineRow .input {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accordionBody { transition: none; }
+  .accordionIcon { transition: none; }
+}

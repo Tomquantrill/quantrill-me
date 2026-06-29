@@ -1,0 +1,241 @@
+.page {
+  min-height: 100vh;
+  background: var(--white);
+  padding: 0 0 4rem;
+}
+
+.header {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 2rem;
+}
+
+.langToggle {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 2rem;
+}
+
+.langBtn {
+  background: none;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--slate);
+  cursor: pointer;
+  padding: 4px 0;
+  transition: color 0.15s;
+}
+
+.langBtn:hover { color: var(--ink); }
+
+.langBtnActive { color: var(--ink); }
+
+.langSep {
+  font-size: 11px;
+  color: var(--slate);
+  opacity: 0.4;
+}
+
+.heading {
+  font-size: clamp(1.25rem, 3vw, 1.65rem);
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+
+.intro {
+  font-size: 14px;
+  color: var(--slate);
+  font-weight: 300;
+  line-height: 1.75;
+}
+
+.form {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.section {
+  padding: 2rem 0;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sectionHeading {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fieldLabel {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slate);
+}
+
+.req {
+  color: #b91c1c;
+  font-size: 10px;
+}
+
+.fieldGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.input {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+  min-height: 44px;
+}
+
+.input:focus { border-color: var(--ink); }
+.input::placeholder { color: var(--slate); font-weight: 300; }
+
+.textarea {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+  resize: vertical;
+  line-height: 1.65;
+  min-height: 80px;
+}
+
+.textarea:focus { border-color: var(--ink); }
+.textarea::placeholder { color: var(--slate); font-weight: 300; }
+
+.radioGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.radioLabel,
+.checkboxLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  min-height: 36px;
+  padding: 4px 0;
+}
+
+.radioInput,
+.checkboxInput {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  accent-color: var(--ink);
+  cursor: pointer;
+}
+
+.radioText,
+.checkboxText {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+.checkboxGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.error {
+  font-size: 12px;
+  color: #b91c1c;
+  padding: 1rem 0;
+}
+
+.submitBtn {
+  display: block;
+  width: 100%;
+  padding: 0.85rem;
+  background: var(--ink);
+  color: var(--white);
+  border: none;
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  margin-top: 2rem;
+  min-height: 52px;
+}
+
+.submitBtn:hover:not(:disabled) { background: #2e2e2b; }
+.submitBtn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.thankYou {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+  text-align: center;
+}
+
+.thankYouHeading {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+}
+
+.thankYouBody {
+  font-size: 14px;
+  color: var(--slate);
+  font-weight: 300;
+  line-height: 1.75;
+}
+
+@media (max-width: 640px) {
+  .header { padding: 2rem 1.25rem 1.5rem; }
+  .form { padding: 0 1.25rem; }
+  .fieldGrid { grid-template-columns: 1fr; }
+}

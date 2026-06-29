@@ -1,0 +1,6 @@
+.loading {
+  padding: 3rem 2rem;
+  font-size: 14px;
+  color: var(--slate);
+  font-weight: 300;
+}
